@@ -101,9 +101,7 @@
                           <Component id="jb_inschrijvenToernooi" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                           <Component id="jb_inschrijvenMasterclass" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                      <Component id="jb_test" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jb_spelerZoeken" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
                           <Component id="jb_toernooiZoeken" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -183,23 +181,15 @@
                   <Component id="jl_toernooiCodeNS" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jl_toernooiCodeErrorNS" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jb_inschrijvenToernooi" min="-2" max="-2" attributes="0"/>
-                          <Component id="jb_spelerZoeken" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jb_inschrijvenMasterclass" min="-2" max="-2" attributes="0"/>
-                          <Component id="jb_toernooiZoeken" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="jb_test" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jb_inschrijvenToernooi" min="-2" max="-2" attributes="0"/>
+                  <Component id="jb_spelerZoeken" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jb_inschrijvenMasterclass" min="-2" max="-2" attributes="0"/>
+                  <Component id="jb_toernooiZoeken" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -296,11 +286,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Toernooi zoeken"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_toernooiZoekenActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jb_spelerZoeken">
       <Properties>
         <Property name="text" type="java.lang.String" value="Speler zoeken"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_spelerZoekenActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jb_inschrijvenMasterclass">
       <Properties>
@@ -362,14 +358,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Voer alleen cijfers in"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jb_test">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Test"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_testActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

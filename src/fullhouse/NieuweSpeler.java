@@ -63,7 +63,6 @@ public class NieuweSpeler extends javax.swing.JFrame {
         jl_telefoonNummerError = new javax.swing.JLabel();
         jl_emailadresError = new javax.swing.JLabel();
         jl_toernooiCodeErrorNS = new javax.swing.JLabel();
-        jb_test = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(364, 400));
@@ -140,8 +139,18 @@ public class NieuweSpeler extends javax.swing.JFrame {
         });
 
         jb_toernooiZoeken.setText("Toernooi zoeken");
+        jb_toernooiZoeken.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_toernooiZoekenActionPerformed(evt);
+            }
+        });
 
         jb_spelerZoeken.setText("Speler zoeken");
+        jb_spelerZoeken.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_spelerZoekenActionPerformed(evt);
+            }
+        });
 
         jb_inschrijvenMasterclass.setText("Inschrijven Masterclass");
 
@@ -165,13 +174,6 @@ public class NieuweSpeler extends javax.swing.JFrame {
 
         jl_toernooiCodeErrorNS.setForeground(new java.awt.Color(255, 0, 0));
         jl_toernooiCodeErrorNS.setText("Voer alleen cijfers in");
-
-        jb_test.setText("Test");
-        jb_test.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_testActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -234,9 +236,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jb_inschrijvenToernooi, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jb_inschrijvenMasterclass))
-                        .addGap(82, 82, 82)
-                        .addComponent(jb_test)
-                        .addGap(83, 83, 83)
+                        .addGap(218, 218, 218)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jb_spelerZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jb_toernooiZoeken))))
@@ -295,19 +295,14 @@ public class NieuweSpeler extends javax.swing.JFrame {
                     .addComponent(tf_toernooiCodeNS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jl_toernooiCodeNS)
                     .addComponent(jl_toernooiCodeErrorNS))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jb_inschrijvenToernooi)
-                            .addComponent(jb_spelerZoeken))
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jb_inschrijvenMasterclass)
-                            .addComponent(jb_toernooiZoeken)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jb_test))))
+                    .addComponent(jb_inschrijvenToernooi)
+                    .addComponent(jb_spelerZoeken))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jb_inschrijvenMasterclass)
+                    .addComponent(jb_toernooiZoeken)))
         );
 
         pack();
@@ -402,10 +397,15 @@ public class NieuweSpeler extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jb_inschrijvenToernooiActionPerformed
 
-    private void jb_testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_testActionPerformed
-        Persoon test = new Persoon();
-        test.pCode();
-    }//GEN-LAST:event_jb_testActionPerformed
+    private void jb_spelerZoekenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_spelerZoekenActionPerformed
+        SpelerZoeken spelerZoeken = new SpelerZoeken();
+        spelerZoeken.setVisible(true);
+    }//GEN-LAST:event_jb_spelerZoekenActionPerformed
+
+    private void jb_toernooiZoekenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_toernooiZoekenActionPerformed
+        Toernooi toernooiZoeken = new Toernooi();
+        toernooiZoeken.setVisible(true);
+    }//GEN-LAST:event_jb_toernooiZoekenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,7 +454,6 @@ public class NieuweSpeler extends javax.swing.JFrame {
     private javax.swing.JButton jb_inschrijvenMasterclass;
     private javax.swing.JButton jb_inschrijvenToernooi;
     private javax.swing.JButton jb_spelerZoeken;
-    private javax.swing.JButton jb_test;
     private javax.swing.JButton jb_toernooiZoeken;
     private javax.swing.JLabel jl_achternaam;
     private javax.swing.JLabel jl_achternaamError;

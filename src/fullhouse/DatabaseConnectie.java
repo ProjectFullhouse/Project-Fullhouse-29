@@ -30,6 +30,9 @@ public class DatabaseConnectie extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jf_inschrijven = new javax.swing.JFrame();
+        jButton1 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jb_inschrijven = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -41,6 +44,43 @@ public class DatabaseConnectie extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
+
+        jf_inschrijven.setMinimumSize(new java.awt.Dimension(300, 120));
+
+        jButton1.setText("Nieuwe Speler");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Bestaane Speler");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jf_inschrijvenLayout = new javax.swing.GroupLayout(jf_inschrijven.getContentPane());
+        jf_inschrijven.getContentPane().setLayout(jf_inschrijvenLayout);
+        jf_inschrijvenLayout.setHorizontalGroup(
+            jf_inschrijvenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_inschrijvenLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addGap(58, 58, 58))
+        );
+        jf_inschrijvenLayout.setVerticalGroup(
+            jf_inschrijvenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_inschrijvenLayout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addGroup(jf_inschrijvenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton1))
+                .addGap(54, 54, 54))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -155,14 +195,24 @@ public class DatabaseConnectie extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jb_inschrijvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_inschrijvenActionPerformed
-        NieuweSpeler nieuweSpeler = new NieuweSpeler();
-        nieuweSpeler.setVisible(true);
+
+        jf_inschrijven.setVisible(true);
     }//GEN-LAST:event_jb_inschrijvenActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         SpelerZoeken spelerZoeken = new SpelerZoeken();
         spelerZoeken.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        BestaandeSpeler bestaandeSpeler = new BestaandeSpeler();
+        bestaandeSpeler.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        NieuweSpeler nieuweSpeler = new NieuweSpeler();
+        nieuweSpeler.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private static Connection connectie;
     
@@ -238,10 +288,12 @@ public class DatabaseConnectie extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -249,5 +301,6 @@ public class DatabaseConnectie extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JButton jb_inschrijven;
+    private javax.swing.JFrame jf_inschrijven;
     // End of variables declaration//GEN-END:variables
 }
