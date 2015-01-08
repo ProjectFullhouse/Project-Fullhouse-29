@@ -43,10 +43,10 @@ public class SpelerZoeken extends javax.swing.JFrame {
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
-                int spelercode = results.getInt("p_code");
+                String spelercode = results.getString("p_code");
                 String voornaam = results.getString("voornaam");
                 String achternaam = results.getString("achternaam");
-                Object[] rij = {new Integer(spelercode), voornaam, achternaam};
+                Object[] rij = {spelercode, voornaam, achternaam};
                 datamodel.addRow(rij);
 
             }
