@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class Persoon {
     private int pcode;
     
+    
     public Persoon() {
         
     }
@@ -36,7 +37,9 @@ public class Persoon {
 
             if (result.next()) {
             pcode = result.getInt("maxpcode"); 
+            
             }
+            System.out.println(pcode);
             
         } catch (SQLException ex) {
             Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,10 +59,10 @@ public class Persoon {
             PreparedStatement persoonStatement = connection.prepareStatement(query);
             
            pCode();
-           int nieuwePcode = pcode + 1;
-           String pCodeString = "P" + String.valueOf(nieuwePcode);
+           int  nieuwePcode = pcode + 1;
            
-           persoonStatement.setString(1, pCodeString ); 
+           
+           persoonStatement.setInt(1, nieuwePcode ); 
            persoonStatement.setString(2, voornaam);
            persoonStatement.setString(3, achternaam);
            persoonStatement.setString(4, adres);
