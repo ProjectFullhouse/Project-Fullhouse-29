@@ -50,15 +50,16 @@ public class Persoon {
                                  String woonplaats, String postcode, int telefoonNummer, String emailAdres) {
         
         try {
-            String query = "insert into persoon (p_code, voornaam, achternaam, adres, woonplaats, postcode, telefoon_nummer, email_adres) " +
-                           "values(?, ?, ?, ?, ?, ?, ?, ? );";
+            String query = "insert into persoon (p_code, voornaam, achternaam, adres, woonplaats, postcode, telefoon_nummer, email_adres, rating) " +
+                           "values(?, ?, ?, ?, ?, ?, ?, ?, ?);";
             Connection connection = DatabaseConnectie.getConnection();
             PreparedStatement persoonStatement = connection.prepareStatement(query);
             
            pCode();
            int nieuwePcode = pcode + 1;
+           String pCodeString = "P" + String.valueOf(nieuwePcode);
            
-           persoonStatement.setInt(1, nieuwePcode ); 
+           persoonStatement.setString(1, pCodeString ); 
            persoonStatement.setString(2, voornaam);
            persoonStatement.setString(3, achternaam);
            persoonStatement.setString(4, adres);
@@ -66,6 +67,7 @@ public class Persoon {
            persoonStatement.setString(6, postcode);
            persoonStatement.setInt(7, telefoonNummer);
            persoonStatement.setString(8, emailAdres);
+           persoonStatement.setInt(9, 100);
            
            persoonStatement.execute();
         } catch (SQLException ex) {
