@@ -163,7 +163,6 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
     private void tf_achternaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_achternaamKeyReleased
         this.vulSpelerTabel();
-        System.out.println("a");
     }//GEN-LAST:event_tf_achternaamKeyReleased
 
     /**
