@@ -42,6 +42,8 @@ public class ToernooiMaken extends javax.swing.JFrame {
         tf_inlegGeld = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jb_maken = new javax.swing.JButton();
+        tf_plaats = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +70,8 @@ public class ToernooiMaken extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("plaats");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,13 +95,17 @@ public class ToernooiMaken extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tf_inlegGeld, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tf_tijd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tf_tijd, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_inlegGeld, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                                    .addComponent(tf_plaats))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -120,7 +128,11 @@ public class ToernooiMaken extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_inlegGeld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_plaats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jb_maken))
@@ -136,10 +148,13 @@ public class ToernooiMaken extends javax.swing.JFrame {
 
     private void jb_makenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_makenActionPerformed
         String aantalTafels = tf_aantalTafels.getText();
+        int tafels = Integer.parseInt(aantalTafels);
         String datumString = tf_datum.getText();
         String tijd = tf_tijd.getText();
         String inlegGeldString = tf_inlegGeld.getText();
         int inlegGeld = Integer.parseInt(inlegGeldString);
+        String plaats = tf_plaats.getText();
+        toernooiMaken(tafels, datumString, tijd, inlegGeld, plaats);
     }//GEN-LAST:event_jb_makenActionPerformed
 
     /**
@@ -208,6 +223,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -215,6 +231,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
     private javax.swing.JTextField tf_aantalTafels;
     private javax.swing.JTextField tf_datum;
     private javax.swing.JTextField tf_inlegGeld;
+    private javax.swing.JTextField tf_plaats;
     private javax.swing.JTextField tf_tijd;
     // End of variables declaration//GEN-END:variables
 }
