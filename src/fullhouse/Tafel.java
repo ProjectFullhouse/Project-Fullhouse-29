@@ -29,16 +29,20 @@ private void vulSpelerTabel() {
         try {
             DefaultTableModel datamodel = createSpelerModel();
             this.jt_speler.setModel(datamodel);
-
-            String query = "select p_code, voornaam, achternaam from persoon where achternaam like ?;";
-            Connection connection = DatabaseConnectie.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            //if (eersteKeer || text1.length() == 0) {
-            // statement.setString(1, "p_code");
-            // statement.setString(2, getZoekTermSpelerCode());
+            String query;
+            PreparedStatement statement;
             
-            statement.setString(1, getZoekTermAchternaam());
+            Connection connection = DatabaseConnectie.getConnection();
+
+            query = "select p_code, voornaam, achternaam from persoon where achternaam like ? and p_code like ?;";
+            statement = connection.prepareStatement(query);
+                statement.setString(1, getZoekTermAchternaam());
+                statement.setString(2, getZoekTermSpelerscode());
+            
+            
+            
+           // statement.setString(1, getZoekTermAchternaam());
+            //statement.setString(1, getZoekTermSpelerscode());
 
             ResultSet results = statement.executeQuery();
 
@@ -46,7 +50,7 @@ private void vulSpelerTabel() {
                 String spelercode = results.getString("p_code");
                 String voornaam = results.getString("voornaam");
                 String achternaam = results.getString("achternaam");
-                String tafelcode = results.getString("t_code");
+                //String tafelcode = results.getString("t_code");
                 Object[] rij = {spelercode, voornaam, achternaam};
                 datamodel.addRow(rij);
 
@@ -75,6 +79,14 @@ private void vulSpelerTabel() {
             return "%" + text2 + "%";
         }
     }
+     private String getZoekTermSpelerscode() {
+        String text3 = tf_spelerscode.getText();
+        if (text3.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text3 + "%";
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,9 +100,9 @@ private void vulSpelerTabel() {
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_speler = new javax.swing.JTable();
         tf_achternaam = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jt_achternaam = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tf_spelerscode = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -113,15 +125,31 @@ private void vulSpelerTabel() {
         ));
         jScrollPane1.setViewportView(jt_speler);
 
+        tf_achternaam.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tf_achternaamFocusGained(evt);
+            }
+        });
         tf_achternaam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_achternaamActionPerformed(evt);
             }
         });
+        tf_achternaam.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_achternaamKeyReleased(evt);
+            }
+        });
 
-        jLabel1.setText("naam speler:");
+        jt_achternaam.setText("achternaam: ");
 
         jLabel2.setText("Spelercode:");
+
+        tf_spelerscode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_spelerscodeKeyReleased(evt);
+            }
+        });
 
         jButton2.setText("Toernooi zoeken");
 
@@ -151,13 +179,13 @@ private void vulSpelerTabel() {
                         .addGap(18, 18, 18)
                         .addComponent(jButton3))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jt_achternaam)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_spelerscode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,10 +199,10 @@ private void vulSpelerTabel() {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jt_achternaam)
                     .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_spelerscode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
@@ -194,6 +222,20 @@ private void vulSpelerTabel() {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void tf_achternaamFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_achternaamFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_achternaamFocusGained
+
+    private void tf_achternaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_achternaamKeyReleased
+        this.vulSpelerTabel();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_achternaamKeyReleased
+
+    private void tf_spelerscodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_spelerscodeKeyReleased
+     this.vulSpelerTabel();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_spelerscodeKeyReleased
 
     /**
      * @param args the command line arguments
@@ -241,13 +283,13 @@ private void vulSpelerTabel() {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel jt_achternaam;
     private javax.swing.JTable jt_speler;
     private javax.swing.JTextField tf_achternaam;
+    private javax.swing.JTextField tf_spelerscode;
     // End of variables declaration//GEN-END:variables
 }
