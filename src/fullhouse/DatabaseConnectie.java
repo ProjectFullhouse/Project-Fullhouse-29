@@ -207,11 +207,13 @@ public class DatabaseConnectie extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         BestaandeSpeler bestaandeSpeler = new BestaandeSpeler();
         bestaandeSpeler.setVisible(true);
+        jf_inschrijven.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         NieuweSpeler nieuweSpeler = new NieuweSpeler();
         nieuweSpeler.setVisible(true);
+        jf_inschrijven.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private static Connection connectie;
