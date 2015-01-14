@@ -119,7 +119,7 @@ public class Masterclass extends javax.swing.JFrame {
     
     public void inschrijvenMasterclass(int code, String voornaam, String achternaam) {
         try {
-            String querySelect = "select p_code from persoon where voornaam like ? and achternaam like ?;";
+            String querySelect = "select p.p_code from persoon p left outer join docent on p_code = persoon where voornaam like ? and achternaam like ?;";
             Connection connection = DatabaseConnectie.getConnection();
             PreparedStatement statement = connection.prepareStatement(querySelect);
             
@@ -131,7 +131,7 @@ public class Masterclass extends javax.swing.JFrame {
             
                 InputStream stream = results.getBinaryStream(1);
             }
-            String pCode = results.getString("p_code");
+            String pCode = results.getString("p.p_code");
             System.out.println(pCode);
             
             String queryInsert = "insert into masterclass_inschrijvingen(persoon_code, masterclass_code) " +
@@ -141,6 +141,10 @@ public class Masterclass extends javax.swing.JFrame {
             statement2.setString(1, pCode);
             statement2.setInt(2, code);
             statement2.execute();       
+            
+            
+            String queryInsert2 = "update masterclass set beschikbare_plaatsen where m_code = ? ";
+            PreparedStatement statement3 = connection.prepareStatement(queryInsert2);
             
         } catch (SQLException ex) {
             Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
