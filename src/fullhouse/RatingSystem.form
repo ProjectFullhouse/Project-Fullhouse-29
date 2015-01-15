@@ -124,7 +124,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="1ste"/>
+        <Property name="text" type="java.lang.String" value="eerste"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="j_spelerCode">
@@ -141,7 +141,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="2de"/>
+        <Property name="text" type="java.lang.String" value="laatste"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

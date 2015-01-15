@@ -79,20 +79,62 @@ public class RatingSystem extends javax.swing.JFrame {
    }
    private double nieuweRating1;
    private double nieuweRating2;
+   private double expScore;
+   private int score = 1;
+   private int constant = 30;
+   
+   
    private void berekenRating() {
        
        String oudeRatingString = j_rating1.getText();
        String oudeRating2String = j_rating2.getText();
        
-       int score = 1;
-       int constant = 30;
-       double expScore = 0.5;
-         
+       
        int oudeRating = Integer.parseInt(oudeRatingString);
        int oudeRating2 = Integer.parseInt(oudeRating2String);
        
        int maxRating = Math.max(oudeRating, oudeRating2);
        int minRating = Math.min(oudeRating, oudeRating2);
+       
+       if(maxRating - minRating == 0){
+           expScore = 0.5;
+       }
+       else if (maxRating - minRating <= 21 && maxRating - minRating > 0){
+           expScore = 0.53;
+       }
+       else if (maxRating - minRating <= 41 && maxRating - minRating > 20){
+           expScore = 0.58;
+       }
+       else if (maxRating - minRating <= 61 && maxRating - minRating > 40){
+           expScore = 0.62;
+       }
+       else if (maxRating - minRating <= 81 && maxRating - minRating > 60){
+           expScore = 0.66;
+       }
+       else if (maxRating - minRating <= 101 && maxRating - minRating > 80){
+           expScore = 0.69;
+       }
+       else if (maxRating - minRating <= 121 && maxRating - minRating > 100){
+           expScore = 0.73;
+       }
+       else if (maxRating - minRating <= 141 && maxRating - minRating > 120){
+           expScore = 0.76;
+       }
+       else if (maxRating - minRating <= 161 && maxRating - minRating > 140){
+           expScore = 0.79;
+       }
+       else if (maxRating - minRating <= 181 && maxRating - minRating > 160){
+           expScore = 0.82;
+       }
+       else if (maxRating - minRating <= 201 && maxRating - minRating > 180){
+           expScore = 0.84;
+       }
+       else if (maxRating - minRating <= 301 && maxRating - minRating > 200){
+           expScore = 0.93;
+       }
+       else if (maxRating - minRating <= 401 && maxRating - minRating > 300){
+           expScore = 0.97;
+       }
        
        double nieuweRating = constant * (score - expScore);
        
@@ -138,7 +180,7 @@ public class RatingSystem extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("1ste");
+        jLabel1.setText("eerste");
 
         j_spelerCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +204,7 @@ public class RatingSystem extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("2de");
+        jLabel2.setText("laatste");
 
         jLabel3.setText("N_Rating 1");
 
@@ -270,11 +312,13 @@ public class RatingSystem extends javax.swing.JFrame {
         try {
             //de rating word hier berekend.
            berekenRating();
-            String query = "UPDATE persoon SET rating = ?  WHERE p_code like ?";
+            String query = "UPDATE persoon" +
+                           "SET rating like ? WHERE p_code = 4";
                 Connection connection = DatabaseConnectie.getConnection();
                 PreparedStatement persoonStatement = connection.prepareStatement(query);
                 
                 persoonStatement.setDouble(1, nieuweRating1);
+                
                 
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
