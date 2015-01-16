@@ -4,7 +4,6 @@
  */
 package fullhouse;
 
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,13 +24,15 @@ public class Tafel extends javax.swing.JFrame {
      * Creates new form SpelerZoeken
      */
     public Tafel() {
+        this.Deelnemers = new String[aantalDeelnemers];
+        telSpelers();
         initComponents();
         vulSpelerTabel();
+        
+        
     }
-    //de lengte van de array moet nog worden gelinked aan het aantal inschrijvingen zodat de array niet te lang
-    //word en er null uit komt als hij geshuffeld word
-    String[] Deelnemers = new String[10];
-    
+  
+     String[] Deelnemers;
     int i = 0;
     int aantalDeelnemers = 0;
     
@@ -46,8 +47,29 @@ public class Tafel extends javax.swing.JFrame {
     
     
     }
+    private void telSpelers(){
+        try {
+           
+            String query;
+            PreparedStatement statement;
+            
+            Connection connection = DatabaseConnectie.getConnection();
+
+            query = "select * from persoon ;";
+            statement = connection.prepareStatement(query);
+
+            ResultSet results = statement.executeQuery();
+
+            while (results.next()) {
+                          
+                aantalDeelnemers ++;
+            }   } catch (SQLException ex) {
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
-   
+    
+    Deelnemers[aantalDeelnemers];
 private void vulSpelerTabel() {
         try {
             DefaultTableModel datamodel = createSpelerModel();
@@ -79,9 +101,9 @@ private void vulSpelerTabel() {
                
                  Deelnemers[i] = voornaam + " " + achternaam; 
                  i++;
-                 aantalDeelnemers ++;
+                
             }
-          
+
 
             this.jt_speler.setModel(datamodel);
         } catch (SQLException ex) {
@@ -298,8 +320,8 @@ private void vulSpelerTabel() {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
       
         
-        for (int i = 0; i < 10; i++) {
-            System.out.println(Deelnemers[i]); 
+        for (int k = 0; k < 10; k++) {
+            System.out.println(Deelnemers[k]); 
         }
         
         
