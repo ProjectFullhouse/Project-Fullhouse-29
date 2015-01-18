@@ -27,6 +27,7 @@ public class Tafel extends javax.swing.JFrame {
     public Tafel() {
         initComponents();
         vulSpelerTabel();
+        this.setLocationRelativeTo(null);
     }
     //de lengte van de array moet nog worden gelinked aan het aantal inschrijvingen zodat de array niet te lang
     //word en er null uit komt als hij geshuffeld word

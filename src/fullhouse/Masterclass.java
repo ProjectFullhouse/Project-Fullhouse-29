@@ -54,8 +54,10 @@ public class Masterclass extends javax.swing.JFrame {
         jb_inschrijven = new javax.swing.JButton();
         jl_voornaam = new javax.swing.JLabel();
         tf_voornaam = new javax.swing.JTextField();
+        jb_cancelInschrijven = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_masterclass = new javax.swing.JTable();
+        jb_cancelMasterclass = new javax.swing.JButton();
 
         jf_inschrijving.setMinimumSize(new java.awt.Dimension(850, 400));
         jf_inschrijving.setResizable(false);
@@ -111,6 +113,13 @@ public class Masterclass extends javax.swing.JFrame {
             }
         });
 
+        jb_cancelInschrijven.setText("Cancel");
+        jb_cancelInschrijven.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_cancelInschrijvenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jf_inschrijvingLayout = new javax.swing.GroupLayout(jf_inschrijving.getContentPane());
         jf_inschrijving.getContentPane().setLayout(jf_inschrijvingLayout);
         jf_inschrijvingLayout.setHorizontalGroup(
@@ -131,8 +140,10 @@ public class Masterclass extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(88, 88, 88)
-                        .addComponent(jb_inschrijven)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(jb_inschrijven)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                        .addComponent(jb_cancelInschrijven)))
+                .addContainerGap())
         );
         jf_inschrijvingLayout.setVerticalGroup(
             jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,14 +152,20 @@ public class Masterclass extends javax.swing.JFrame {
                 .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jb_inschrijven)
-                    .addComponent(jl_voornaam)
-                    .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jb_inschrijven)
+                            .addComponent(jl_voornaam)
+                            .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_inschrijvingLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jb_cancelInschrijven)
+                        .addContainerGap())))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -171,21 +188,34 @@ public class Masterclass extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt_masterclass);
 
+        jb_cancelMasterclass.setText("Cancel");
+        jb_cancelMasterclass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_cancelMasterclassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 415, Short.MAX_VALUE)
+                        .addComponent(jb_cancelMasterclass)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(jb_cancelMasterclass)
+                .addContainerGap())
         );
 
         pack();
@@ -223,6 +253,14 @@ public class Masterclass extends javax.swing.JFrame {
     private void tf_voornaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_voornaamKeyReleased
         vulPersoonTable();
     }//GEN-LAST:event_tf_voornaamKeyReleased
+
+    private void jb_cancelInschrijvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelInschrijvenActionPerformed
+        jf_inschrijving.dispose();
+    }//GEN-LAST:event_jb_cancelInschrijvenActionPerformed
+
+    private void jb_cancelMasterclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelMasterclassActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jb_cancelMasterclassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,6 +481,8 @@ public class Masterclass extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton jb_cancelInschrijven;
+    private javax.swing.JButton jb_cancelMasterclass;
     private javax.swing.JButton jb_inschrijven;
     private javax.swing.JFrame jf_inschrijving;
     private javax.swing.JLabel jl_voornaam;
