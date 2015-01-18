@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -82,12 +83,12 @@ public class Masterclass extends javax.swing.JFrame {
             DefaultTableModel datamodel = createMasterclassModel();
             this.jt_masterclass.setModel(datamodel);
 
-            String query = "SELECT m.m_code, naam, p.achternaam, m.beschikbare_plaatsen, datum, minimumRating " +
-                           "FROM persoon p JOIN docent d ON p.p_code = d.persoon " +
-                           "LEFT OUTER JOIN masterclass m ON d.d_code = m.docent;";
+            String query = "SELECT m.m_code, naam, p.achternaam, m.beschikbare_plaatsen, datum, minimumRating "
+                    + "FROM persoon p JOIN docent d ON p.p_code = d.persoon "
+                    + "LEFT OUTER JOIN masterclass m ON d.d_code = m.docent;";
             Connection connection = DatabaseConnectie.getConnection();
             PreparedStatement statement = connection.prepareStatement(query);
-            
+
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
@@ -113,39 +114,39 @@ public class Masterclass extends javax.swing.JFrame {
         model.addColumn("Docent");
         model.addColumn("Datum");
         model.addColumn("Aantal plaatsen");
-        model.addColumn ("Benodigde rating");
+        model.addColumn("Benodigde rating");
         return model;
     }
-    
+
     public void inschrijvenMasterclass(int code, String voornaam, String achternaam) {
         try {
             String querySelect = "select p.p_code from persoon p left outer join docent on p_code = persoon where voornaam like ? and achternaam like ?;";
             Connection connection = DatabaseConnectie.getConnection();
             PreparedStatement statement = connection.prepareStatement(querySelect);
-            
+
             statement.setString(1, voornaam);
             statement.setString(2, achternaam);
-            
+
             ResultSet results = statement.executeQuery();
             if (results.next()) {
-            
+
                 InputStream stream = results.getBinaryStream(1);
             }
             String pCode = results.getString("p.p_code");
             System.out.println(pCode);
-            
-            String queryInsert = "insert into masterclass_inschrijvingen(persoon_code, masterclass_code) " +
-                                 "values(?, ?);";
+
+            String queryInsert = "insert into masterclass_inschrijvingen(persoon_code, masterclass_code) "
+                    + "values(?, ?);";
             PreparedStatement statement2 = connection.prepareStatement(queryInsert);
-            
+
             statement2.setString(1, pCode);
             statement2.setInt(2, code);
-            statement2.execute();       
-            
-            
+            statement2.execute();
+
+
             String queryInsert2 = "update masterclass set beschikbare_plaatsen where m_code = ? ";
             PreparedStatement statement3 = connection.prepareStatement(queryInsert2);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -190,6 +191,18 @@ public class Masterclass extends javax.swing.JFrame {
                 new Masterclass().setVisible(true);
             }
         });
+    }
+
+    public boolean isCellEditable(int row, int column) {
+        return (column != 1);
+    }
+
+}
+
+class TableModel extends DefaultTableModel {
+
+    public boolean isCellEditable(int row, int column) {
+        return (column != 1);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
