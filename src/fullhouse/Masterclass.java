@@ -58,6 +58,15 @@ public class Masterclass extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_masterclass = new javax.swing.JTable();
         jb_cancelMasterclass = new javax.swing.JButton();
+        jb_speler = new javax.swing.JButton();
+        jb_toernooi = new javax.swing.JButton();
+        jb_tafel = new javax.swing.JButton();
+        jl_naamCLass = new javax.swing.JLabel();
+        tf_naamClass = new javax.swing.JTextField();
+        jl_naamDocent = new javax.swing.JLabel();
+        tf_naamDocent = new javax.swing.JTextField();
+        jl_datum = new javax.swing.JLabel();
+        tf_datum = new javax.swing.JTextField();
 
         jf_inschrijving.setMinimumSize(new java.awt.Dimension(850, 400));
         jf_inschrijving.setResizable(false);
@@ -195,25 +204,89 @@ public class Masterclass extends javax.swing.JFrame {
             }
         });
 
+        jb_speler.setText("Speler zoeken");
+        jb_speler.setPreferredSize(new java.awt.Dimension(160, 23));
+        jb_speler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_spelerActionPerformed(evt);
+            }
+        });
+
+        jb_toernooi.setText("Toernooi zoeken");
+        jb_toernooi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_toernooiActionPerformed(evt);
+            }
+        });
+
+        jb_tafel.setText("Tafelindeling zoeken");
+        jb_tafel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_tafelActionPerformed(evt);
+            }
+        });
+
+        jl_naamCLass.setText("Naam class:");
+
+        jl_naamDocent.setText("Naam docent:");
+
+        jl_datum.setText("Datum:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jb_cancelMasterclass))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 415, Short.MAX_VALUE)
-                        .addComponent(jb_cancelMasterclass)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jb_toernooi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_tafel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_speler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jl_naamCLass, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_naamClass, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jl_naamDocent)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_naamDocent, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jl_datum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_datum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jb_speler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jb_toernooi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jb_tafel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jl_naamCLass)
+                    .addComponent(tf_naamClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_naamDocent)
+                    .addComponent(tf_naamDocent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_datum)
+                    .addComponent(tf_datum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jb_cancelMasterclass)
                 .addContainerGap())
         );
@@ -261,6 +334,21 @@ public class Masterclass extends javax.swing.JFrame {
     private void jb_cancelMasterclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelMasterclassActionPerformed
         this.dispose();
     }//GEN-LAST:event_jb_cancelMasterclassActionPerformed
+
+    private void jb_spelerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_spelerActionPerformed
+        SpelerZoeken sz = new SpelerZoeken();
+        sz.setVisible(true);
+    }//GEN-LAST:event_jb_spelerActionPerformed
+
+    private void jb_toernooiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_toernooiActionPerformed
+        Toernooi t = new Toernooi();
+        t.setVisible(true);
+    }//GEN-LAST:event_jb_toernooiActionPerformed
+
+    private void jb_tafelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_tafelActionPerformed
+        Tafel ta = new Tafel();
+        ta.setVisible(true);
+    }//GEN-LAST:event_jb_tafelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -484,12 +572,21 @@ public class Masterclass extends javax.swing.JFrame {
     private javax.swing.JButton jb_cancelInschrijven;
     private javax.swing.JButton jb_cancelMasterclass;
     private javax.swing.JButton jb_inschrijven;
+    private javax.swing.JButton jb_speler;
+    private javax.swing.JButton jb_tafel;
+    private javax.swing.JButton jb_toernooi;
     private javax.swing.JFrame jf_inschrijving;
+    private javax.swing.JLabel jl_datum;
+    private javax.swing.JLabel jl_naamCLass;
+    private javax.swing.JLabel jl_naamDocent;
     private javax.swing.JLabel jl_voornaam;
     private javax.swing.JTable jt_inschrijvingen;
     private javax.swing.JTable jt_masterclass;
     private javax.swing.JTable jt_persoon;
     private javax.swing.JTextField tf_achternaam;
+    private javax.swing.JTextField tf_datum;
+    private javax.swing.JTextField tf_naamClass;
+    private javax.swing.JTextField tf_naamDocent;
     private javax.swing.JTextField tf_voornaam;
     // End of variables declaration//GEN-END:variables
 }
