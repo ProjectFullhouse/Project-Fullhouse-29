@@ -58,7 +58,7 @@ public class Masterclass extends javax.swing.JFrame {
         jcb_betaald = new javax.swing.JCheckBox();
         jl_beschikbarePlaatsenTekst = new javax.swing.JLabel();
         jl_beschikbarePlaatsen = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jb_update = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_masterclass = new javax.swing.JTable();
         jb_cancelMasterclass = new javax.swing.JButton();
@@ -139,10 +139,10 @@ public class Masterclass extends javax.swing.JFrame {
 
         jl_beschikbarePlaatsen.setText("---");
 
-        jButton1.setText("Update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jb_update.setText("Update");
+        jb_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jb_updateActionPerformed(evt);
             }
         });
 
@@ -176,7 +176,7 @@ public class Masterclass extends javax.swing.JFrame {
                         .addComponent(jcb_betaald))
                     .addGroup(jf_inschrijvingLayout.createSequentialGroup()
                         .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jb_inschrijven, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(99, 99, 99)
                         .addComponent(jl_beschikbarePlaatsenTekst)
@@ -208,7 +208,7 @@ public class Masterclass extends javax.swing.JFrame {
                             .addComponent(jb_cancelInschrijven)))
                     .addGroup(jf_inschrijvingLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton1)
+                        .addComponent(jb_update)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcb_betaald)))
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -397,7 +397,7 @@ public class Masterclass extends javax.swing.JFrame {
         ta.setVisible(true);
     }//GEN-LAST:event_jb_tafelActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jb_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_updateActionPerformed
         int selectedRow = jt_inschrijvingen.getSelectedRow();
 
         if (selectedRow > -1) {
@@ -423,7 +423,7 @@ public class Masterclass extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jb_updateActionPerformed
    
     /**
      * @param args the command line arguments
@@ -709,7 +709,6 @@ public class Masterclass extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -720,6 +719,7 @@ public class Masterclass extends javax.swing.JFrame {
     private javax.swing.JButton jb_speler;
     private javax.swing.JButton jb_tafel;
     private javax.swing.JButton jb_toernooi;
+    private javax.swing.JButton jb_update;
     private javax.swing.JCheckBox jcb_betaald;
     private javax.swing.JFrame jf_inschrijving;
     private javax.swing.JLabel jl_beschikbarePlaatsen;
