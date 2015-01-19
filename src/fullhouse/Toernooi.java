@@ -4,6 +4,14 @@
  */
 package fullhouse;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Raymond
@@ -13,10 +21,46 @@ public class Toernooi extends javax.swing.JFrame {
     /**
      * Creates new form SpelerZoeken
      */
-
+    private Connection connection = DatabaseConnectie.getConnection();
     public Toernooi() {
         initComponents();
+        vulToernooiTabel();
         this.setLocationRelativeTo(null);
+    }
+    
+   public void vulToernooiTabel() {
+        try {
+            TableModel toernooiModel = createToernooiModel();
+            
+            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, ingelegdGeld FROM toernooi;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            ResultSet results = statement.executeQuery();
+            
+            while(results.next()) {
+                int t_code = results.getInt("t_code");
+                String plaats = results.getString("plaats");
+                String datum = results.getString("datum");
+                String tijd = results.getString("tijd");
+                int deelnemerAantal = results.getInt("deelnemerAantal");
+                Object[] rij = {t_code, plaats, datum, tijd, deelnemerAantal};
+                toernooiModel.addRow(rij);
+            }
+            this.jt_toernooi.setModel(toernooiModel);
+        } catch (SQLException ex) {
+            Logger.getLogger(Toernooi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+   }
+   
+   private TableModel createToernooiModel() {
+        TableModel model = new TableModel();
+        model.addColumn("Toernooi code");
+        model.addColumn("Naam");
+        model.addColumn("Datum");
+        model.addColumn("Tijd");
+        model.addColumn("Aantal Deelnemers");
+        return model;
     }
 
 
@@ -30,7 +74,7 @@ public class Toernooi extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jt_toernooi = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jl_toernooiCode = new javax.swing.JLabel();
         jl_datum = new javax.swing.JLabel();
@@ -42,12 +86,11 @@ public class Toernooi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 400));
-        setPreferredSize(new java.awt.Dimension(650, 350));
         setResizable(false);
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 248));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jt_toernooi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -58,7 +101,7 @@ public class Toernooi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jt_toernooi);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,6 +226,13 @@ public class Toernooi extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    class TableModel extends DefaultTableModel {
+
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+
+    }
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
@@ -223,7 +273,6 @@ public class Toernooi extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jb_cancel;
     private javax.swing.JButton jb_masterclass;
@@ -231,6 +280,7 @@ public class Toernooi extends javax.swing.JFrame {
     private javax.swing.JButton jb_tafel;
     private javax.swing.JLabel jl_datum;
     private javax.swing.JLabel jl_toernooiCode;
+    private javax.swing.JTable jt_toernooi;
     private javax.swing.JTextField tf_datum;
     // End of variables declaration//GEN-END:variables
 }
