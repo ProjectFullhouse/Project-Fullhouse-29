@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *go ahe
  * @author Raymond
  */
 public class ToernooiMaken extends javax.swing.JFrame {
@@ -193,7 +192,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
     }
     private void toernooiMaken(int aantalTafels, String datum, String tijd, int inlegGeld, String plaats) {
         try {
-            String query = "insert into toernooi(ingelegdGeld, deelnemerAantal, plaats, datum, tijd, t_code) " +
+            String query = "insert into toernooi(inlegGeld, deelnemerAantal, plaats, datum, tijd, t_code) " +
                            "values(?, ?, ?, ?, ?, ?);";
             
             int aantalDeelnemers = aantalTafels * 8;
@@ -203,8 +202,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
            
             tCode();
             
-     
-            
+
             int nieuweTcode = tcode + 1;
             
             toernooiStatement.setInt(1, inlegGeld);
@@ -213,6 +211,8 @@ public class ToernooiMaken extends javax.swing.JFrame {
             toernooiStatement.setString(4, datum);
             toernooiStatement.setString(5, tijd);
             toernooiStatement.setInt(6, nieuweTcode);
+            
+            toernooiStatement.execute();
             
         } catch (SQLException ex) {
             Logger.getLogger(ToernooiMaken.class.getName()).log(Level.SEVERE, null, ex);
