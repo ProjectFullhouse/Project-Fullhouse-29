@@ -7,6 +7,7 @@ package fullhouse;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  * @author Raymond
@@ -187,7 +188,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
             
         } catch (SQLException ex) {
             Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("pCode Statement error!");
+            System.out.println("tCode Statement error!");
         }
     }
     private void toernooiMaken(int aantalTafels, String datum, String tijd, int inlegGeld, String plaats) {
@@ -213,7 +214,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
             toernooiStatement.setInt(6, nieuweTcode);
             
             toernooiStatement.execute();
-            
+            JOptionPane.showMessageDialog(rootPane, "Toevoegen voltooid!");
         } catch (SQLException ex) {
             Logger.getLogger(ToernooiMaken.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -257,6 +258,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
 
             public void run() {
                 new ToernooiMaken().setVisible(true);
+                
             }
         });
     }
