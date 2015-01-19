@@ -24,26 +24,61 @@ public class Tafel extends javax.swing.JFrame {
      * Creates new form SpelerZoeken
      */
     public Tafel() {
-        this.Deelnemers = new String[aantalDeelnemers];
         telSpelers();
         initComponents();
         vulSpelerTabel();
-        
-        
     }
-  
-     String[] Deelnemers;
-    int i = 0;
-    int aantalDeelnemers = 0;
     
+     private String [] Deelnemers;
+    private int i = 0;
+    private int aantalDeelnemers = 0;
+    private  int aantalTafels= 0;
+    private final  Connection connection = DatabaseConnectie.getConnection();
+    private int tcode = 0;
+    private int pcode = 0;
+  
+    
+  
+    
+    private void maakTafel(int pcode){
+          try {
+              String[] Tafel = new String[8];
+              String query = "insert into tafel_deelnemers(persoon_code, tafel_code)"
+                           + " values(?, ? );";
+              PreparedStatement statement = connection.prepareStatement(query);
+         
+              statement.setInt(1, pcode);//code is hier 11 want dat is de laatste die hij vind in vul tafel
+              statement.setInt(2, tcode);
+          
+              statement.execute();
+          
+          } catch (SQLException ex) {
+              Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+          
+       
+       
+      }
+   
+      
+     
+  }
+  
+
     
     private void vulTafel(){
     Collections.shuffle(Arrays.asList(Deelnemers));
     
-        for (int j = 0; j < 8; j++) {
-            System.out.println("aan tafel 1 zit " + Deelnemers[j]);
+        for (int j = 0; j <= (aantalDeelnemers - 1); j++) {
+            
+            
+            if (j % 8 == 0 ){
+                tcode ++;   
+            
+           
         }
-
+            System.out.println("aan tafel " + tcode + " zit " + Deelnemers[j]);
+                maakTafel(pcode);// hier maakt hij alleen een tafel aan met de pcode die op dit moment 11 is want dat is de laatset pcode die hij heeft
+        }
     
     
     }
@@ -52,8 +87,7 @@ public class Tafel extends javax.swing.JFrame {
            
             String query;
             PreparedStatement statement;
-            
-            Connection connection = DatabaseConnectie.getConnection();
+           
 
             query = "select * from persoon ;";
             statement = connection.prepareStatement(query);
@@ -63,21 +97,22 @@ public class Tafel extends javax.swing.JFrame {
             while (results.next()) {
                           
                 aantalDeelnemers ++;
-            }   } catch (SQLException ex) {
+            }
+            Deelnemers = new String[aantalDeelnemers];
+        } catch (SQLException ex) {
             Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     
-    Deelnemers[aantalDeelnemers];
+   
 private void vulSpelerTabel() {
         try {
             DefaultTableModel datamodel = createSpelerModel();
             this.jt_speler.setModel(datamodel);
             String query;
             PreparedStatement statement;
-            
-            Connection connection = DatabaseConnectie.getConnection();
+           
 
             query = "select p_code, voornaam, achternaam from persoon where achternaam like ? and p_code like ?;";
             statement = connection.prepareStatement(query);
@@ -93,6 +128,9 @@ private void vulSpelerTabel() {
 
             while (results.next()) {
                 String spelercode = results.getString("p_code");
+                pcode = Integer.parseInt(spelercode);
+                maakTafel(pcode);// als ik hem hier zet dan pakt hij meteen nadat hij pcode heeft gevraagt de pcode en voert hem in , alleen is er dan nog geen tafel gemaakt
+                //hier moet dus een method die hem constant update terwijl hij een tafel maakt
                 String voornaam = results.getString("voornaam");
                 String achternaam = results.getString("achternaam");
                 //String tafelcode = results.getString("t_code");
@@ -158,7 +196,7 @@ private void vulSpelerTabel() {
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        deelIn = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
@@ -210,17 +248,16 @@ private void vulSpelerTabel() {
 
         jLabel3.setText("Toernooicode:");
 
-        jTextField3.setText("jTextField3");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("jButton4");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        deelIn.setText("deel in ");
+        deelIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                deelInActionPerformed(evt);
             }
         });
 
@@ -242,28 +279,26 @@ private void vulSpelerTabel() {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jt_achternaam)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tf_spelerscode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton5)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deelIn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jt_achternaam)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_spelerscode, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -283,7 +318,7 @@ private void vulSpelerTabel() {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(deelIn)
                     .addComponent(jButton5))
                 .addContainerGap())
         );
@@ -313,16 +348,14 @@ private void vulSpelerTabel() {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_spelerscodeKeyReleased
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void deelInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deelInActionPerformed
       vulTafel();
-    }//GEN-LAST:event_jButton4ActionPerformed
+      
+    }//GEN-LAST:event_deelInActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
       
         
-        for (int k = 0; k < 10; k++) {
-            System.out.println(Deelnemers[k]); 
-        }
         
         
         
@@ -372,10 +405,10 @@ private void vulSpelerTabel() {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deelIn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
