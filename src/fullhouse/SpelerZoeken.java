@@ -129,7 +129,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 350));
-        setPreferredSize(new java.awt.Dimension(650, 350));
+        setPreferredSize(new java.awt.Dimension(650, 400));
         setResizable(false);
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(452, 248));

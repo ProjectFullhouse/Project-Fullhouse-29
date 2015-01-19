@@ -39,7 +39,7 @@ public class Toernooi extends javax.swing.JFrame {
         jb_masterclass = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(650, 350));
+        setMinimumSize(new java.awt.Dimension(650, 400));
         setPreferredSize(new java.awt.Dimension(650, 350));
         setResizable(false);
 
