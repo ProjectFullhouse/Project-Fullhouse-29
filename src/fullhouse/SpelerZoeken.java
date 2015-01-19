@@ -18,32 +18,32 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SpelerZoeken extends javax.swing.JFrame {
 
-    private boolean eersteKeer = true;
-
+    private Connection connection = DatabaseConnectie.getConnection();
     public SpelerZoeken() {
         initComponents();
         vulSpelerTabel();
         this.setLocationRelativeTo(null);
+        jf_spelerInfo.setLocationRelativeTo(null);
     }
 
     private void vulSpelerTabel() {
         try {
-            DefaultTableModel datamodel = createSpelerModel();
+            TableModel datamodel = createSpelerModel();
             this.jt_speler.setModel(datamodel);
 
             String query = "select p_code, voornaam, achternaam, postcode, rating from persoon "
-                         + "where achternaam like ? and voornaam like ? and p_code like ?;";
-            Connection connection = DatabaseConnectie.getConnection();
+                    + "where achternaam like ? and voornaam like ? and p_code like ?;";
+            
             PreparedStatement statement = connection.prepareStatement(query);
 
             //if (eersteKeer || text1.length() == 0) {
             // statement.setString(1, "p_code");
             // statement.setString(2, getZoekTermSpelerCode());
-            
+
             statement.setString(1, getZoekTermAchternaam());
             statement.setString(2, getZoekTermVoornaam());
             statement.setString(3, getZoekTermSpelerscode());
-            
+
 
             ResultSet results = statement.executeQuery();
 
@@ -64,6 +64,58 @@ public class SpelerZoeken extends javax.swing.JFrame {
         }
 
     }
+    
+    private void vulSpelerInfo(int pCode) {
+        try {
+            String query = "SELECT voornaam, achternaam, adres, woonplaats, postcode, telefoon_nummer, email_adres, rating "
+                         + "FROM persoon WHERE p_code = ?;";
+            
+            PreparedStatement statementSI = connection.prepareStatement(query);
+            statementSI.setInt(1, pCode);
+            
+            ResultSet resultsSI = statementSI.executeQuery();
+            String pcodeString = String.valueOf(pCode);
+            while(resultsSI.next()) {
+                jl_achternaamSI.setText(resultsSI.getString("achternaam"));
+                jl_pcode.setText(pcodeString);
+                jl_voornaamSI.setText(resultsSI.getString("voornaam"));
+                jl_adresSI.setText(resultsSI.getString("adres"));
+                jl_woonplaatsSI.setText(resultsSI.getString("woonplaats"));
+                jl_postcodeSI.setText(resultsSI.getString("postcode"));
+                jl_telefoonnummerSI.setText(resultsSI.getString("telefoon_nummer"));
+                jl_emailSI.setText(resultsSI.getString("email_adres"));
+                jl_ratingSI.setText(resultsSI.getString("rating"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void VulMasterclassModel(int pCode) {
+        try {
+            TableModel masterclassModel = createMasterclassModel();
+            
+            String query = "SELECT m_code, naam, datum FROM masterclass "
+                         + "WHERE m_code IN(SELECT masterclass_code FROM masterclass_inschrijvingen WHERE persoon_code IN "
+                         + "(SELECT p_code FROM persoon WHERE p_code LIKE ?));";
+            
+            PreparedStatement statementToernooi = connection.prepareStatement(query);
+            statementToernooi.setInt(1, pCode);
+            
+            ResultSet resultToernooi = statementToernooi.executeQuery();
+            
+            while (resultToernooi.next()) {
+                int m_code = resultToernooi.getInt("m_code");
+                String naam = resultToernooi.getString("naam");
+                String datum = resultToernooi.getString("datum");
+                Object[] rij = {m_code, naam, datum};
+                masterclassModel.addRow(rij);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private String getZoekTermAchternaam() {
         String text2 = tf_achternaam.getText();
@@ -73,7 +125,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
             return "%" + text2 + "%";
         }
     }
-    
+
     private String getZoekTermVoornaam() {
         String text2 = tf_voornaam.getText();
         if (text2.length() == 0) {
@@ -82,7 +134,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
             return "%" + text2 + "%";
         }
     }
-    
+
     private String getZoekTermSpelerscode() {
         String text2 = tf_spelersCode.getText();
         if (text2.length() == 0) {
@@ -92,13 +144,33 @@ public class SpelerZoeken extends javax.swing.JFrame {
         }
     }
 
-    private DefaultTableModel createSpelerModel() {
-        DefaultTableModel model = new DefaultTableModel();
+    private TableModel createSpelerModel() {
+        TableModel model = new TableModel();
         model.addColumn("speler code");
         model.addColumn("voornaam");
         model.addColumn("achternaam");
         model.addColumn("postcode");
         model.addColumn("rating");
+        return model;
+    }
+    
+    private TableModel createToernooiModel() {
+        TableModel model = new TableModel();
+        model.addColumn("Toernooi code");
+        model.addColumn("Naam");
+        model.addColumn("Datum");
+        model.addColumn("Tijd");
+        model.addColumn("Betaald");
+        return model;
+    }
+    
+    private TableModel createMasterclassModel() {
+        TableModel model = new TableModel();
+        model.addColumn("Masterclass code");
+        model.addColumn("Naam");
+        model.addColumn("Datum");
+        model.addColumn("Tijd");
+        model.addColumn("Betaald");
         return model;
     }
 
@@ -111,7 +183,24 @@ public class SpelerZoeken extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jf_spelerInfo = new javax.swing.JFrame();
+        jl_achternaamSI = new javax.swing.JLabel();
+        jl_voornaamSI = new javax.swing.JLabel();
+        jl_adresSI = new javax.swing.JLabel();
+        jl_woonplaatsSI = new javax.swing.JLabel();
+        jl_postcodeSI = new javax.swing.JLabel();
+        jl_telefoonnummerSI = new javax.swing.JLabel();
+        jl_emailSI = new javax.swing.JLabel();
+        jl_ratingSI = new javax.swing.JLabel();
+        jl_agt = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jt_ingeschrevenT = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jt_ingeschrevenM = new javax.swing.JTable();
+        jl_pcode = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jl_pcodeSI2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_speler = new javax.swing.JTable();
         jl_achternaam = new javax.swing.JLabel();
@@ -125,7 +214,144 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jb_tafel = new javax.swing.JButton();
         jb_masterclass = new javax.swing.JButton();
 
-        jButton1.setText("jButton1");
+        jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 400));
+        jf_spelerInfo.setPreferredSize(new java.awt.Dimension(650, 400));
+
+        jl_achternaamSI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jl_achternaamSI.setText("Achternaam");
+
+        jl_voornaamSI.setText("voornaam");
+
+        jl_adresSI.setText("Adres");
+
+        jl_woonplaatsSI.setText("Woonplaats");
+
+        jl_postcodeSI.setText("Postcode");
+
+        jl_telefoonnummerSI.setText("Telefoonnummer");
+
+        jl_emailSI.setText("Email");
+
+        jl_ratingSI.setText("Rating");
+
+        jl_agt.setText("Aantal gewonnen Toernooien");
+
+        jt_ingeschrevenT.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jt_ingeschrevenT);
+
+        jt_ingeschrevenM.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jt_ingeschrevenM);
+
+        jl_pcode.setText("p_code");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Ingeschreven toernooien");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Ingeschreven masterclasses");
+
+        jl_pcodeSI2.setText("persoon code");
+
+        javax.swing.GroupLayout jf_spelerInfoLayout = new javax.swing.GroupLayout(jf_spelerInfo.getContentPane());
+        jf_spelerInfo.getContentPane().setLayout(jf_spelerInfoLayout);
+        jf_spelerInfoLayout.setHorizontalGroup(
+            jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_ratingSI)
+                            .addComponent(jl_agt))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addContainerGap())
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jl_voornaamSI)
+                                .addComponent(jl_achternaamSI, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jl_adresSI)
+                                .addComponent(jl_emailSI)
+                                .addComponent(jl_postcodeSI)
+                                .addComponent(jl_woonplaatsSI)
+                                .addComponent(jl_telefoonnummerSI))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jf_spelerInfoLayout.createSequentialGroup()
+                                .addComponent(jl_pcodeSI2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jl_pcode)))
+                        .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addContainerGap())
+                            .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))))
+            .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                .addContainerGap(256, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jf_spelerInfoLayout.setVerticalGroup(
+            jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addComponent(jl_achternaamSI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jl_voornaamSI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jl_pcode)
+                            .addComponent(jl_pcodeSI2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_adresSI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_woonplaatsSI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_postcodeSI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_telefoonnummerSI))
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)))
+                .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_emailSI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_ratingSI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jl_agt)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addGap(0, 52, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(17, 17, 17)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 350));
@@ -145,6 +371,11 @@ public class SpelerZoeken extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jt_speler.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jt_spelerMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jt_speler);
 
         jl_achternaam.setText("Achternaam:");
@@ -279,8 +510,11 @@ public class SpelerZoeken extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_spelersCodeKeyReleased
 
     private void jb_toernooiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_toernooiActionPerformed
-        Toernooi t = new Toernooi();
-        t.setVisible(true);
+
+        Toernooi toernooi = new Toernooi();
+        toernooi.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_jb_toernooiActionPerformed
 
     private void jb_tafelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_tafelActionPerformed
@@ -293,9 +527,31 @@ public class SpelerZoeken extends javax.swing.JFrame {
         mc.setVisible(true);
     }//GEN-LAST:event_jb_masterclassActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jt_spelerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_spelerMousePressed
+        if (evt.getClickCount() == 2) {
+            int rij = jt_speler.getSelectedRow();
+            if (rij > -1) {
+                int selectedPCode = (Integer) jt_speler.getValueAt(rij, 0);
+                jf_spelerInfo.setVisible(true);
+                vulSpelerInfo(selectedPCode);
+                VulMasterclassModel(selectedPCode);
+
+            }
+        }
+    }//GEN-LAST:event_jt_spelerMousePressed
+
+        /**
+         * @param args the command line arguments
+         */
+        class TableModel extends DefaultTableModel {
+
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        }
+
+    
+
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
@@ -335,15 +591,32 @@ public class SpelerZoeken extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jb_cancel;
     private javax.swing.JButton jb_masterclass;
     private javax.swing.JButton jb_tafel;
     private javax.swing.JButton jb_toernooi;
+    private javax.swing.JFrame jf_spelerInfo;
     private javax.swing.JLabel jl_achternaam;
+    private javax.swing.JLabel jl_achternaamSI;
+    private javax.swing.JLabel jl_adresSI;
+    private javax.swing.JLabel jl_agt;
+    private javax.swing.JLabel jl_emailSI;
+    private javax.swing.JLabel jl_pcode;
+    private javax.swing.JLabel jl_pcodeSI2;
+    private javax.swing.JLabel jl_postcodeSI;
+    private javax.swing.JLabel jl_ratingSI;
     private javax.swing.JLabel jl_spelersCode;
+    private javax.swing.JLabel jl_telefoonnummerSI;
     private javax.swing.JLabel jl_voornaam;
+    private javax.swing.JLabel jl_voornaamSI;
+    private javax.swing.JLabel jl_woonplaatsSI;
+    private javax.swing.JTable jt_ingeschrevenM;
+    private javax.swing.JTable jt_ingeschrevenT;
     private javax.swing.JTable jt_speler;
     private javax.swing.JTextField tf_achternaam;
     private javax.swing.JTextField tf_spelersCode;

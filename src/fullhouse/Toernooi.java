@@ -13,10 +13,12 @@ public class Toernooi extends javax.swing.JFrame {
     /**
      * Creates new form SpelerZoeken
      */
+
     public Toernooi() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,8 +165,9 @@ public class Toernooi extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_cancelActionPerformed
 
     private void jb_spelerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_spelerActionPerformed
-        SpelerZoeken sz = new SpelerZoeken();
-        sz.setVisible(true);
+        SpelerZoeken spelerZoeken = new SpelerZoeken();
+        spelerZoeken.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jb_spelerActionPerformed
 
     private void jb_tafelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_tafelActionPerformed

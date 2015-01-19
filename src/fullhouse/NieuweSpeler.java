@@ -4,6 +4,7 @@
  */
 package fullhouse;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +22,6 @@ public class NieuweSpeler extends javax.swing.JFrame {
         initComponents();
         jl_voornaamError.setVisible(false);
         jl_achternaamError.setVisible(false);
-        jl_woonplaatsError.setVisible(false);
         jl_postcodeError.setVisible(false);
         jl_telefoonNummerError.setVisible(false);
         jl_emailadresError.setVisible(false);
@@ -44,9 +44,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
         tf_achternaam = new javax.swing.JTextField();
         jl_adres = new javax.swing.JLabel();
         tf_adres = new javax.swing.JTextField();
-        jl_postcode = new javax.swing.JLabel();
         tf_postcode = new javax.swing.JTextField();
-        jl_woonplaats = new javax.swing.JLabel();
         tf_woonplaats = new javax.swing.JTextField();
         jl_telefoonNummer = new javax.swing.JLabel();
         tf_telefoonNummer = new javax.swing.JTextField();
@@ -57,12 +55,12 @@ public class NieuweSpeler extends javax.swing.JFrame {
         jb_spelerZoeken = new javax.swing.JButton();
         jl_voornaamError = new javax.swing.JLabel();
         jl_achternaamError = new javax.swing.JLabel();
-        jl_woonplaatsError = new javax.swing.JLabel();
         jl_postcodeError = new javax.swing.JLabel();
         jl_telefoonNummerError = new javax.swing.JLabel();
         jl_emailadresError = new javax.swing.JLabel();
         jb_cancel = new javax.swing.JButton();
         jb_masterclassZoeken = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 400));
@@ -93,15 +91,11 @@ public class NieuweSpeler extends javax.swing.JFrame {
             }
         });
 
-        jl_postcode.setText("Postcode :");
-
         tf_postcode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tf_postcodeKeyReleased(evt);
             }
         });
-
-        jl_woonplaats.setText("Woonplaats :");
 
         tf_woonplaats.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,9 +157,6 @@ public class NieuweSpeler extends javax.swing.JFrame {
         jl_achternaamError.setForeground(new java.awt.Color(255, 0, 0));
         jl_achternaamError.setText("Alleen letters toegestaan");
 
-        jl_woonplaatsError.setForeground(new java.awt.Color(255, 0, 0));
-        jl_woonplaatsError.setText("Alleen letters toegestaan");
-
         jl_postcodeError.setForeground(new java.awt.Color(255, 0, 0));
         jl_postcodeError.setText("Voorbeeld: 1234AB");
 
@@ -189,6 +180,8 @@ public class NieuweSpeler extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Postc + Woonpl :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,108 +190,97 @@ public class NieuweSpeler extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addComponent(jb_inschrijven, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_voornaam)
-                            .addComponent(jl_adres)
                             .addComponent(jl_achternaam)
+                            .addComponent(jl_voornaam)
                             .addComponent(jl_telefoonNummer)
-                            .addComponent(jl_woonplaats)
-                            .addComponent(jl_postcode)
+                            .addComponent(jl_adres)
+                            .addComponent(jLabel1)
                             .addComponent(jl_emailAdres))
-                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jb_cancel))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tf_postcode, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_telefoonNummer)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tf_postcode, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tf_woonplaats, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                                    .addComponent(tf_voornaam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tf_achternaam)
+                                    .addComponent(tf_adres, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tf_emailAdres))
                                 .addGap(18, 18, 18)
-                                .addComponent(jl_postcodeError)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jb_cancel))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jl_voornaamError))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jl_achternaamError))
-                                            .addComponent(tf_adres, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jb_masterclassZoeken, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jb_spelerZoeken, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jb_toernooiZoeken, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jl_achternaamError)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                                        .addComponent(jb_toernooiZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(tf_woonplaats, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jl_woonplaatsError))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(tf_emailAdres, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jl_emailadresError))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(tf_telefoonNummer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jl_telefoonNummerError)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jb_inschrijven, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(jl_telefoonNummerError)
+                                            .addComponent(jl_emailadresError)
+                                            .addComponent(jl_postcodeError))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jl_voornaamError)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jb_spelerZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jb_masterclassZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_voornaam)
-                    .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jl_voornaamError)
-                    .addComponent(jb_toernooiZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_achternaam)
-                    .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jl_achternaamError)
-                    .addComponent(jb_spelerZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_adres)
-                    .addComponent(tf_adres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jb_masterclassZoeken))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_woonplaats)
-                    .addComponent(tf_woonplaats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jl_woonplaatsError))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_postcode)
-                    .addComponent(tf_postcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jl_postcodeError))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jl_telefoonNummerError))
+                        .addContainerGap()
+                        .addComponent(jb_toernooiZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jb_spelerZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jb_masterclassZoeken))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jl_telefoonNummer)
-                            .addComponent(tf_telefoonNummer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(21, 21, 21)
+                            .addComponent(jl_voornaam)
+                            .addComponent(jl_achternaamError)
+                            .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jl_voornaamError)
+                            .addComponent(jl_achternaam)
+                            .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jl_adres)
+                            .addComponent(tf_adres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(tf_postcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_woonplaats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jl_postcodeError))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_emailAdres)
+                    .addComponent(jl_telefoonNummer)
+                    .addComponent(tf_telefoonNummer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_telefoonNummerError))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tf_emailAdres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_emailAdres)
                     .addComponent(jl_emailadresError))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jb_cancel)
                     .addComponent(jb_inschrijven, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,9 +298,11 @@ public class NieuweSpeler extends javax.swing.JFrame {
         String voornaam = tf_voornaam.getText();
         if (voornaam.matches("[^0-9]{0,20}")) {
             jl_voornaamError.setVisible(false);
+            
         }
         else    {
             jl_voornaamError.setVisible(true);
+            
         }   
     }//GEN-LAST:event_tf_voornaamKeyReleased
 
@@ -340,11 +324,12 @@ public class NieuweSpeler extends javax.swing.JFrame {
     private void tf_woonplaatsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_woonplaatsKeyReleased
         String woonplaats = tf_woonplaats.getText();
         if (woonplaats.matches("[^0-9]{0,45}")) {
-            jl_woonplaatsError.setVisible(false);
+            jl_postcodeError.setVisible(false);
             
         }
         else    {
-            jl_woonplaatsError.setVisible(true);
+            jl_postcodeError.setVisible(true);
+            jl_postcodeError.setText("Alleen letters toegestaan");
         }
     }//GEN-LAST:event_tf_woonplaatsKeyReleased
 
@@ -356,6 +341,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
         }
         else    {
             jl_postcodeError.setVisible(true);
+            jl_postcodeError.setText("Voorbeeld: 1234AB");
         }
     }//GEN-LAST:event_tf_postcodeKeyReleased
 
@@ -461,6 +447,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jb_cancel;
     private javax.swing.JButton jb_inschrijven;
     private javax.swing.JButton jb_masterclassZoeken;
@@ -471,14 +458,11 @@ public class NieuweSpeler extends javax.swing.JFrame {
     private javax.swing.JLabel jl_adres;
     private javax.swing.JLabel jl_emailAdres;
     private javax.swing.JLabel jl_emailadresError;
-    private javax.swing.JLabel jl_postcode;
     private javax.swing.JLabel jl_postcodeError;
     private javax.swing.JLabel jl_telefoonNummer;
     private javax.swing.JLabel jl_telefoonNummerError;
     private javax.swing.JLabel jl_voornaam;
     private javax.swing.JLabel jl_voornaamError;
-    private javax.swing.JLabel jl_woonplaats;
-    private javax.swing.JLabel jl_woonplaatsError;
     private javax.swing.JTextField tf_achternaam;
     private javax.swing.JTextField tf_adres;
     private javax.swing.JTextField tf_emailAdres;
