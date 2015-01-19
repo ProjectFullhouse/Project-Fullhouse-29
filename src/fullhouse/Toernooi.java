@@ -32,7 +32,7 @@ public class Toernooi extends javax.swing.JFrame {
         try {
             TableModel toernooiModel = createToernooiModel();
             
-            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, ingelegdGeld FROM toernooi;";
+            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld FROM toernooi;";
             PreparedStatement statement = connection.prepareStatement(query);
             
             ResultSet results = statement.executeQuery();

@@ -219,7 +219,6 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jb_masterclass = new javax.swing.JButton();
 
         jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 400));
-        jf_spelerInfo.setPreferredSize(new java.awt.Dimension(650, 400));
 
         jl_achternaamSI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jl_achternaamSI.setText("Achternaam");

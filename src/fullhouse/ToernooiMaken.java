@@ -4,14 +4,12 @@
  */
 package fullhouse;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *go ahe
  * @author Raymond
  */
 public class ToernooiMaken extends javax.swing.JFrame {
@@ -19,6 +17,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
     /**
      * Creates new form ToernooiMaken
      */
+    private int tcode = 0;
     public ToernooiMaken() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -72,7 +71,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("plaats");
+        jLabel2.setText("plaats                        :");
 
         jb_cancel.setText("Cancel");
         jb_cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -172,28 +171,57 @@ public class ToernooiMaken extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    public void tCode() {
+        try {
+            Connection connectie = DatabaseConnectie.getConnection();
+            Statement statement = connectie.createStatement();
+            
+            String query = "select max(t_code) as maxtcode from toernooi";
+            
+            ResultSet result = statement.executeQuery(query);
+
+            if (result.next()) {
+            tcode = result.getInt("maxtcode"); 
+            
+            }
+            System.out.println(tcode);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("pCode Statement error!");
+        }
+    }
     private void toernooiMaken(int aantalTafels, String datum, String tijd, int inlegGeld, String plaats) {
         try {
-            String query = "insert into toernooi(ingelegdGeld, deelnemerAantal, plaats, datum, tijd) " +
-                           "values(?, ?, ?, ?, ?);";
+            String query = "insert into toernooi(ingelegdGeld, deelnemerAantal, plaats, datum, tijd, t_code) " +
+                           "values(?, ?, ?, ?, ?, ?);";
             
             int aantalDeelnemers = aantalTafels * 8;
             
             Connection connection = DatabaseConnectie.getConnection();
             PreparedStatement toernooiStatement = connection.prepareStatement(query);
+           
+            tCode();
+            
+     
+            
+            int nieuweTcode = tcode + 1;
             
             toernooiStatement.setInt(1, inlegGeld);
             toernooiStatement.setInt(2, aantalDeelnemers);
             toernooiStatement.setString(3, plaats);
             toernooiStatement.setString(4, datum);
             toernooiStatement.setString(5, tijd);
-            
-            
+            toernooiStatement.setInt(6, nieuweTcode);
             
         } catch (SQLException ex) {
             Logger.getLogger(ToernooiMaken.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+  
+    
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
