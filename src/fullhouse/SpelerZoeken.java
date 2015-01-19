@@ -94,7 +94,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
         try {
             MasterclassTableModel masterclassModel = createMasterclassModel();
 
-            String query = "SELECT m.m_code, m.naam, m.datum, i.betaald FROM masterclass m JOIN masterclass_inschrijvingen i ON m.m_code = i.masterclass_code "
+            String query = "SELECT m.m_code, m.naam, m.datum, m.tijd, i.betaald FROM masterclass m JOIN masterclass_inschrijvingen i ON m.m_code = i.masterclass_code "
                     + "WHERE m_code IN(SELECT masterclass_code FROM masterclass_inschrijvingen WHERE persoon_code IN "
                     + "(SELECT p_code FROM persoon WHERE p_code LIKE ?)) "
                     + "GROUP BY m.m_code;";
@@ -109,8 +109,9 @@ public class SpelerZoeken extends javax.swing.JFrame {
                 String naam = resultToernooi.getString("m.naam");
                 String datum = resultToernooi.getString("m.datum");
                 String betaaldString = resultToernooi.getString("i.betaald");
+                String tijd = resultToernooi.getString("m.tijd");
                 boolean betaald = betaaldString.equals("j");
-                Object[] rij = {m_code, naam, datum, betaald};
+                Object[] rij = {m_code, naam, datum, tijd, betaald};
                 masterclassModel.addRow(rij);
 
             }
@@ -550,12 +551,12 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
         @Override
         public boolean isCellEditable(int row, int column) {
-            return (column == 3);
+            return (column == 4);
         }
 
         @Override
         public Class getColumnClass(int columnIndex) {
-            return (columnIndex == 3) ? Boolean.class : super.getColumnClass(columnIndex);
+            return (columnIndex == 4) ? Boolean.class : super.getColumnClass(columnIndex);
         }
     }
 
