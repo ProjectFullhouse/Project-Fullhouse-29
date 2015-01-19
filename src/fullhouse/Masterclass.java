@@ -55,6 +55,7 @@ public class Masterclass extends javax.swing.JFrame {
         jl_voornaam = new javax.swing.JLabel();
         tf_voornaam = new javax.swing.JTextField();
         jb_cancelInschrijven = new javax.swing.JButton();
+        jcb_betaald = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_masterclass = new javax.swing.JTable();
         jb_cancelMasterclass = new javax.swing.JButton();
@@ -129,6 +130,8 @@ public class Masterclass extends javax.swing.JFrame {
             }
         });
 
+        jcb_betaald.setText("Betaald");
+
         javax.swing.GroupLayout jf_inschrijvingLayout = new javax.swing.GroupLayout(jf_inschrijving.getContentPane());
         jf_inschrijving.getContentPane().setLayout(jf_inschrijvingLayout);
         jf_inschrijvingLayout.setHorizontalGroup(
@@ -148,33 +151,40 @@ public class Masterclass extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
-                        .addComponent(jb_inschrijven)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 483, Short.MAX_VALUE)
                         .addComponent(jb_cancelInschrijven)))
                 .addContainerGap())
+            .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                .addGap(388, 388, 388)
+                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jb_inschrijven)
+                    .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jcb_betaald)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jf_inschrijvingLayout.setVerticalGroup(
             jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jf_inschrijvingLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jb_inschrijven)
                 .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(21, 21, 21)
                         .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jb_inschrijven)
                             .addComponent(jl_voornaam)
-                            .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(21, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_inschrijvingLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jb_cancelInschrijven)
-                        .addContainerGap())))
+                            .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jb_cancelInschrijven)))
+                    .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcb_betaald)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -240,9 +250,7 @@ public class Masterclass extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jb_cancelMasterclass))
+                    .addComponent(jb_cancelMasterclass, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -317,7 +325,15 @@ public class Masterclass extends javax.swing.JFrame {
         int selectedRow = jt_persoon.getSelectedRow();
         if (selectedRow > -1) {
             int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRow, 0);
-            inschrijvenMasterclass(selectedPCode);
+            if (jcb_betaald.isSelected()){
+                
+                inschrijvenMasterclass(selectedPCode, "j");
+            }
+            else {
+                
+                inschrijvenMasterclass(selectedPCode, "n");
+            }
+                
         }
 
         vulPersoonTable();
@@ -360,8 +376,8 @@ public class Masterclass extends javax.swing.JFrame {
             this.jt_masterclass.setModel(datamodelMasterclass);
 
             String query = "SELECT m.m_code, naam, p.achternaam, m.beschikbare_plaatsen, datum, minimumRating "
-                         + "FROM persoon p JOIN docent d ON p.p_code = d.persoon "
-                         + "LEFT OUTER JOIN masterclass m ON d.d_code = m.docent;";
+                    + "FROM persoon p JOIN docent d ON p.p_code = d.persoon "
+                    + "LEFT OUTER JOIN masterclass m ON d.d_code = m.docent;";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -390,15 +406,15 @@ public class Masterclass extends javax.swing.JFrame {
             this.jt_persoon.setModel(datamodelPersoon);
 
             String queryPersoon = "SELECT p_code, voornaam, achternaam, rating "
-                                + "FROM persoon WHERE achternaam LIKE ? "
-                                + "AND voornaam like ? "
-                                + "AND p_code NOT IN(SELECT persoon_code "
-                                + "FROM masterclass_inschrijvingen "
-                                + "WHERE masterclass_code = ?); ";
+                    + "FROM persoon WHERE achternaam LIKE ? "
+                    + "AND voornaam like ? "
+                    + "AND p_code NOT IN(SELECT persoon_code "
+                    + "FROM masterclass_inschrijvingen "
+                    + "WHERE masterclass_code = ?); ";
             PreparedStatement statement = connection.prepareStatement(queryPersoon);
 
-            statement.setString(1,getZoekTermAchternaam());
-            statement.setString(2,getZoekTermVoornaam());
+            statement.setString(1, getZoekTermAchternaam());
+            statement.setString(2, getZoekTermVoornaam());
             statement.setInt(3, selectedMCode);
 
             ResultSet resultsPersoon = statement.executeQuery();
@@ -420,10 +436,10 @@ public class Masterclass extends javax.swing.JFrame {
 
     private void vulInschrijvenTabel() {
         try {
-            TableModel datamodelInschrijven = createInschrijvingTable();
+            InschrijvenTableModel datamodelInschrijven = createInschrijvingTable();
             this.jt_inschrijvingen.setModel(datamodelInschrijven);
 
-            String queryInschrijven = "SELECT i.persoon_code, p.achternaam, i.masterclass_code "
+            String queryInschrijven = "SELECT i.persoon_code, p.achternaam, i.masterclass_code, i.betaald "
                     + "FROM masterclass_inschrijvingen i JOIN persoon p ON i.persoon_code = p.p_code "
                     + "WHERE masterclass_code LIKE ? "
                     + "ORDER BY i.persoon_code;";
@@ -437,7 +453,9 @@ public class Masterclass extends javax.swing.JFrame {
                 int p_code = resultsInschrijven.getInt("i.persoon_code");
                 String achternaam = resultsInschrijven.getString("p.achternaam");
                 int m_code = resultsInschrijven.getInt("i.masterclass_code");
-                Object[] rij = {p_code, achternaam, m_code};
+                String betaaldString = resultsInschrijven.getString("betaald");
+                boolean betaald = betaaldString.equals("j");
+                Object[] rij = {p_code, achternaam, m_code, betaald};
                 datamodelInschrijven.addRow(rij);
             }
 
@@ -455,7 +473,7 @@ public class Masterclass extends javax.swing.JFrame {
             return "%" + text2 + "%";
         }
     }
-    
+
     private String getZoekTermVoornaam() {
         String text2 = tf_voornaam.getText();
         if (text2.length() == 0) {
@@ -465,20 +483,20 @@ public class Masterclass extends javax.swing.JFrame {
         }
     }
 
-    public void inschrijvenMasterclass(int code) {
+    public void inschrijvenMasterclass(int code, String betaaldString) {
         try {
 
-                String queryInsert = "insert into masterclass_inschrijvingen(persoon_code, masterclass_code) "
-                        + "values(?, ?);";
-                PreparedStatement statement2 = connection.prepareStatement(queryInsert);
+            String queryInsert = "insert into masterclass_inschrijvingen(persoon_code, masterclass_code, betaald) "
+                    + "values(?, ?, ?);";
+            PreparedStatement statement2 = connection.prepareStatement(queryInsert);
 
-                statement2.setInt(1, code);
-                statement2.setInt(2, selectedMCode);
-                statement2.execute();
+            statement2.setInt(1, code);
+            statement2.setInt(2, selectedMCode);
+            statement2.setString(3, betaaldString);
+            statement2.execute();
 
-                String queryInsert2 = "update masterclass set beschikbare_plaatsen where m_code = ? ";
-                PreparedStatement statement3 = connection.prepareStatement(queryInsert2);
-            
+            String queryInsert2 = "update masterclass set beschikbare_plaatsen where m_code = ? ";
+            PreparedStatement statement3 = connection.prepareStatement(queryInsert2);
 
         } catch (SQLException ex) {
             Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
@@ -508,9 +526,9 @@ public class Masterclass extends javax.swing.JFrame {
         return model;
     }
 
-    private TableModel createInschrijvingTable() {
+    private InschrijvenTableModel createInschrijvingTable() {
 
-        TableModel model = new TableModel();
+        InschrijvenTableModel model = new InschrijvenTableModel();
         model.addColumn("Persoon code");
         model.addColumn("achternaam");
         model.addColumn("Masterclass code");
@@ -565,6 +583,19 @@ public class Masterclass extends javax.swing.JFrame {
         }
 
     }
+
+    class InschrijvenTableModel extends TableModel {
+
+        @Override
+        public Class getColumnClass(int columnIndex) {
+            return (columnIndex == 3) ? Boolean.class : super.getColumnClass(columnIndex);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return (column == 3);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -576,6 +607,7 @@ public class Masterclass extends javax.swing.JFrame {
     private javax.swing.JButton jb_speler;
     private javax.swing.JButton jb_tafel;
     private javax.swing.JButton jb_toernooi;
+    private javax.swing.JCheckBox jcb_betaald;
     private javax.swing.JFrame jf_inschrijving;
     private javax.swing.JLabel jl_datum;
     private javax.swing.JLabel jl_naamCLass;
