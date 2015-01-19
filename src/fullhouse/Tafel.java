@@ -27,6 +27,7 @@ public class Tafel extends javax.swing.JFrame {
         telSpelers();
         initComponents();
         vulSpelerTabel();
+        this.setLocationRelativeTo(null);
     }
     
      private String [] Deelnemers;
