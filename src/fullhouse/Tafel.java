@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -29,66 +30,47 @@ public class Tafel extends javax.swing.JFrame {
         vulSpelerTabel();
         this.setLocationRelativeTo(null);
     }
-    
-     private String [] Deelnemers;
+
+    private String[] Deelnemers;
     private int i = 0;
     private int aantalDeelnemers = 0;
-    private  int aantalTafels= 0;
-    private final  Connection connection = DatabaseConnectie.getConnection();
-    private int tcode = 0;
+    private int aantalTafels = 0;
+    private final Connection connection = DatabaseConnectie.getConnection();
+    private int tcode = 1;
     private int pcode = 0;
-  
-    
-  
-    
-    private void maakTafel(int pcode){
-          try {
-              String[] Tafel = new String[8];
-              String query = "insert into tafel_deelnemers(persoon_code, tafel_code)"
-                           + " values(?, ? );";
-              PreparedStatement statement = connection.prepareStatement(query);
-         
-              statement.setInt(1, pcode);//code is hier 11 want dat is de laatste die hij vind in vul tafel
-              statement.setInt(2, tcode);
-          
-              statement.execute();
-          
-          } catch (SQLException ex) {
-              Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
-          
-       
-       
-      }
-   
-      
-     
-  }
-  
 
-    
-    private void vulTafel(){
-    Collections.shuffle(Arrays.asList(Deelnemers));
-    
-        for (int j = 0; j <= (aantalDeelnemers - 1); j++) {
-            
-            
-            if (j % 8 == 0 ){
-                tcode ++;   
-            
-           
-        }
-            System.out.println("aan tafel " + tcode + " zit " + Deelnemers[j]);
-                maakTafel(pcode);// hier maakt hij alleen een tafel aan met de pcode die op dit moment 11 is want dat is de laatset pcode die hij heeft
-        }
-    
-    
-    }
-    private void telSpelers(){
+    private void maakTafel(int pcode) {
         try {
-           
+            String[] Tafel = new String[8];
+            String query = "insert into tafel_deelnemers(persoon_code, tafel_code)"
+                    + " values(?, ? );";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setInt(1, pcode);//code is hier 11 want dat is de laatste die hij vind in vul tafel
+
+            statement.setInt(2, tcode);
+
+            statement.execute();
+            for (int j = 0; j <= (aantalDeelnemers - 1); j++) {
+
+                if (j % 8 == 0) {
+                    tcode++;
+
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+    }
+
+    private void telSpelers() {
+        try {
+
             String query;
             PreparedStatement statement;
-           
 
             query = "select * from persoon ;";
             statement = connection.prepareStatement(query);
@@ -96,57 +78,98 @@ public class Tafel extends javax.swing.JFrame {
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
-                          
-                aantalDeelnemers ++;
+
+                aantalDeelnemers++;
             }
             Deelnemers = new String[aantalDeelnemers];
+
         } catch (SQLException ex) {
-            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tafel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
    
-private void vulSpelerTabel() {
+    private void getPcode() {
+
+        try {
+            String query = "select p_code from persoon;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            ResultSet results = statement.executeQuery();
+            String[] spelerArray = new String[aantalDeelnemers];
+            int i = 0;
+            while (results.next()) {
+                String spelercode = results.getString("p_code");
+                pcode = Integer.parseInt(spelercode);
+                spelerArray[i] = spelercode;
+                i++;
+
+            }
+            
+            Collections.shuffle(Arrays.asList(spelerArray));
+
+            
+
+            String query2 = "insert into tafel_deelnemers(persoon_code, tafel_code)"
+                    + " values(?, ? );";
+            PreparedStatement statement2 = connection.prepareStatement(query2);
+            int countTCode = 0;
+            for (int j = 0; j < aantalDeelnemers; j++) {
+                String pcodeArrayResult = spelerArray[j];
+                statement2.setString(1, pcodeArrayResult);
+                statement2.setInt(2, tcode);
+                statement2.execute();
+                String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
+                PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
+                statementCountT.setInt(1, tcode);
+                ResultSet resultCountT = statementCountT.executeQuery();
+                
+                while(resultCountT.next()) {
+                    countTCode = resultCountT.getInt("aantal_t");
+                }
+                if (countTCode == 8) {
+                    tcode++;
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Tafel.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void vulSpelerTabel() {
         try {
             DefaultTableModel datamodel = createSpelerModel();
             this.jt_speler.setModel(datamodel);
             String query;
             PreparedStatement statement;
-           
 
-            query = "select p_code, voornaam, achternaam from persoon where achternaam like ? and p_code like ?;";
+            query = "select p.p_code, p.voornaam, p.achternaam, t.tafel_code from persoon p LEFT OUTER JOIN tafel_deelnemers t ON p.p_code = t.persoon_code  where p.achternaam like ? and p.p_code like ? order by p.p_code;";
             statement = connection.prepareStatement(query);
-                statement.setString(1, getZoekTermAchternaam());
-                statement.setString(2, getZoekTermSpelerscode());
-            
-            
-            
-           // statement.setString(1, getZoekTermAchternaam());
-            //statement.setString(1, getZoekTermSpelerscode());
+            statement.setString(1, getZoekTermAchternaam());
+            statement.setString(2, getZoekTermSpelerscode());
 
+            // statement.setString(1, getZoekTermAchternaam());
+            //statement.setString(1, getZoekTermSpelerscode());
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
                 String spelercode = results.getString("p_code");
-                pcode = Integer.parseInt(spelercode);
-                maakTafel(pcode);// als ik hem hier zet dan pakt hij meteen nadat hij pcode heeft gevraagt de pcode en voert hem in , alleen is er dan nog geen tafel gemaakt
-                //hier moet dus een method die hem constant update terwijl hij een tafel maakt
                 String voornaam = results.getString("voornaam");
                 String achternaam = results.getString("achternaam");
-                //String tafelcode = results.getString("t_code");
-                Object[] rij = {spelercode, voornaam, achternaam};
+                String tafelcode = results.getString("tafel_code");
+                Object[] rij = {spelercode, voornaam, achternaam, tafelcode};
                 datamodel.addRow(rij);
-               
-                 Deelnemers[i] = voornaam + " " + achternaam; 
-                 i++;
-                
+
             }
 
-
             this.jt_speler.setModel(datamodel);
+
         } catch (SQLException ex) {
-            Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SpelerZoeken.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -159,6 +182,7 @@ private void vulSpelerTabel() {
         model.addColumn("tafel code");
         return model;
     }
+
     private String getZoekTermAchternaam() {
         String text2 = tf_achternaam.getText();
         if (text2.length() == 0) {
@@ -167,7 +191,8 @@ private void vulSpelerTabel() {
             return "%" + text2 + "%";
         }
     }
-     private String getZoekTermSpelerscode() {
+
+    private String getZoekTermSpelerscode() {
         String text3 = tf_spelerscode.getText();
         if (text3.length() == 0) {
             return "%";
@@ -175,8 +200,7 @@ private void vulSpelerTabel() {
             return "%" + text3 + "%";
         }
     }
-     
-     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -198,7 +222,7 @@ private void vulSpelerTabel() {
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         deelIn = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jb_test = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -262,10 +286,10 @@ private void vulSpelerTabel() {
             }
         });
 
-        jButton5.setText("jButton5");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jb_test.setText("Cancel");
+        jb_test.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jb_testActionPerformed(evt);
             }
         });
 
@@ -286,8 +310,8 @@ private void vulSpelerTabel() {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deelIn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
-                        .addGap(0, 12, Short.MAX_VALUE))
+                        .addComponent(jb_test)
+                        .addGap(0, 20, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jt_achternaam)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -320,7 +344,7 @@ private void vulSpelerTabel() {
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(deelIn)
-                    .addComponent(jButton5))
+                    .addComponent(jb_test))
                 .addContainerGap())
         );
 
@@ -340,28 +364,25 @@ private void vulSpelerTabel() {
     }//GEN-LAST:event_tf_achternaamFocusGained
 
     private void tf_achternaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_achternaamKeyReleased
-        this.vulSpelerTabel();
+        vulSpelerTabel();
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_achternaamKeyReleased
 
     private void tf_spelerscodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_spelerscodeKeyReleased
-     this.vulSpelerTabel();
+        vulSpelerTabel();
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_spelerscodeKeyReleased
 
     private void deelInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deelInActionPerformed
-      vulTafel();
-      
+        getPcode();
+        vulSpelerTabel();
+
     }//GEN-LAST:event_deelInActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-      
-        
-        
-        
-        
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jb_testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_testActionPerformed
+this.dispose();
+
+    }//GEN-LAST:event_jb_testActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,16 +402,21 @@ private void vulSpelerTabel() {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -410,11 +436,11 @@ private void vulSpelerTabel() {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton jb_test;
     private javax.swing.JLabel jt_achternaam;
     private javax.swing.JTable jt_speler;
     private javax.swing.JTextField tf_achternaam;
