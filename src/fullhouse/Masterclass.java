@@ -26,6 +26,7 @@ public class Masterclass extends javax.swing.JFrame {
      */
     private Connection connection = DatabaseConnectie.getConnection();
     private int selectedMCode = 0;
+    private int neededRating = 0;
 
     public Masterclass() {
         initComponents();
@@ -340,7 +341,7 @@ public class Masterclass extends javax.swing.JFrame {
             int rij = jt_masterclass.getSelectedRow();
             if (rij > -1) {
                 selectedMCode = (Integer) jt_masterclass.getValueAt(rij, 0);
-
+                neededRating = (Integer) jt_masterclass.getValueAt(rij, 5);
                 jf_inschrijving.setVisible(true);
 
             }
@@ -359,16 +360,23 @@ public class Masterclass extends javax.swing.JFrame {
     private void jb_inschrijvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_inschrijvenActionPerformed
         int selectedRow = jt_persoon.getSelectedRow();
         int aantalPlaatsen = getAantalPlaatsen(selectedMCode);
+
         if (selectedRow > -1) {
             int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRow, 0);
-            if (jcb_betaald.isSelected()) {
+            int selectedRating = (Integer) jt_persoon.getValueAt(selectedRow, 3);
+            
+            if (jcb_betaald.isSelected() && selectedRating > neededRating && aantalPlaatsen > 0) {
 
                 inschrijvenMasterclass(selectedPCode, "j", aantalPlaatsen);
-            } else {
+            } else if (!jcb_betaald.isSelected() && selectedRating > neededRating && aantalPlaatsen > 0) {
 
                 inschrijvenMasterclass(selectedPCode, "n", aantalPlaatsen);
             }
+            else {
+                JOptionPane.showMessageDialog(null, "Toevoegen niet toegestaan!");
+            }
         }
+        aantalPlaatsen = getAantalPlaatsen(selectedMCode);
         String aantalPlaatsenString = String.valueOf(aantalPlaatsen);
         jl_beschikbarePlaatsen.setText(aantalPlaatsenString);
         vulPersoonTable();

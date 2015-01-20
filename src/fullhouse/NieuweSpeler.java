@@ -25,6 +25,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
         jl_postcodeError.setVisible(false);
         jl_telefoonNummerError.setVisible(false);
         jl_emailadresError.setVisible(false);
+        jl_adresError.setVisible(false);
         this.setLocationRelativeTo(null);
         
     }
@@ -61,6 +62,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
         jb_cancel = new javax.swing.JButton();
         jb_masterclassZoeken = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jl_adresError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 400));
@@ -182,6 +184,9 @@ public class NieuweSpeler extends javax.swing.JFrame {
 
         jLabel1.setText("Postc + Woonpl :");
 
+        jl_adresError.setForeground(new java.awt.Color(255, 0, 0));
+        jl_adresError.setText("Ongeldig adres");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,7 +239,8 @@ public class NieuweSpeler extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jb_spelerZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jl_adresError)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jb_masterclassZoeken, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())))))
         );
@@ -263,7 +269,8 @@ public class NieuweSpeler extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jl_adres)
-                            .addComponent(tf_adres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tf_adres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jl_adresError))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -318,7 +325,13 @@ public class NieuweSpeler extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_achternaamKeyReleased
 
     private void tf_adresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_adresKeyReleased
-
+        String adres = tf_adres.getText();
+        if(adres.matches("[a-zA-Z]{3,45}[\\s]{0,20}[0-9]{1,4}[a-zA-Z]{0,2}")) {
+            jl_adresError.setVisible(false);
+        }
+        else {
+            jl_adresError.setVisible(true);
+        }
     }//GEN-LAST:event_tf_adresKeyReleased
 
     private void tf_woonplaatsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_woonplaatsKeyReleased
@@ -456,6 +469,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
     private javax.swing.JLabel jl_achternaam;
     private javax.swing.JLabel jl_achternaamError;
     private javax.swing.JLabel jl_adres;
+    private javax.swing.JLabel jl_adresError;
     private javax.swing.JLabel jl_emailAdres;
     private javax.swing.JLabel jl_emailadresError;
     private javax.swing.JLabel jl_postcodeError;

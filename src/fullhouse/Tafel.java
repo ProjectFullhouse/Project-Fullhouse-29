@@ -39,32 +39,7 @@ public class Tafel extends javax.swing.JFrame {
     private int tcode = 1;
     private int pcode = 0;
 
-    private void maakTafel(int pcode) {
-        try {
-            String[] Tafel = new String[8];
-            String query = "insert into tafel_deelnemers(persoon_code, tafel_code)"
-                    + " values(?, ? );";
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            statement.setInt(1, pcode);//code is hier 11 want dat is de laatste die hij vind in vul tafel
-
-            statement.setInt(2, tcode);
-
-            statement.execute();
-            for (int j = 0; j <= (aantalDeelnemers - 1); j++) {
-
-                if (j % 8 == 0) {
-                    tcode++;
-
-                }
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
-
-        }
-
-    }
+    
 
     private void telSpelers() {
         try {
@@ -151,8 +126,6 @@ public class Tafel extends javax.swing.JFrame {
             statement.setString(1, getZoekTermAchternaam());
             statement.setString(2, getZoekTermSpelerscode());
 
-            // statement.setString(1, getZoekTermAchternaam());
-            //statement.setString(1, getZoekTermSpelerscode());
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
