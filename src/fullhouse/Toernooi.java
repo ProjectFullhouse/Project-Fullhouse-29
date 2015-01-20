@@ -22,6 +22,8 @@ public class Toernooi extends javax.swing.JFrame {
      * Creates new form SpelerZoeken
      */
     private Connection connection = DatabaseConnectie.getConnection();
+    private int selectedTCode = 0;
+    
     public Toernooi() {
         initComponents();
         vulToernooiTabel();
@@ -109,6 +111,11 @@ public class Toernooi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jt_toernooi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jt_toernooiMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jt_toernooi);
 
         jt_toernooicode.addActionListener(new java.awt.event.ActionListener() {
@@ -291,6 +298,10 @@ vulToernooiTabel();
     private void tf_plaatsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_plaatsKeyReleased
      vulToernooiTabel();
     }//GEN-LAST:event_tf_plaatsKeyReleased
+
+    private void jt_toernooiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_toernooiMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_toernooiMousePressed
 
     /**
      * @param args the command line arguments
