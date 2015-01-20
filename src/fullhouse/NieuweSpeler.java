@@ -400,15 +400,18 @@ public class NieuweSpeler extends javax.swing.JFrame {
     private void jb_spelerZoekenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_spelerZoekenActionPerformed
         SpelerZoeken spelerZoeken = new SpelerZoeken();
         spelerZoeken.setVisible(true);
+        
+        
     }//GEN-LAST:event_jb_spelerZoekenActionPerformed
 
     private void jb_toernooiZoekenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_toernooiZoekenActionPerformed
         Toernooi toernooiZoeken = new Toernooi();
         toernooiZoeken.setVisible(true);
+        
     }//GEN-LAST:event_jb_toernooiZoekenActionPerformed
 
     private void jb_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelActionPerformed
-        this.dispose();
+        
     }//GEN-LAST:event_jb_cancelActionPerformed
 
     private void jb_masterclassZoekenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_masterclassZoekenActionPerformed

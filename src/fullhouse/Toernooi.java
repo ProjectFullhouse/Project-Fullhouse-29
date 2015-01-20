@@ -377,11 +377,13 @@ public class Toernooi extends javax.swing.JFrame {
     private void jb_tafelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_tafelActionPerformed
         Tafel ta = new Tafel();
         ta.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jb_tafelActionPerformed
 
     private void jb_masterclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_masterclassActionPerformed
         Masterclass mc = new Masterclass();
         mc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jb_masterclassActionPerformed
 
     private void jt_toernooicodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_toernooicodeKeyReleased
@@ -435,21 +437,21 @@ public class Toernooi extends javax.swing.JFrame {
         if (selectedRow > -1) {
             int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRow, 0);
             int selectedRating = (Integer) jt_persoon.getValueAt(selectedRow, 3);
-            
+
             if (jcb_betaald.isSelected() && aantalPlaatsen > 0) {
 
                 inschrijvenMasterclass(selectedPCode, "j", aantalPlaatsen);
             } else if (!jcb_betaald.isSelected() && aantalPlaatsen > 0) {
 
                 inschrijvenMasterclass(selectedPCode, "n", aantalPlaatsen);
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Toevoegen niet toegestaan!");
             }
         }
         aantalPlaatsen = getAantalPlaatsen(selectedTCode);
         String aantalPlaatsenString = String.valueOf(aantalPlaatsen);
         jl_beschikbarePlaatsen.setText(aantalPlaatsenString);
+        tellenIngelegdGeld(selectedTCode);
         vulPersoonTable();
         vulInschrijvenTabel();
         vulToernooiTabel();
@@ -470,24 +472,25 @@ public class Toernooi extends javax.swing.JFrame {
                     PreparedStatement statementUpdateBetaald = connection.prepareStatement(query);
                     statementUpdateBetaald.setInt(1, selectedTCode1);
                     statementUpdateBetaald.setInt(2, selectedPCode1);
-                    
+
                     statementUpdateBetaald.execute();
                     vulInschrijvenTabel();
                 } catch (SQLException ex) {
                     Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
             }
+            
         }
+        tellenIngelegdGeld(selectedTCode);
     }//GEN-LAST:event_jb_updateActionPerformed
 
     public void vulToernooiTabel() {
         try {
             TableModel toernooiModel = createToernooiModel();
 
-            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld FROM toernooi where t_code like ? and datum like ? and plaats like ?;";
+            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld, totaal_inlegGeld FROM toernooi where t_code like ? and datum like ? and plaats like ?;";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -503,7 +506,9 @@ public class Toernooi extends javax.swing.JFrame {
                 String datum = results.getString("datum");
                 String tijd = results.getString("tijd");
                 int deelnemerAantal = results.getInt("deelnemerAantal");
-                Object[] rij = {t_code, plaats, datum, tijd, deelnemerAantal};
+                int inlegGeld = results.getInt("inlegGeld");
+                int totaalInlegGeld = results.getInt("totaal_inlegGeld");
+                Object[] rij = {t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld, totaalInlegGeld};
                 toernooiModel.addRow(rij);
             }
             this.jt_toernooi.setModel(toernooiModel);
@@ -512,6 +517,7 @@ public class Toernooi extends javax.swing.JFrame {
         }
 
     }
+
     private void vulPersoonTable() {
         try {
             TableModel datamodelPersoon = createPersoonTable();
@@ -556,7 +562,7 @@ public class Toernooi extends javax.swing.JFrame {
                     + "WHERE toernooi_code LIKE ? "
                     + "ORDER BY i.persoon_code;";
             PreparedStatement statement = connection.prepareStatement(queryInschrijven);
-            
+
             statement.setInt(1, selectedTCode);
 
             ResultSet resultsInschrijven = statement.executeQuery();
@@ -629,8 +635,8 @@ public class Toernooi extends javax.swing.JFrame {
             Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-     public void inschrijvenMasterclass(int code, String betaaldString, int beschikbarePlaatsen) {
+
+    public void inschrijvenMasterclass(int code, String betaaldString, int beschikbarePlaatsen) {
         try {
 
             String queryInsert = "insert into toernooi_inschrijvingen(persoon_code, toernooi_code, betaald) "
@@ -645,20 +651,53 @@ public class Toernooi extends javax.swing.JFrame {
             System.out.println(beschikbarePlaatsen);
 
             updateMasterclass(beschikbarePlaatsen);
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Er is een fout opgetreden!");
         }
     }
-    
-        private TableModel createToernooiModel() {
+
+    public void tellenIngelegdGeld(int selectedTCode) {
+        try {
+            String query = "select count(i.betaald) as count_betaald, t.inlegGeld from toernooi t join toernooi_inschrijvingen i on t.t_code = i.toernooi_code "
+                    + "where i.betaald = 'j' and t.t_code like ?;";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, selectedTCode);
+
+            ResultSet resultTotaal = statement.executeQuery();
+            int aantalBetaald = 0;
+            int inlegGeld = 0;
+            while (resultTotaal.next()) {
+                aantalBetaald = resultTotaal.getInt("count_betaald");
+                inlegGeld = resultTotaal.getInt("t.inlegGeld");
+            }
+            int totaalInlegGeld = aantalBetaald * inlegGeld;
+            System.out.println(totaalInlegGeld);
+            String queryUpdate = "update toernooi set totaal_inlegGeld = ? where t_code = ?;";
+            
+            PreparedStatement statementUpdate = connection.prepareStatement(queryUpdate);
+            statementUpdate.setInt(1, totaalInlegGeld);
+            statementUpdate.setInt(2, selectedTCode);
+            
+            statementUpdate.execute();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Toernooi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private TableModel createToernooiModel() {
         TableModel model = new TableModel();
         model.addColumn("Toernooi code");
         model.addColumn("Plaats");
         model.addColumn("Datum");
         model.addColumn("Tijd");
         model.addColumn("Aantal Deelnemers");
+        model.addColumn("Kosten");
+        model.addColumn("Totaal Prijzengeld");
         return model;
     }
 

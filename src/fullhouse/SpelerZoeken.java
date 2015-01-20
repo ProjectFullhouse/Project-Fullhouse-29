@@ -26,6 +26,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
         vulSpelerTabel();
         this.setLocationRelativeTo(null);
         jf_spelerInfo.setLocationRelativeTo(null);
+        
     }
 
     private void vulSpelerTabel() {
@@ -293,7 +294,10 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jl_pcode = new javax.swing.JLabel();
         jl_pcodeSI2 = new javax.swing.JLabel();
         jb_cancelSI = new javax.swing.JButton();
-        jb_update = new javax.swing.JToggleButton();
+        jb_update = new javax.swing.JButton();
+        rb_toernooi = new javax.swing.JRadioButton();
+        rb_masterclass = new javax.swing.JRadioButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_speler = new javax.swing.JTable();
         jl_achternaam = new javax.swing.JLabel();
@@ -307,7 +311,8 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jb_tafel = new javax.swing.JButton();
         jb_masterclass = new javax.swing.JButton();
 
-        jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 400));
+        jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 460));
+        jf_spelerInfo.setPreferredSize(new java.awt.Dimension(650, 460));
 
         jl_achternaamSI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jl_achternaamSI.setText("Achternaam");
@@ -372,37 +377,61 @@ public class SpelerZoeken extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(rb_toernooi);
+        rb_toernooi.setText("Betaling Toernooi");
+        rb_toernooi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_toernooiActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rb_masterclass);
+        rb_masterclass.setText("Betaling Masterclass");
+        rb_masterclass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_masterclassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jf_spelerInfoLayout = new javax.swing.GroupLayout(jf_spelerInfo.getContentPane());
         jf_spelerInfo.getContentPane().setLayout(jf_spelerInfoLayout);
         jf_spelerInfoLayout.setHorizontalGroup(
             jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jf_spelerInfoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_voornaamSI)
-                            .addComponent(jl_achternaamSI, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jl_adresSI)
-                            .addComponent(jl_emailSI)
-                            .addComponent(jl_postcodeSI)
-                            .addComponent(jl_woonplaatsSI)
-                            .addComponent(jl_telefoonnummerSI))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jf_spelerInfoLayout.createSequentialGroup()
-                            .addComponent(jl_pcodeSI2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jl_pcode)))
-                    .addComponent(jl_ratingSI)
-                    .addComponent(jl_agt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_spelerInfoLayout.createSequentialGroup()
                 .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jf_spelerInfoLayout.createSequentialGroup()
-                        .addGap(329, 329, 329)
-                        .addComponent(jb_cancelSI))
+                        .addGap(22, 22, 22)
+                        .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jl_voornaamSI)
+                                    .addComponent(jl_achternaamSI, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jl_adresSI)
+                                    .addComponent(jl_emailSI)
+                                    .addComponent(jl_postcodeSI)
+                                    .addComponent(jl_woonplaatsSI)
+                                    .addComponent(jl_telefoonnummerSI))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jf_spelerInfoLayout.createSequentialGroup()
+                                    .addComponent(jl_pcodeSI2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jl_pcode)))
+                            .addComponent(jl_ratingSI)
+                            .addComponent(jl_agt))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_spelerInfoLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rb_masterclass)
+                            .addComponent(rb_toernooi))
+                        .addGap(18, 18, 18)))
+                .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jb_update))
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addComponent(jb_update)
+                        .addGap(262, 262, 262)
+                        .addComponent(jb_cancelSI)))
                 .addContainerGap())
         );
         jf_spelerInfoLayout.setVerticalGroup(
@@ -410,6 +439,14 @@ public class SpelerZoeken extends javax.swing.JFrame {
             .addGroup(jf_spelerInfoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jf_spelerInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jb_update)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(jb_cancelSI))
                     .addGroup(jf_spelerInfoLayout.createSequentialGroup()
                         .addComponent(jl_achternaamSI, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -431,15 +468,12 @@ public class SpelerZoeken extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jl_ratingSI)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jl_agt))
-                    .addGroup(jf_spelerInfoLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jb_update)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(jb_cancelSI)
+                        .addComponent(jl_agt)
+                        .addGap(55, 55, 55)
+                        .addComponent(rb_toernooi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rb_masterclass)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -635,70 +669,87 @@ public class SpelerZoeken extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_cancelSIActionPerformed
 
     private void jb_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_updateActionPerformed
-        int selectedRowM = jt_ingeschrevenM.getSelectedRow();
-        int selectedRowT = jt_ingeschrevenT.getSelectedRow();
+                
+        
 
-        if (selectedRowM > -1) {
-            Boolean betaald = (Boolean) jt_ingeschrevenM.getValueAt(selectedRowM, 4);
-            String selectedPCodeString = jl_pcode.getText();
-            int selectedPCode = Integer.parseInt(selectedPCodeString);
-            int selectedMCode = (Integer) jt_ingeschrevenM.getValueAt(selectedRowM, 0);
-            String betaaldState = getBetaaldMasterclass(selectedMCode, selectedPCode);
-            System.out.println(betaaldState);
-            System.out.println(selectedPCode);
-            System.out.println(selectedMCode);
+        if(rb_masterclass.isSelected()) {
+            int selectedRowM = jt_ingeschrevenM.getSelectedRow();
 
-            if (betaald && betaaldState.equals("n")) {
-                try {
-                    String query = "update masterclass_inschrijvingen set betaald = 'j' where masterclass_code = ? and persoon_code = ?;";
-                    PreparedStatement statementUpdateBetaald = connection.prepareStatement(query);
-                    statementUpdateBetaald.setInt(1, selectedMCode);
-                    statementUpdateBetaald.setInt(2, selectedPCode);
-                    
-                    statementUpdateBetaald.execute();
-                    
-                    
-                } catch (SQLException ex) {
-                    Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
+            if (selectedRowM > -1) {
+                Boolean betaald = (Boolean) jt_ingeschrevenM.getValueAt(selectedRowM, 4);
+                String selectedPCodeString = jl_pcode.getText();
+                int selectedPCode = Integer.parseInt(selectedPCodeString);
+                int selectedMCode = (Integer) jt_ingeschrevenM.getValueAt(selectedRowM, 0);
+                String betaaldState = getBetaaldMasterclass(selectedMCode, selectedPCode);
+                System.out.println(betaaldState);
+                System.out.println(selectedPCode);
+                System.out.println(selectedMCode);
+
+                if (betaald && betaaldState.equals("n")) {
+                    try {
+                        String query = "update masterclass_inschrijvingen set betaald = 'j' where masterclass_code = ? and persoon_code = ?;";
+                        PreparedStatement statementUpdateBetaald = connection.prepareStatement(query);
+                        statementUpdateBetaald.setInt(1, selectedMCode);
+                        statementUpdateBetaald.setInt(2, selectedPCode);
+
+                        statementUpdateBetaald.execute();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+
+                else if(betaald && betaaldState.equals("j") || !betaald && betaaldState.equals("n") || !betaald && betaaldState.equals("j"))  {
+                    JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
+                }
+                vulMasterclassModel(selectedPCode);
             }
-            
-            else if(betaald && betaaldState.equals("j") || !betaald && betaaldState.equals("n") || !betaald && betaaldState.equals("j"))  {
-                JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
-            }
-            vulMasterclassModel(selectedPCode);
         }
-        else if(selectedRowT > -1) {
-            Boolean betaald = (Boolean) jt_ingeschrevenT.getValueAt(selectedRowM, 4);
-            String selectedPCodeString = jl_pcode.getText();
-            int selectedPCode = Integer.parseInt(selectedPCodeString);
-            int selectedTCode = (Integer) jt_ingeschrevenT.getValueAt(selectedRowM, 0);
-            String betaaldState = getBetaaldToernooi(selectedTCode, selectedPCode);
-            System.out.println(betaaldState);
-            System.out.println(selectedPCode);
-            System.out.println(selectedTCode);
+        else if(rb_toernooi.isSelected()) {
+            int selectedRowT = jt_ingeschrevenT.getSelectedRow();
 
-            if (betaald && betaaldState.equals("n")) {
-                try {
-                    String query = "update toernooi_inschrijvingen set betaald = 'j' where toernooi_code = ? and persoon_code = ?;";
-                    PreparedStatement statementUpdateBetaald = connection.prepareStatement(query);
-                    statementUpdateBetaald.setInt(1, selectedTCode);
-                    statementUpdateBetaald.setInt(2, selectedPCode);
-                    
-                    statementUpdateBetaald.execute();
-                    
-                    
-                } catch (SQLException ex) {
-                    Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
+            if(selectedRowT > -1) {
+                Boolean betaald = (Boolean) jt_ingeschrevenT.getValueAt(selectedRowT, 4);
+                String selectedPCodeString = jl_pcode.getText();
+                int selectedPCode = Integer.parseInt(selectedPCodeString);
+                int selectedTCode = (Integer) jt_ingeschrevenT.getValueAt(selectedRowT, 0);
+                String betaaldState = getBetaaldToernooi(selectedTCode, selectedPCode);
+                System.out.println(betaaldState);
+                System.out.println(selectedPCode);
+                System.out.println(selectedTCode);
+
+                if (betaald && betaaldState.equals("n")) {
+                    try {
+                        String query = "update toernooi_inschrijvingen set betaald = 'j' where toernooi_code = ? and persoon_code = ?;";
+                        PreparedStatement statementUpdateBetaald = connection.prepareStatement(query);
+                        statementUpdateBetaald.setInt(1, selectedTCode);
+                        statementUpdateBetaald.setInt(2, selectedPCode);
+
+                        statementUpdateBetaald.execute();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+
+                else if(betaald && betaaldState.equals("j") || !betaald && betaaldState.equals("n") || !betaald && betaaldState.equals("j"))  {
+                    JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
+                }
+                vulToernooiModel(selectedPCode);
             }
-            
-            else if(betaald && betaaldState.equals("j") || !betaald && betaaldState.equals("n") || !betaald && betaaldState.equals("j"))  {
-                JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
+            else {
+                System.out.println("Geen focues");
             }
-            vulToernooiModel(selectedPCode);
         }
     }//GEN-LAST:event_jb_updateActionPerformed
+
+    private void rb_toernooiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_toernooiActionPerformed
+        jb_update.isEnabled();
+    }//GEN-LAST:event_rb_toernooiActionPerformed
+
+    private void rb_masterclassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_masterclassActionPerformed
+        jb_update.isEnabled();
+    }//GEN-LAST:event_rb_masterclassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -758,10 +809,12 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
             public void run() {
                 new SpelerZoeken().setVisible(true);
-            }
+        }
+            
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -770,7 +823,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
     private javax.swing.JButton jb_masterclass;
     private javax.swing.JButton jb_tafel;
     private javax.swing.JButton jb_toernooi;
-    private javax.swing.JToggleButton jb_update;
+    private javax.swing.JButton jb_update;
     private javax.swing.JFrame jf_spelerInfo;
     private javax.swing.JLabel jl_achternaam;
     private javax.swing.JLabel jl_achternaamSI;
@@ -789,6 +842,8 @@ public class SpelerZoeken extends javax.swing.JFrame {
     private javax.swing.JTable jt_ingeschrevenM;
     private javax.swing.JTable jt_ingeschrevenT;
     private javax.swing.JTable jt_speler;
+    private javax.swing.JRadioButton rb_masterclass;
+    private javax.swing.JRadioButton rb_toernooi;
     private javax.swing.JTextField tf_achternaam;
     private javax.swing.JTextField tf_spelersCode;
     private javax.swing.JTextField tf_voornaam;
