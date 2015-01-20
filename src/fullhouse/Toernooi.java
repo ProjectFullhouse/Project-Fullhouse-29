@@ -32,8 +32,13 @@ public class Toernooi extends javax.swing.JFrame {
         try {
             TableModel toernooiModel = createToernooiModel();
             
-            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld FROM toernooi;";
+            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld FROM toernooi where t_code like ? and datum like ? and plaats like ?;";
+            
             PreparedStatement statement = connection.prepareStatement(query);
+            
+            statement.setString(1, getZoekTermToernooicode());
+            statement.setString(2, getZoekTermDatum());
+            statement.setString(3, getZoekTermPlaats());
             
             ResultSet results = statement.executeQuery();
             
@@ -56,7 +61,7 @@ public class Toernooi extends javax.swing.JFrame {
    private TableModel createToernooiModel() {
         TableModel model = new TableModel();
         model.addColumn("Toernooi code");
-        model.addColumn("Naam");
+        model.addColumn("Plaats");
         model.addColumn("Datum");
         model.addColumn("Tijd");
         model.addColumn("Aantal Deelnemers");
@@ -75,7 +80,7 @@ public class Toernooi extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_toernooi = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        jt_toernooicode = new javax.swing.JTextField();
         jl_toernooiCode = new javax.swing.JLabel();
         jl_datum = new javax.swing.JLabel();
         tf_datum = new javax.swing.JTextField();
@@ -83,6 +88,9 @@ public class Toernooi extends javax.swing.JFrame {
         jb_speler = new javax.swing.JButton();
         jb_tafel = new javax.swing.JButton();
         jb_masterclass = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        tf_plaats = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 400));
@@ -103,9 +111,14 @@ public class Toernooi extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jt_toernooi);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jt_toernooicode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jt_toernooicodeActionPerformed(evt);
+            }
+        });
+        jt_toernooicode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_toernooicodeKeyReleased(evt);
             }
         });
 
@@ -113,7 +126,16 @@ public class Toernooi extends javax.swing.JFrame {
 
         jl_datum.setText("Datum:");
 
-        tf_datum.setText("dd-mm-yyyy");
+        tf_datum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_datumActionPerformed(evt);
+            }
+        });
+        tf_datum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_datumKeyReleased(evt);
+            }
+        });
 
         jb_cancel.setText("Cancel");
         jb_cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +165,16 @@ public class Toernooi extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("dd-mm-jjjj");
+
+        tf_plaats.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_plaatsKeyReleased(evt);
+            }
+        });
+
+        jLabel2.setText("Plaats:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,9 +182,6 @@ public class Toernooi extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jb_cancel))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -163,12 +192,22 @@ public class Toernooi extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jl_toernooiCode)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jt_toernooicode, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jl_datum)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_datum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jb_cancel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tf_datum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tf_plaats, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -185,23 +224,34 @@ public class Toernooi extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_datum)
-                    .addComponent(tf_datum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jl_toernooiCode))
                 .addGap(18, 18, 18)
-                .addComponent(jb_cancel)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jl_datum)
+                                .addComponent(jt_toernooicode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jl_toernooiCode))
+                            .addComponent(tf_datum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jb_cancel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel1))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tf_plaats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jt_toernooicodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_toernooicodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jt_toernooicodeActionPerformed
 
     private void jb_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelActionPerformed
         this.dispose();
@@ -223,6 +273,25 @@ public class Toernooi extends javax.swing.JFrame {
         mc.setVisible(true);
     }//GEN-LAST:event_jb_masterclassActionPerformed
 
+    private void jt_toernooicodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_toernooicodeKeyReleased
+        
+     vulToernooiTabel();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jt_toernooicodeKeyReleased
+
+    private void tf_datumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_datumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_datumActionPerformed
+
+    private void tf_datumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_datumKeyReleased
+vulToernooiTabel();
+// TODO add your handling code here:
+    }//GEN-LAST:event_tf_datumKeyReleased
+
+    private void tf_plaatsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_plaatsKeyReleased
+     vulToernooiTabel();
+    }//GEN-LAST:event_tf_plaatsKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -233,6 +302,34 @@ public class Toernooi extends javax.swing.JFrame {
         }
 
     }
+    
+    private String getZoekTermToernooicode() {
+        String text2 = jt_toernooicode.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+    
+     private String getZoekTermDatum() {
+        String text2 = tf_datum.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+     
+      private String getZoekTermPlaats() {
+        String text2 = tf_plaats.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+     
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
@@ -272,8 +369,9 @@ public class Toernooi extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jb_cancel;
     private javax.swing.JButton jb_masterclass;
     private javax.swing.JButton jb_speler;
@@ -281,6 +379,8 @@ public class Toernooi extends javax.swing.JFrame {
     private javax.swing.JLabel jl_datum;
     private javax.swing.JLabel jl_toernooiCode;
     private javax.swing.JTable jt_toernooi;
+    private javax.swing.JTextField jt_toernooicode;
     private javax.swing.JTextField tf_datum;
+    private javax.swing.JTextField tf_plaats;
     // End of variables declaration//GEN-END:variables
 }

@@ -182,7 +182,7 @@ public class Masterclass extends javax.swing.JFrame {
                         .addComponent(jl_beschikbarePlaatsenTekst)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jl_beschikbarePlaatsen)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jf_inschrijvingLayout.setVerticalGroup(
             jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,6 +264,12 @@ public class Masterclass extends javax.swing.JFrame {
         });
 
         jl_naamCLass.setText("Naam class:");
+
+        tf_naamClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_naamClassActionPerformed(evt);
+            }
+        });
 
         jl_naamDocent.setText("Naam docent:");
 
@@ -424,6 +430,10 @@ public class Masterclass extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jb_updateActionPerformed
+
+    private void tf_naamClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_naamClassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_naamClassActionPerformed
    
     /**
      * @param args the command line arguments
