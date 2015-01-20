@@ -155,10 +155,6 @@ public class Masterclass extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jf_inschrijvingLayout.createSequentialGroup()
                         .addComponent(jl_voornaam)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,53 +162,57 @@ public class Masterclass extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 483, Short.MAX_VALUE)
-                        .addComponent(jb_cancelInschrijven)))
-                .addContainerGap())
-            .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                .addGap(388, 388, 388)
-                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(86, 86, 86)
+                        .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jcb_betaald)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
+                                .addComponent(jb_cancelInschrijven))
+                            .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jb_update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jb_inschrijven, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(99, 99, 99)
+                                .addComponent(jl_beschikbarePlaatsenTekst)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jl_beschikbarePlaatsen))))
                     .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jcb_betaald))
-                    .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                        .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jb_update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jb_inschrijven, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(99, 99, 99)
-                        .addComponent(jl_beschikbarePlaatsenTekst)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jl_beschikbarePlaatsen)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jf_inschrijvingLayout.setVerticalGroup(
             jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jl_beschikbarePlaatsenTekst)
                         .addComponent(jl_beschikbarePlaatsen))
                     .addComponent(jb_inschrijven))
+                .addGap(3, 3, 3)
                 .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
                         .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jl_voornaam)
                             .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jb_cancelInschrijven)))
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(jb_cancelInschrijven))
                     .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jb_update)
+                        .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jb_update)
+                            .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcb_betaald)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -271,10 +271,27 @@ public class Masterclass extends javax.swing.JFrame {
                 tf_naamClassActionPerformed(evt);
             }
         });
+        tf_naamClass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_naamClassKeyReleased(evt);
+            }
+        });
 
         jl_naamDocent.setText("Naam docent:");
 
+        tf_naamDocent.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_naamDocentKeyReleased(evt);
+            }
+        });
+
         jl_datum.setText("Datum:");
+
+        tf_datum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_datumKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -440,8 +457,20 @@ public class Masterclass extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_updateActionPerformed
 
     private void tf_naamClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_naamClassActionPerformed
-        // TODO add your handling code here:
+        vulMasterClassTable();
     }//GEN-LAST:event_tf_naamClassActionPerformed
+
+    private void tf_naamClassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_naamClassKeyReleased
+        vulMasterClassTable();
+    }//GEN-LAST:event_tf_naamClassKeyReleased
+
+    private void tf_naamDocentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_naamDocentKeyReleased
+        vulMasterClassTable();
+    }//GEN-LAST:event_tf_naamDocentKeyReleased
+
+    private void tf_datumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_datumKeyReleased
+        vulMasterClassTable();
+    }//GEN-LAST:event_tf_datumKeyReleased
    
     /**
      * @param args the command line arguments
@@ -451,12 +480,15 @@ public class Masterclass extends javax.swing.JFrame {
             TableModel datamodelMasterclass = createMasterclassTable();
             this.jt_masterclass.setModel(datamodelMasterclass);
 
-            String query = "SELECT m.m_code, naam, p.achternaam, m.beschikbare_plaatsen, datum, minimumRating "
+            String query = "SELECT m.m_code, m.naam, p.achternaam, m.beschikbare_plaatsen, m.datum, minimumRating "
                     + "FROM persoon p JOIN docent d ON p.p_code = d.persoon "
-                    + "LEFT OUTER JOIN masterclass m ON d.d_code = m.docent;";
+                    + "LEFT OUTER JOIN masterclass m ON d.d_code = m.docent "
+                    + "WHERE m.naam like ? and p.achternaam like ? and m.datum like ?;";
 
             PreparedStatement statement = connection.prepareStatement(query);
-
+            statement.setString(1, getZoekTermNaamClass());
+            statement.setString(2, getZoekTermNaamDocent());
+            statement.setString(3, getZoekTermDatum());
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
@@ -558,6 +590,34 @@ public class Masterclass extends javax.swing.JFrame {
             return "%" + text2 + "%";
         }
     }
+    
+    private String getZoekTermNaamClass() {
+        String text2 = tf_naamClass.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+    
+    private String getZoekTermNaamDocent() {
+        String text2 = tf_naamDocent.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+    
+    private String getZoekTermDatum() {
+        String text2 = tf_datum.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+   
 
     private int getAantalPlaatsen(int mCode) {
         int aantalPlaatsen = 0;
