@@ -131,6 +131,47 @@ public class SpelerZoeken extends javax.swing.JFrame {
             Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+        private void vulToernooiModel(int pCode) {
+        boolean betaald = true;
+        try {
+            MasterclassTableModel toernooiModel = createMasterclassModel();
+            this.jt_ingeschrevenT.setModel(toernooiModel);
+
+            String query = "SELECT t.t_code, t.plaats, t.datum, t.tijd, i.betaald FROM toernooi t JOIN toernooi_inschrijvingen i ON t.t_code = i.toernooi_code " 
+                         + "WHERE t_code IN(SELECT toernooi_code FROM toernooi_inschrijvingen JOIN persoon ON toernooi_inschrijvingen.persoon_code = persoon.p_code WHERE persoon.p_code = ?) " 
+                         + "GROUP BY t_code;";
+
+            PreparedStatement statementToernooi = connection.prepareStatement(query);
+            statementToernooi.setInt(1, pCode);
+
+            ResultSet resultToernooi = statementToernooi.executeQuery();
+            
+            while (resultToernooi.next()) {
+                int t_code = resultToernooi.getInt("t.t_code");
+                String plaats = resultToernooi.getString("t.plaats");
+                String datum = resultToernooi.getString("t.datum");      
+                String betaaldString = resultToernooi.getString("i.betaald");
+                String tijd = resultToernooi.getString("t.tijd");
+                
+                if(betaaldString.equals("j")) {
+                    betaald = true;
+                }
+                else if (betaaldString.equals("n")) {
+                    betaald = false;
+                }
+                
+
+                Object[] rij = {t_code, plaats, datum, tijd, betaald};
+                toernooiModel.addRow(rij);
+
+            }
+
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private String getZoekTermAchternaam() {
         String text2 = tf_achternaam.getText();
@@ -159,12 +200,30 @@ public class SpelerZoeken extends javax.swing.JFrame {
         }
     }
     
-    private String getBetaald(int mCode, int pCode) {
+    private String getBetaaldMasterclass(int mCode, int pCode) {
         String betaaldState = "";
         try {
             String query = "select betaald from masterclass_inschrijvingen where masterclass_code like ? and persoon_code like ?;";
             PreparedStatement statementBetaald = connection.prepareStatement(query);
             statementBetaald.setInt(1, mCode);
+            statementBetaald.setInt(2, pCode);
+
+            ResultSet resultBetaald = statementBetaald.executeQuery();
+
+            while (resultBetaald.next()) {
+                betaaldState = resultBetaald.getString("betaald");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return betaaldState;
+    }
+    private String getBetaaldToernooi(int tCode, int pCode) {
+        String betaaldState = "";
+        try {
+            String query = "select betaald from toernooi_inschrijvingen where toernooi_code like ? and persoon_code like ?;";
+            PreparedStatement statementBetaald = connection.prepareStatement(query);
+            statementBetaald.setInt(1, tCode);
             statementBetaald.setInt(2, pCode);
 
             ResultSet resultBetaald = statementBetaald.executeQuery();
@@ -564,6 +623,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
                 int selectedPCode = (Integer) jt_speler.getValueAt(rij, 0);
                 jf_spelerInfo.setVisible(true);
                 vulSpelerInfo(selectedPCode);
+                vulToernooiModel(selectedPCode);
                 vulMasterclassModel(selectedPCode);
 
             }
@@ -576,13 +636,14 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
     private void jb_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_updateActionPerformed
         int selectedRowM = jt_ingeschrevenM.getSelectedRow();
+        int selectedRowT = jt_ingeschrevenT.getSelectedRow();
 
         if (selectedRowM > -1) {
             Boolean betaald = (Boolean) jt_ingeschrevenM.getValueAt(selectedRowM, 4);
             String selectedPCodeString = jl_pcode.getText();
             int selectedPCode = Integer.parseInt(selectedPCodeString);
             int selectedMCode = (Integer) jt_ingeschrevenM.getValueAt(selectedRowM, 0);
-            String betaaldState = getBetaald(selectedMCode, selectedPCode);
+            String betaaldState = getBetaaldMasterclass(selectedMCode, selectedPCode);
             System.out.println(betaaldState);
             System.out.println(selectedPCode);
             System.out.println(selectedMCode);
@@ -601,10 +662,41 @@ public class SpelerZoeken extends javax.swing.JFrame {
                     Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
             else if(betaald && betaaldState.equals("j") || !betaald && betaaldState.equals("n") || !betaald && betaaldState.equals("j"))  {
                 JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
             }
             vulMasterclassModel(selectedPCode);
+        }
+        else if(selectedRowT > -1) {
+            Boolean betaald = (Boolean) jt_ingeschrevenT.getValueAt(selectedRowM, 4);
+            String selectedPCodeString = jl_pcode.getText();
+            int selectedPCode = Integer.parseInt(selectedPCodeString);
+            int selectedTCode = (Integer) jt_ingeschrevenT.getValueAt(selectedRowM, 0);
+            String betaaldState = getBetaaldToernooi(selectedTCode, selectedPCode);
+            System.out.println(betaaldState);
+            System.out.println(selectedPCode);
+            System.out.println(selectedTCode);
+
+            if (betaald && betaaldState.equals("n")) {
+                try {
+                    String query = "update toernooi_inschrijvingen set betaald = 'j' where toernooi_code = ? and persoon_code = ?;";
+                    PreparedStatement statementUpdateBetaald = connection.prepareStatement(query);
+                    statementUpdateBetaald.setInt(1, selectedTCode);
+                    statementUpdateBetaald.setInt(2, selectedPCode);
+                    
+                    statementUpdateBetaald.execute();
+                    
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            else if(betaald && betaaldState.equals("j") || !betaald && betaaldState.equals("n") || !betaald && betaaldState.equals("j"))  {
+                JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
+            }
+            vulToernooiModel(selectedPCode);
         }
     }//GEN-LAST:event_jb_updateActionPerformed
 

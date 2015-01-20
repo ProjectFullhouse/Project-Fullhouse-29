@@ -556,7 +556,7 @@ public class Toernooi extends javax.swing.JFrame {
                     + "WHERE toernooi_code LIKE ? "
                     + "ORDER BY i.persoon_code;";
             PreparedStatement statement = connection.prepareStatement(queryInschrijven);
-
+            
             statement.setInt(1, selectedTCode);
 
             ResultSet resultsInschrijven = statement.executeQuery();
