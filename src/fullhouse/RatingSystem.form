@@ -22,51 +22,201 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="r_Speler2" pref="54" max="32767" attributes="0"/>
-                          <Component id="r_Speler1" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="j_rating1" min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="j_rating2" min="-2" pref="44" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="j_nrating2" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="j_nrating1" min="-2" pref="44" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="j_spelerCode" min="-2" pref="76" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="l_plaatsRonde" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="l_nieuw3" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="j_nrating3" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="l_nieuw1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="j_nrating1" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="l_nieuw2" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="j_nrating2" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="l_nieuw4" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="j_nrating4" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="l_nieuw5" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="j_nrating5" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="l_nieuw6" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="j_nrating6" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="l_nieuw7" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="j_nrating7" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="l_nieuw8" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="j_nrating8" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="b_ok" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="l_2de" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="r_Speler2" min="-2" pref="37" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="l_1ste" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="r_Speler1" min="-2" pref="37" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="l_3de" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="l_4de" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                          <Component id="r_Speler4" pref="37" max="32767" attributes="0"/>
+                                                          <Component id="r_Speler3" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="l_1pijltje8" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="l_8ste" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="l_2pijltje7" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="l_7de" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="l_3pijltje6" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="l_6de" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="l_4pijltje5" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Component id="l_5de" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="r_Speler6" min="-2" pref="37" max="-2" attributes="0"/>
+                                          <Component id="r_Speler7" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                                          <Component id="r_Speler8" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                                          <Component id="r_Speler5" min="-2" pref="37" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="l_1oud" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_2oud" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_oud3" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="l_oud4" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="l_oudeRating" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="j_rating2" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="j_rating4" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="j_rating3" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="j_rating1" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="l_oud5" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_oud6" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="l_oud8" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_oud7" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="j_rating6" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="j_rating5" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="j_rating8" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                                          <Component id="j_rating7" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="452" max="-2" attributes="0"/>
+                  <Component id="l_nieuweRating" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="l_pcode" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="t_spelerCode" min="-2" pref="76" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="l_achternaam" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="t_achternaam" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jScrollPane1" min="-2" pref="312" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -75,62 +225,171 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="126" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="j_rating1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="r_Speler1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="r_Speler2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="j_rating2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="j_nrating1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="l_pcode" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="t_spelerCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="l_achternaam" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="t_achternaam" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="j_nrating2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="l_oudeRating" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="l_plaatsRonde" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="l_1ste" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="r_Speler1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="r_Speler2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_2de" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="l_3de" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="r_Speler3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="r_Speler4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_4de" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="l_8ste" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_1pijltje8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="r_Speler8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="r_Speler7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="l_7de" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="l_2pijltje7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="r_Speler6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_6de" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_3pijltje6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="r_Speler5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_5de" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_4pijltje5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="b_ok" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="12" max="32767" attributes="0"/>
+                              <Component id="l_nieuweRating" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="l_nieuw1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_nrating1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_nrating5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_nieuw5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="l_nieuw2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_nrating2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_nrating6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_nieuw6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="j_nrating3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_nrating7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_nieuw3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_nieuw7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="j_nrating4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_nrating8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_nieuw4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_nieuw8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="j_rating1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_rating5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_1oud" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_oud5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="j_rating6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_2oud" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="j_rating2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="l_oud6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="j_rating7" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="j_rating8" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="j_rating3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_oud3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_oud7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="j_rating4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_oud4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="l_oud8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="j_spelerCode" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="b_ok">
       <Properties>
         <Property name="text" type="java.lang.String" value="OK!"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="b_okActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="l_1ste">
       <Properties>
-        <Property name="text" type="java.lang.String" value="eerste"/>
+        <Property name="text" type="java.lang.String" value="1."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="j_spelerCode">
+    <Component class="javax.swing.JTextField" name="t_spelerCode">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="j_spelerCodeActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="j_spelerCodeKeyReleased"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="t_spelerCodeActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="t_spelerCodeKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="r_Speler2">
@@ -139,14 +398,14 @@
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="r_Speler2FocusGained"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="l_2de">
       <Properties>
-        <Property name="text" type="java.lang.String" value="laatste"/>
+        <Property name="text" type="java.lang.String" value="2."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="l_nieuw1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="N_Rating 1"/>
+        <Property name="text" type="java.lang.String" value="1."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="j_nrating1">
@@ -154,9 +413,9 @@
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="l_oudeRating">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Rating"/>
+        <Property name="text" type="java.lang.String" value="Oude rating:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="j_rating1">
@@ -165,13 +424,19 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="j_rating2">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="N_Rating 2"/>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuw2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="2."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="j_nrating2">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -194,12 +459,236 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="l_pcode">
       <Properties>
         <Property name="text" type="java.lang.String" value="Spelerscode:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="r_Speler1">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="r_Speler1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_rating5">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_rating6">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="j_rating6ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_rating4">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="j_rating4ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_rating3">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_rating8">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="j_rating8ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_rating7">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="r_Speler8">
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_8ste">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="8."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_1pijltje8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;--&gt;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="r_Speler3">
+    </Component>
+    <Component class="javax.swing.JTextField" name="r_Speler4">
+    </Component>
+    <Component class="javax.swing.JTextField" name="r_Speler5">
+    </Component>
+    <Component class="javax.swing.JTextField" name="r_Speler7">
+    </Component>
+    <Component class="javax.swing.JTextField" name="r_Speler6">
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_7de">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="7."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_6de">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="6."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_5de">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="5."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_3de">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="3."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_4de">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="4."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_2pijltje7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;--&gt;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_3pijltje6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;--&gt;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_4pijltje5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;--&gt;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_plaatsRonde">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Plaats in de ronde:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuweRating">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nieuwe rating:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_nrating4">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_nrating8">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_nrating7">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_nrating6">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_nrating5">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="j_nrating3">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuw3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="3."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuw4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="4."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuw5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="5."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuw6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="6."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuw7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="7."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_nieuw8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="8."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_1oud">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="1."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_2oud">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="2."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_oud5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="5."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_oud4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="4."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_oud3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="3."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_oud6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="6."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_oud7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="7."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_oud8">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="8."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="l_achternaam">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Achternaam"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="t_achternaam">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="t_achternaamKeyReleased"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
