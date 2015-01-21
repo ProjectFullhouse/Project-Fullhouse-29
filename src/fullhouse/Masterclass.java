@@ -375,12 +375,12 @@ public class Masterclass extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_achternaamKeyReleased
 
     private void jb_inschrijvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_inschrijvenActionPerformed
-        int selectedRow = jt_persoon.getSelectedRow();
+        int[] selectedRows = jt_persoon.getSelectedRows();
         int aantalPlaatsen = getAantalPlaatsen(selectedMCode);
 
-        if (selectedRow > -1) {
-            int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRow, 0);
-            int selectedRating = (Integer) jt_persoon.getValueAt(selectedRow, 3);
+        for (int i = 0;  i < selectedRows.length; i++) {
+            int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRows[i], 0);
+            int selectedRating = (Integer) jt_persoon.getValueAt(selectedRows[i], 3);
             
             if (jcb_betaald.isSelected() && selectedRating > neededRating && aantalPlaatsen > 0) {
 
@@ -393,6 +393,9 @@ public class Masterclass extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Toevoegen niet toegestaan!");
             }
         }
+        
+            
+        
         aantalPlaatsen = getAantalPlaatsen(selectedMCode);
         String aantalPlaatsenString = String.valueOf(aantalPlaatsen);
         jl_beschikbarePlaatsen.setText(aantalPlaatsenString);
@@ -429,12 +432,12 @@ public class Masterclass extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_tafelActionPerformed
 
     private void jb_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_updateActionPerformed
-        int selectedRow = jt_inschrijvingen.getSelectedRow();
+        int[] selectedRows = jt_inschrijvingen.getSelectedRows();
 
-        if (selectedRow > -1) {
-            Boolean betaald = (Boolean) jt_inschrijvingen.getValueAt(selectedRow, 3);
-            int selectedMCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRow, 2);
-            int selectedPCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRow, 0);
+        for (int i = 0; i < 10; i++) {
+            Boolean betaald = (Boolean) jt_inschrijvingen.getValueAt(selectedRows[i], 3);
+            int selectedMCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRows[i], 2);
+            int selectedPCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRows[i], 0);
             String betaaldState = getBetaald(selectedMCode1, selectedPCode1);
 
             if (betaald && betaaldState.equals("n")) {
@@ -454,6 +457,8 @@ public class Masterclass extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
             }
         }
+
+        
     }//GEN-LAST:event_jb_updateActionPerformed
 
     private void tf_naamClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_naamClassActionPerformed

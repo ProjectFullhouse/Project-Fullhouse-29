@@ -431,23 +431,25 @@ public class Toernooi extends javax.swing.JFrame {
     }//GEN-LAST:event_jcb_betaaldActionPerformed
 
     private void jb_inschrijvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_inschrijvenActionPerformed
-        int selectedRow = jt_persoon.getSelectedRow();
+        int[] selectedRows = jt_persoon.getSelectedRows();
         int aantalPlaatsen = getAantalPlaatsen(selectedTCode);
 
-        if (selectedRow > -1) {
-            int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRow, 0);
-            int selectedRating = (Integer) jt_persoon.getValueAt(selectedRow, 3);
+        for (int i = 0; i < selectedRows.length; i++) {
+            int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRows[i], 0);
+            int selectedRating = (Integer) jt_persoon.getValueAt(selectedRows[i], 3);
 
             if (jcb_betaald.isSelected() && aantalPlaatsen > 0) {
 
-                inschrijvenMasterclass(selectedPCode, "j", aantalPlaatsen);
+                inschrijvenToernooi(selectedPCode, "j", aantalPlaatsen);
             } else if (!jcb_betaald.isSelected() && aantalPlaatsen > 0) {
 
-                inschrijvenMasterclass(selectedPCode, "n", aantalPlaatsen);
+                inschrijvenToernooi(selectedPCode, "n", aantalPlaatsen);
             } else {
                 JOptionPane.showMessageDialog(null, "Toevoegen niet toegestaan!");
             }
+
         }
+
         aantalPlaatsen = getAantalPlaatsen(selectedTCode);
         String aantalPlaatsenString = String.valueOf(aantalPlaatsen);
         jl_beschikbarePlaatsen.setText(aantalPlaatsenString);
@@ -458,15 +460,18 @@ public class Toernooi extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_inschrijvenActionPerformed
 
     private void jb_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_updateActionPerformed
-        int selectedRow = jt_inschrijvingen.getSelectedRow();
 
-        if (selectedRow > -1) {
-            Boolean betaald = (Boolean) jt_inschrijvingen.getValueAt(selectedRow, 3);
-            int selectedTCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRow, 2);
-            int selectedPCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRow, 0);
+        int[] selectedRows = jt_inschrijvingen.getSelectedRows();
+
+        for (int i = 0; i < selectedRows.length; i++) {
+            Boolean betaald = (Boolean) jt_inschrijvingen.getValueAt(selectedRows[i], 3);
+            int selectedTCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRows[i], 2);
+            int selectedPCode1 = (Integer) jt_inschrijvingen.getValueAt(selectedRows[i], 0);
             String betaaldState = getBetaald(selectedTCode1, selectedPCode1);
-
-            if (betaald && betaaldState.equals("n")) {
+            System.out.println(i);
+            System.out.println(selectedTCode1);
+            System.out.println(selectedPCode1);
+            if (jcb_betaald.isSelected() && betaaldState.equals("n")) {
                 try {
                     String query = "update toernooi_inschrijvingen set betaald = 'j' where toernooi_code = ? and persoon_code = ?;";
                     PreparedStatement statementUpdateBetaald = connection.prepareStatement(query);
@@ -481,8 +486,9 @@ public class Toernooi extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Aanpassing niet toegestaan!");
             }
-            
+
         }
+
         tellenIngelegdGeld(selectedTCode);
     }//GEN-LAST:event_jb_updateActionPerformed
 
@@ -636,22 +642,32 @@ public class Toernooi extends javax.swing.JFrame {
         }
     }
 
-    public void inschrijvenMasterclass(int code, String betaaldString, int beschikbarePlaatsen) {
+    public void inschrijvenToernooi(int code, String betaaldString, int beschikbarePlaatsen) {
         try {
 
-            String queryInsert = "insert into toernooi_inschrijvingen(persoon_code, toernooi_code, betaald) "
+            String queryInsertTI = "insert into toernooi_inschrijvingen(persoon_code, toernooi_code, betaald) "
                     + "values(?, ?, ?);";
-            PreparedStatement statement2 = connection.prepareStatement(queryInsert);
+            PreparedStatement statement2 = connection.prepareStatement(queryInsertTI);
 
             statement2.setInt(1, code);
             statement2.setInt(2, selectedTCode);
             statement2.setString(3, betaaldString);
             statement2.execute();
-            System.out.println(code);
-            System.out.println(beschikbarePlaatsen);
+            
+            String queryInsertRD = "insert into Ronde_deelnemers(speler_code, toernooi_code) values (?, ?)";
+            PreparedStatement statementRD = connection.prepareStatement(queryInsertRD);
+            statementRD.setInt(1, code);
+            statementRD.setInt(2, selectedTCode);
+            statementRD.execute();
+            
+            String queryTafels = "insert into tafel_deelnemers(persoon_code, toernooi_code)"
+                    + " values(?, ?);";
+            PreparedStatement statementTafels = connection.prepareStatement(queryTafels);
+            statementTafels.setInt(1, code);
+            statementTafels.setInt(2, selectedTCode);
+            statementTafels.execute();
 
             updateMasterclass(beschikbarePlaatsen);
-            
 
         } catch (SQLException ex) {
             Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
@@ -677,13 +693,13 @@ public class Toernooi extends javax.swing.JFrame {
             int totaalInlegGeld = aantalBetaald * inlegGeld;
             System.out.println(totaalInlegGeld);
             String queryUpdate = "update toernooi set totaal_inlegGeld = ? where t_code = ?;";
-            
+
             PreparedStatement statementUpdate = connection.prepareStatement(queryUpdate);
             statementUpdate.setInt(1, totaalInlegGeld);
             statementUpdate.setInt(2, selectedTCode);
-            
+
             statementUpdate.execute();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Toernooi.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -740,7 +756,7 @@ public class Toernooi extends javax.swing.JFrame {
 
         @Override
         public boolean isCellEditable(int row, int column) {
-            return (column == 3);
+            return false;
         }
     }
 
