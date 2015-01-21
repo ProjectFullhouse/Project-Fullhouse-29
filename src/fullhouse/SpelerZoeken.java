@@ -247,7 +247,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
     private MasterclassTableModel createToernooiModel() {
         MasterclassTableModel model = new MasterclassTableModel();
         model.addColumn("Toernooi code");
-        model.addColumn("Naam");
+        model.addColumn("Plaats");
         model.addColumn("Datum");
         model.addColumn("Tijd");
         model.addColumn("Betaald");
@@ -257,7 +257,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
     private MasterclassTableModel createMasterclassModel() {
         MasterclassTableModel model = new MasterclassTableModel();
         model.addColumn("Masterclass code");
-        model.addColumn("Naam");
+        model.addColumn("Soort");
         model.addColumn("Datum");
         model.addColumn("Tijd");
         model.addColumn("Betaald");
