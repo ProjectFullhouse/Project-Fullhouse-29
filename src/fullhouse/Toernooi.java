@@ -845,7 +845,7 @@ public class Toernooi extends javax.swing.JFrame {
 
             statement2.setInt(1, eerstePrijs);
 
-            statement2.setString(2, spelerCode);
+            statement2.setInt(2, spelerCode);
 
             statement2.execute();
         } catch (SQLException ex) {
