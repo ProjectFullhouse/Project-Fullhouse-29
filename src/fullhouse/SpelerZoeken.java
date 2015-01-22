@@ -138,7 +138,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
             MasterclassTableModel toernooiModel = createToernooiModel();
             this.jt_ingeschrevenT.setModel(toernooiModel);
 
-            String query = "SELECT i.toernooi_code, m.datum, m.tijd, i.betaald " +
+            String query = "SELECT i.toernooi_code,m.plaats, m.datum, m.tijd, i.betaald " +
                     "FROM toernooi_inschrijvingen i JOIN toernooi m ON i.toernooi_code = m.t_code " +
                     "WHERE i.persoon_code LIKE ? " +
                     "ORDER BY i.toernooi_code;";
