@@ -128,7 +128,7 @@ public class Masterclass extends javax.swing.JFrame {
             }
         });
 
-        jb_cancelInschrijven.setText("Cancel");
+        jb_cancelInschrijven.setText("Sluit");
         jb_cancelInschrijven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_cancelInschrijvenActionPerformed(evt);
@@ -168,7 +168,7 @@ public class Masterclass extends javax.swing.JFrame {
                             .addGroup(jf_inschrijvingLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jcb_betaald)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
                                 .addComponent(jb_cancelInschrijven))
                             .addGroup(jf_inschrijvingLayout.createSequentialGroup()
                                 .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -236,7 +236,7 @@ public class Masterclass extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt_masterclass);
 
-        jb_cancelMasterclass.setText("Cancel");
+        jb_cancelMasterclass.setText("Sluit");
         jb_cancelMasterclass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_cancelMasterclassActionPerformed(evt);

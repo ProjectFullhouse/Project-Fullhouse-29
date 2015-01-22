@@ -107,7 +107,7 @@ public class Ronde extends javax.swing.JFrame {
 
         jLabel4.setText("Toernooi code");
 
-        jButton2.setText("Cancel");
+        jButton2.setText("Sluit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -126,7 +126,7 @@ public class Ronde extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(348, 348, 348)
                         .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)

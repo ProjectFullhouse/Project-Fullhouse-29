@@ -310,7 +310,6 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jb_masterclass = new javax.swing.JButton();
 
         jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 460));
-        jf_spelerInfo.setPreferredSize(new java.awt.Dimension(650, 460));
 
         jl_achternaamSI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jl_achternaamSI.setText("Achternaam");
@@ -361,7 +360,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
         jl_pcodeSI2.setText("persoon code:");
 
-        jb_cancelSI.setText("Cancel");
+        jb_cancelSI.setText("Sluit");
         jb_cancelSI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_cancelSIActionPerformed(evt);
@@ -501,7 +500,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
             }
         });
 
-        jb_cancel.setText("Cancel");
+        jb_cancel.setText("Sluit");
         jb_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_cancelActionPerformed(evt);

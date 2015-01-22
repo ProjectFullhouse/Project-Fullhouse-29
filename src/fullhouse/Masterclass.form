@@ -29,7 +29,7 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                   <Component id="jcb_betaald" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="326" max="32767" attributes="0"/>
+                                  <EmptySpace pref="338" max="32767" attributes="0"/>
                                   <Component id="jb_cancelInschrijven" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -176,7 +176,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jb_cancelInschrijven">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cancel"/>
+            <Property name="text" type="java.lang.String" value="Sluit"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_cancelInschrijvenActionPerformed"/>
@@ -213,7 +213,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -322,7 +321,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="jb_cancelMasterclass">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="text" type="java.lang.String" value="Sluit"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_cancelMasterclassActionPerformed"/>
