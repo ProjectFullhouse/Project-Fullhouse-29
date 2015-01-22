@@ -294,14 +294,26 @@ public class Ronde extends javax.swing.JFrame {
             statement.setInt(3, tCode);
             statement.execute();
             
-            String query2 = "update tafel_deelnemers set ronde_code = ? where persoon_code = ? and toernooi_code = ?";
+            String query2 = "insert into tafel_deelnemers(persoon_code, ronde_code, toernooi_code) "
+                          + "values(?, ?, ?);";
             PreparedStatement statement2 = connection.prepareStatement(query2);
-            statement2.setInt(2, pCode);
-            statement2.setInt(1, rondeNummer);
+            statement2.setInt(1, pCode);
+            statement2.setInt(2, rondeNummer);
             statement2.setInt(3, tCode);
   
             statement2.execute();
 
+        } catch (SQLException ex) {
+            Logger.getLogger(Ronde.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void getRonde(int pCode, int tCode) {
+        try {
+            String queryRonde = "SELECT ronde_code from ronde where speler_code like ? and toernooi_code like ?";
+            PreparedStatement statementR = connection.prepareStatement(queryRonde);
+            statementR.setInt(1, pCode);
+            statementR.setInt(2,tCode);
         } catch (SQLException ex) {
             Logger.getLogger(Ronde.class.getName()).log(Level.SEVERE, null, ex);
         }

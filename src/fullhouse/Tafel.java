@@ -140,7 +140,7 @@ public class Tafel extends javax.swing.JFrame {
                     "JOIN Ronde_deelnemers r ON ta.persoon_code = r.speler_code " +
                     "JOIN persoon p ON r.speler_code = p.p_code " +
                     "WHERE p.achternaam LIKE ? AND ta.persoon_code LIKE ? " +
-                    "AND ta.toernooi_code LIKE ? AND r.ronde_code LIKE ? order by tafel_code; ";
+                    "AND ta.toernooi_code LIKE ? AND ta.ronde_code LIKE ? order by tafel_code; ";
             statement = connection.prepareStatement(query);
             statement.setString(1, getZoekTermAchternaam());
             statement.setString(2, getZoekTermSpelerscode());
