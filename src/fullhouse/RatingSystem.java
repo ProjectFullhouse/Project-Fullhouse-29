@@ -546,47 +546,6 @@ public class RatingSystem extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {
-            try {
-                
-                   String p_code = r_Speler2.getText();
-                   int p_code_int = Integer.parseInt(p_code);
-                   
-                   String to_code = t_toernooicode.getText();
-                   int to_code_int = Integer.parseInt(to_code);
-                   
-                   String ta_code = t_tafelcode.getText();
-                   int ta_code_int = Integer.parseInt(ta_code);
-                   
-                   String rondenr = t_rondenr.getText();
-                   int ronde_nr_int = Integer.parseInt(rondenr);
-                   
-                   String query = "UPDATE tafel_deelnemers "
-                               + "SET rating_op_af = ? WHERE persoon_code like ? "
-                               + "and toernooi_code like ? and ronde_code like ? "
-                               + "and tafel_code like ?;";
-                       
-                       PreparedStatement persoonStatement = connection.prepareStatement(query);
-
-                       persoonStatement.setDouble(1, opafRating2_7);
-                       persoonStatement.setInt(2, p_code_int);
-                       persoonStatement.setInt(3, to_code_int);
-                       persoonStatement.setInt(4, ronde_nr_int);
-                       persoonStatement.setInt(5, ta_code_int);
-                       
-                   persoonStatement.execute();
-                
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Vul alle velden in.");
-            }
-                   
-                   
-                   
-        } catch (SQLException ex) {
-            Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
 
     /**
