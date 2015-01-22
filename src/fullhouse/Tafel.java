@@ -540,6 +540,8 @@ public class Tafel extends javax.swing.JFrame {
         String spelerCode = (String) jt_speler.getValueAt(selectedRow, 0);
         String tafelCode = (String) jt_speler.getValueAt(selectedRow, 5);
         String toernooiCode = (String) jt_speler.getValueAt(selectedRow, 3);
+        
+        
         String rondeCode = (String) jt_speler.getValueAt(selectedRow, 4);
         
         voegWinnaarToe(spelerCode, tafelCode, toernooiCode, rondeCode);
