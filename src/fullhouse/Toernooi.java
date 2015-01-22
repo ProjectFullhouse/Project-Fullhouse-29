@@ -31,6 +31,7 @@ public class Toernooi extends javax.swing.JFrame {
         initComponents();
         vulToernooiTabel();
         this.setLocationRelativeTo(null);
+        vulWinnaarTabel();
     }
 
     /**
@@ -57,6 +58,21 @@ public class Toernooi extends javax.swing.JFrame {
         jb_update = new javax.swing.JButton();
         jcb_betaald = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
+        jf_winnaarToernooi = new javax.swing.JFrame();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jt_Winnaar = new javax.swing.JTable();
+        jt_winSpelercode = new javax.swing.JTextField();
+        jt_winAchternaam = new javax.swing.JTextField();
+        jt_winToernooicode = new javax.swing.JTextField();
+        jt_winPlaats = new javax.swing.JTextField();
+        jb_eerste = new javax.swing.JButton();
+        jb_tweede = new javax.swing.JButton();
+        jb_derde = new javax.swing.JButton();
+        jb_sluit = new javax.swing.JButton();
+        jl_winSpeler = new javax.swing.JLabel();
+        jl_winAchternaam = new javax.swing.JLabel();
+        jl_winToernooicode = new javax.swing.JLabel();
+        jl_winPlaats = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_toernooi = new javax.swing.JTable();
         jt_toernooicode = new javax.swing.JTextField();
@@ -70,6 +86,7 @@ public class Toernooi extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tf_plaats = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jb_Winnaartoernooi = new javax.swing.JButton();
 
         jf_inschrijving.setMinimumSize(new java.awt.Dimension(850, 400));
         jf_inschrijving.setResizable(false);
@@ -213,6 +230,147 @@ public class Toernooi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jt_Winnaar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jt_Winnaar);
+
+        jt_winSpelercode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_winSpelercodeKeyReleased(evt);
+            }
+        });
+
+        jt_winAchternaam.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_winAchternaamKeyReleased(evt);
+            }
+        });
+
+        jt_winToernooicode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_winToernooicodeKeyReleased(evt);
+            }
+        });
+
+        jt_winPlaats.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jt_winPlaatsKeyReleased(evt);
+            }
+        });
+
+        jb_eerste.setText("Maak speler eerste");
+        jb_eerste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_eersteActionPerformed(evt);
+            }
+        });
+
+        jb_tweede.setText("Maak speler tweede");
+        jb_tweede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_tweedeActionPerformed(evt);
+            }
+        });
+
+        jb_derde.setText("Maak speler derde");
+        jb_derde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_derdeActionPerformed(evt);
+            }
+        });
+
+        jb_sluit.setText("Sluit ");
+        jb_sluit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_sluitActionPerformed(evt);
+            }
+        });
+
+        jl_winSpeler.setText("Speler code");
+
+        jl_winAchternaam.setText("Achternaam");
+
+        jl_winToernooicode.setText("Toernooi code");
+
+        jl_winPlaats.setText("plaats");
+
+        javax.swing.GroupLayout jf_winnaarToernooiLayout = new javax.swing.GroupLayout(jf_winnaarToernooi.getContentPane());
+        jf_winnaarToernooi.getContentPane().setLayout(jf_winnaarToernooiLayout);
+        jf_winnaarToernooiLayout.setHorizontalGroup(
+            jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
+                            .addComponent(jl_winSpeler)
+                            .addGap(21, 21, 21))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_winnaarToernooiLayout.createSequentialGroup()
+                            .addComponent(jl_winAchternaam)
+                            .addGap(18, 18, 18)))
+                    .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
+                        .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_winToernooicode)
+                            .addComponent(jl_winPlaats))
+                        .addGap(18, 18, 18)))
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jt_winSpelercode)
+                    .addComponent(jt_winAchternaam)
+                    .addComponent(jt_winToernooicode)
+                    .addComponent(jt_winPlaats, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
+                        .addComponent(jb_eerste)
+                        .addGap(18, 18, 18)
+                        .addComponent(jb_tweede)
+                        .addGap(18, 18, 18)
+                        .addComponent(jb_derde)
+                        .addGap(50, 50, 50)
+                        .addComponent(jb_sluit))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jf_winnaarToernooiLayout.setVerticalGroup(
+            jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jb_eerste)
+                    .addComponent(jb_tweede)
+                    .addComponent(jb_derde)
+                    .addComponent(jb_sluit))
+                .addContainerGap())
+            .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jt_winSpelercode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_winSpeler))
+                .addGap(18, 18, 18)
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jt_winAchternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_winAchternaam))
+                .addGap(18, 18, 18)
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jt_winToernooicode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_winToernooicode))
+                .addGap(18, 18, 18)
+                .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jt_winPlaats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_winPlaats))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 400));
         setResizable(false);
@@ -301,6 +459,13 @@ public class Toernooi extends javax.swing.JFrame {
 
         jLabel2.setText("Plaats:");
 
+        jb_Winnaartoernooi.setText("Winnaar toekennen");
+        jb_Winnaartoernooi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_WinnaartoernooiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -314,7 +479,8 @@ public class Toernooi extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jb_tafel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
                             .addComponent(jb_speler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jb_masterclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jb_masterclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_Winnaartoernooi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jl_toernooiCode)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -346,7 +512,9 @@ public class Toernooi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_tafel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jb_masterclass))
+                        .addComponent(jb_masterclass)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jb_Winnaartoernooi))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -462,8 +630,7 @@ public class Toernooi extends javax.swing.JFrame {
                 inschrijvenToernooi(selectedPCode, "n", aantalPlaatsen);
             } else if (aantalPlaatsen == 0) {
                 JOptionPane.showMessageDialog(null, "Geen beschikbare plaatsen!");
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Toevoegen niet toegestaan!");
             }
 
@@ -514,6 +681,140 @@ public class Toernooi extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jf_inschrijving.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jb_WinnaartoernooiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_WinnaartoernooiActionPerformed
+        jf_winnaarToernooi.setVisible(true);
+    }//GEN-LAST:event_jb_WinnaartoernooiActionPerformed
+
+    private void jb_eersteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_eersteActionPerformed
+        int selectedRow = jt_Winnaar.getSelectedRow();
+        String spelerCode = (String) jt_Winnaar.getValueAt(selectedRow, 0);
+        String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
+
+        voegToernooiwinnaarToe(spelerCode, toernooiCode);
+    }//GEN-LAST:event_jb_eersteActionPerformed
+
+    private void jt_winSpelercodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_winSpelercodeKeyReleased
+        vulWinnaarTabel();
+    }//GEN-LAST:event_jt_winSpelercodeKeyReleased
+
+    private void jt_winAchternaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_winAchternaamKeyReleased
+        vulWinnaarTabel();
+    }//GEN-LAST:event_jt_winAchternaamKeyReleased
+
+    private void jt_winToernooicodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_winToernooicodeKeyReleased
+        vulWinnaarTabel();
+    }//GEN-LAST:event_jt_winToernooicodeKeyReleased
+
+    private void jt_winPlaatsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_winPlaatsKeyReleased
+        vulWinnaarTabel();
+    }//GEN-LAST:event_jt_winPlaatsKeyReleased
+
+    private void jb_tweedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_tweedeActionPerformed
+        int selectedRow = jt_Winnaar.getSelectedRow();
+        
+        String spelerCode = (String) jt_Winnaar.getValueAt(selectedRow, 0);
+        String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
+
+        voegTweedeplaatsToe(spelerCode, toernooiCode);
+    }//GEN-LAST:event_jb_tweedeActionPerformed
+
+    private void jb_derdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_derdeActionPerformed
+        int selectedRow = jt_Winnaar.getSelectedRow();
+        String spelerCode = (String) jt_Winnaar.getValueAt(selectedRow, 0);
+        String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
+
+        voegDerdeplaatsToe(spelerCode, toernooiCode);
+    }//GEN-LAST:event_jb_derdeActionPerformed
+
+    private void jb_sluitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_sluitActionPerformed
+        jf_winnaarToernooi.dispose();
+    }//GEN-LAST:event_jb_sluitActionPerformed
+
+    public void vulWinnaarTabel() {
+        {
+            try {
+                TableModel toernooiModel = createWinnaarModel();
+
+                String query = "select p.p_code , p.voornaam ,p.achternaam, t.t_code, t.plaats, t.datum "
+                        + "from toernooi t JOIN toernooi_inschrijvingen ti ON t.t_code = ti.toernooi_code "
+                        + "JOIN persoon p ON p.p_code = ti.persoon_code "
+                        + "Where p.p_code LIKE ? AND p.achternaam LIKE ? AND t.t_code LIKE ? AND t.plaats LIKE ?;";
+
+                PreparedStatement statement = connection.prepareStatement(query);
+
+                statement.setString(1, getZoekTermWinspelercode());
+                statement.setString(2, getZoekTermWinachternaam());
+                statement.setString(3, getZoekTermWintoernooicode());
+                statement.setString(4, getZoekTermWinplaats());
+
+                ResultSet results = statement.executeQuery();
+
+                while (results.next()) {
+                    int p_code = results.getInt("p_code");
+                    String voornaam = results.getString("voornaam");
+                    String achternaam = results.getString("achternaam");
+                    String Wtoernooicode = results.getString("t_code");
+                    String plaats = results.getString("plaats");
+                    String datum = results.getString("datum");
+                    Object[] rij = {p_code, voornaam, achternaam, Wtoernooicode, plaats, datum};
+                    toernooiModel.addRow(rij);
+                }
+                this.jt_Winnaar.setModel(toernooiModel);
+            } catch (SQLException ex) {
+                Logger.getLogger(Toernooi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
+    private void voegDerdeplaatsToe(String spelerCode, String toernooiCode) {
+        try {
+
+            String query = "update toernooi set derde_plaats = ? WHERE t_code = ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, spelerCode);
+
+            statement.setString(2, toernooiCode);
+
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void voegTweedeplaatsToe(String spelerCode, String toernooiCode) {
+        try {
+
+            String query = "update toernooi set tweede_plaats = ? WHERE t_code = ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, spelerCode);
+
+            statement.setString(2, toernooiCode);
+
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void voegToernooiwinnaarToe(String spelerCode, String toernooiCode) {
+        try {
+
+            String query = "update toernooi set winnaar = ? WHERE t_code = ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, spelerCode);
+
+            statement.setString(2, toernooiCode);
+
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void vulToernooiTabel() {
         try {
@@ -676,13 +977,12 @@ public class Toernooi extends javax.swing.JFrame {
             statement2.setInt(2, selectedTCode);
             statement2.setString(3, betaaldString);
             statement2.execute();
-            
+
             String queryInsertRD = "insert into Ronde_deelnemers(speler_code, toernooi_code) values (?, ?)";
             PreparedStatement statementRD = connection.prepareStatement(queryInsertRD);
             statementRD.setInt(1, code);
             statementRD.setInt(2, selectedTCode);
             statementRD.execute();
-            
 
             updateMasterclass(beschikbarePlaatsen);
 
@@ -731,6 +1031,18 @@ public class Toernooi extends javax.swing.JFrame {
         model.addColumn("Aantal Deelnemers");
         model.addColumn("Kosten");
         model.addColumn("Totaal Prijzengeld");
+        return model;
+    }
+
+    private TableModel createWinnaarModel() {
+
+        TableModel model = new TableModel();
+        model.addColumn("Persoon code");
+        model.addColumn("Voornaam");
+        model.addColumn("Achternaam");
+        model.addColumn("toernooi code");
+        model.addColumn("toernooi plaats");
+        model.addColumn("toernooi datum");
         return model;
     }
 
@@ -822,6 +1134,42 @@ public class Toernooi extends javax.swing.JFrame {
         }
     }
 
+    private String getZoekTermWinplaats() {
+        String text2 = jt_winPlaats.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+
+    private String getZoekTermWintoernooicode() {
+        String text2 = jt_winToernooicode.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+
+    private String getZoekTermWinachternaam() {
+        String text2 = jt_winAchternaam.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+
+    private String getZoekTermWinspelercode() {
+        String text2 = jt_winSpelercode.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+
     public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
@@ -868,23 +1216,39 @@ public class Toernooi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton jb_Winnaartoernooi;
     private javax.swing.JButton jb_cancel;
+    private javax.swing.JButton jb_derde;
+    private javax.swing.JButton jb_eerste;
     private javax.swing.JButton jb_inschrijven;
     private javax.swing.JButton jb_masterclass;
+    private javax.swing.JButton jb_sluit;
     private javax.swing.JButton jb_speler;
     private javax.swing.JButton jb_tafel;
+    private javax.swing.JButton jb_tweede;
     private javax.swing.JButton jb_update;
     private javax.swing.JCheckBox jcb_betaald;
     private javax.swing.JFrame jf_inschrijving;
+    private javax.swing.JFrame jf_winnaarToernooi;
     private javax.swing.JLabel jl_beschikbarePlaatsen;
     private javax.swing.JLabel jl_datum;
     private javax.swing.JLabel jl_toernooiCode;
+    private javax.swing.JLabel jl_winAchternaam;
+    private javax.swing.JLabel jl_winPlaats;
+    private javax.swing.JLabel jl_winSpeler;
+    private javax.swing.JLabel jl_winToernooicode;
+    private javax.swing.JTable jt_Winnaar;
     private javax.swing.JTable jt_inschrijvingen;
     private javax.swing.JTable jt_persoon;
     private javax.swing.JTable jt_toernooi;
     private javax.swing.JTextField jt_toernooicode;
+    private javax.swing.JTextField jt_winAchternaam;
+    private javax.swing.JTextField jt_winPlaats;
+    private javax.swing.JTextField jt_winSpelercode;
+    private javax.swing.JTextField jt_winToernooicode;
     private javax.swing.JTextField tf_achternaam;
     private javax.swing.JTextField tf_datum;
     private javax.swing.JTextField tf_plaats;
