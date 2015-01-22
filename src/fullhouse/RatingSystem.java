@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -95,7 +96,22 @@ public class RatingSystem extends javax.swing.JFrame {
     private int nieuweRating6;
     private int nieuweRating7;
     private int nieuweRating8;
-    private double expScore;
+    private int oudeRating;
+    private int oudeRating2;
+    private int oudeRating3;
+    private int oudeRating4;
+    private int oudeRating5;
+    private int oudeRating6;
+    private int oudeRating7;
+    private int oudeRating8;
+    private double opafRating1_8;
+    private double opafRating2_7;
+    private double opafRating3_6;
+    private double opafRating4_5;
+    private double expScore1_8;
+    private double expScore2_7;
+    private double expScore3_6;
+    private double expScore4_5;
     private int score = 1;
     private int constant = 20;
 
@@ -111,14 +127,14 @@ public class RatingSystem extends javax.swing.JFrame {
         String oudeRatingString8 = j_rating8.getText();
 
 
-        int oudeRating = Integer.parseInt(oudeRatingString);
-        int oudeRating2 = Integer.parseInt(oudeRatingString2);
-        int oudeRating3 = Integer.parseInt(oudeRatingString3);
-        int oudeRating4 = Integer.parseInt(oudeRatingString4);
-        int oudeRating5 = Integer.parseInt(oudeRatingString5);
-        int oudeRating6 = Integer.parseInt(oudeRatingString6);
-        int oudeRating7 = Integer.parseInt(oudeRatingString7);
-        int oudeRating8 = Integer.parseInt(oudeRatingString8);
+        oudeRating = Integer.parseInt(oudeRatingString);
+        oudeRating2 = Integer.parseInt(oudeRatingString2);
+        oudeRating3 = Integer.parseInt(oudeRatingString3);
+        oudeRating4 = Integer.parseInt(oudeRatingString4);
+        oudeRating5 = Integer.parseInt(oudeRatingString5);
+        oudeRating6 = Integer.parseInt(oudeRatingString6);
+        oudeRating7 = Integer.parseInt(oudeRatingString7);
+        oudeRating8 = Integer.parseInt(oudeRatingString8);
 
         int maxRating1_8 = Math.max(oudeRating, oudeRating8);
         int minRating1_8 = Math.min(oudeRating, oudeRating8);
@@ -133,129 +149,132 @@ public class RatingSystem extends javax.swing.JFrame {
         int minRating4_5 = Math.min(oudeRating4, oudeRating5);
 
         if (maxRating1_8 - minRating1_8 == 0) {
-            expScore = 0.5;
+            expScore1_8 = 0.5;
         } else if (maxRating1_8 - minRating1_8 <= 21 && maxRating1_8 - minRating1_8 > 0) {
-            expScore = 0.53;
+            expScore1_8 = 0.53;
         } else if (maxRating1_8 - minRating1_8 <= 41 && maxRating1_8 - minRating1_8 > 20) {
-            expScore = 0.58;
+            expScore1_8 = 0.58;
         } else if (maxRating1_8 - minRating1_8 <= 61 && maxRating1_8 - minRating1_8 > 40) {
-            expScore = 0.62;
+            expScore1_8 = 0.62;
         } else if (maxRating1_8 - minRating1_8 <= 81 && maxRating1_8 - minRating1_8 > 60) {
-            expScore = 0.66;
+            expScore1_8 = 0.66;
         } else if (maxRating1_8 - minRating1_8 <= 101 && maxRating1_8 - minRating1_8 > 80) {
-            expScore = 0.69;
+            expScore1_8 = 0.69;
         } else if (maxRating1_8 - minRating1_8 <= 121 && maxRating1_8 - minRating1_8 > 100) {
-            expScore = 0.73;
+            expScore1_8 = 0.73;
         } else if (maxRating1_8 - minRating1_8 <= 141 && maxRating1_8 - minRating1_8 > 120) {
-            expScore = 0.76;
+            expScore1_8 = 0.76;
         } else if (maxRating1_8 - minRating1_8 <= 161 && maxRating1_8 - minRating1_8 > 140) {
-            expScore = 0.79;
+            expScore1_8 = 0.79;
         } else if (maxRating1_8 - minRating1_8 <= 181 && maxRating1_8 - minRating1_8 > 160) {
-            expScore = 0.82;
+            expScore1_8 = 0.82;
         } else if (maxRating1_8 - minRating1_8 <= 201 && maxRating1_8 - minRating1_8 > 180) {
-            expScore = 0.84;
+            expScore1_8 = 0.84;
         } else if (maxRating1_8 - minRating1_8 <= 301 && maxRating1_8 - minRating1_8 > 200) {
-            expScore = 0.93;
+            expScore1_8 = 0.93;
         } else if (maxRating1_8 - minRating1_8 <= 401 && maxRating1_8 - minRating1_8 > 300) {
-            expScore = 0.97;
+            expScore1_8 = 0.97;
         }
         
         if (maxRating2_7 - minRating2_7 == 0) {
-            expScore = 0.5;
+            expScore2_7 = 0.5;
         } else if (maxRating2_7 - minRating2_7 <= 21 && maxRating2_7 - minRating2_7 > 0) {
-            expScore = 0.53;
+            expScore2_7 = 0.53;
         } else if (maxRating2_7 - minRating2_7 <= 41 && maxRating2_7 - minRating2_7 > 20) {
-            expScore = 0.58;
+            expScore2_7 = 0.58;
         } else if (maxRating2_7 - minRating2_7 <= 61 && maxRating2_7 - minRating2_7 > 40) {
-            expScore = 0.62;
+            expScore2_7 = 0.62;
         } else if (maxRating2_7 - minRating2_7 <= 81 && maxRating2_7 - minRating2_7 > 60) {
-            expScore = 0.66;
+            expScore2_7 = 0.66;
         } else if (maxRating2_7 - minRating2_7 <= 101 && maxRating2_7 - minRating2_7 > 80) {
-            expScore = 0.69;
+            expScore2_7 = 0.69;
         } else if (maxRating2_7 - minRating2_7 <= 121 && maxRating2_7 - minRating2_7 > 100) {
-            expScore = 0.73;
+            expScore2_7 = 0.73;
         } else if (maxRating2_7 - minRating2_7 <= 141 && maxRating2_7 - minRating2_7 > 120) {
-            expScore = 0.76;
+            expScore2_7 = 0.76;
         } else if (maxRating2_7 - minRating2_7 <= 161 && maxRating2_7 - minRating2_7 > 140) {
-            expScore = 0.79;
+            expScore2_7 = 0.79;
         } else if (maxRating2_7 - minRating2_7 <= 181 && maxRating2_7 - minRating2_7 > 160) {
-            expScore = 0.82;
+            expScore2_7 = 0.82;
         } else if (maxRating2_7 - minRating2_7 <= 201 && maxRating2_7 - minRating2_7 > 180) {
-            expScore = 0.84;
+            expScore2_7 = 0.84;
         } else if (maxRating2_7 - minRating2_7 <= 301 && maxRating2_7 - minRating2_7 > 200) {
-            expScore = 0.93;
+            expScore2_7 = 0.93;
         } else if (maxRating2_7 - minRating2_7 <= 401 && maxRating2_7 - minRating2_7 > 300) {
-            expScore = 0.97;
+            expScore2_7 = 0.97;
         }
         
         if (maxRating3_6 - minRating3_6 == 0) {
-            expScore = 0.5;
+            expScore3_6 = 0.5;
         } else if (maxRating3_6 - minRating3_6 <= 21 && maxRating3_6 - minRating3_6 > 0) {
-            expScore = 0.53;
+            expScore3_6 = 0.53;
         } else if (maxRating3_6 - minRating3_6 <= 41 && maxRating3_6 - minRating3_6 > 20) {
-            expScore = 0.58;
+            expScore3_6 = 0.58;
         } else if (maxRating3_6 - minRating3_6 <= 61 && maxRating3_6 - minRating3_6 > 40) {
-            expScore = 0.62;
+            expScore3_6 = 0.62;
         } else if (maxRating3_6 - minRating3_6 <= 81 && maxRating3_6 - minRating3_6 > 60) {
-            expScore = 0.66;
+            expScore3_6 = 0.66;
         } else if (maxRating3_6 - minRating3_6 <= 101 && maxRating3_6 - minRating3_6 > 80) {
-            expScore = 0.69;
+            expScore3_6 = 0.69;
         } else if (maxRating3_6 - minRating3_6 <= 121 && maxRating3_6 - minRating3_6 > 100) {
-            expScore = 0.73;
+            expScore3_6 = 0.73;
         } else if (maxRating3_6 - minRating3_6 <= 141 && maxRating3_6 - minRating3_6 > 120) {
-            expScore = 0.76;
+            expScore3_6 = 0.76;
         } else if (maxRating3_6 - minRating3_6 <= 161 && maxRating3_6 - minRating3_6 > 140) {
-            expScore = 0.79;
+            expScore3_6 = 0.79;
         } else if (maxRating3_6 - minRating3_6 <= 181 && maxRating3_6 - minRating3_6 > 160) {
-            expScore = 0.82;
+            expScore3_6 = 0.82;
         } else if (maxRating3_6 - minRating3_6 <= 201 && maxRating3_6 - minRating3_6 > 180) {
-            expScore = 0.84;
+            expScore3_6 = 0.84;
         } else if (maxRating3_6 - minRating3_6 <= 301 && maxRating3_6 - minRating3_6 > 200) {
-            expScore = 0.93;
+            expScore3_6 = 0.93;
         } else if (maxRating3_6 - minRating3_6 <= 401 && maxRating3_6 - minRating3_6 > 300) {
-            expScore = 0.97;
+            expScore3_6 = 0.97;
         }
         
         if (maxRating4_5 - minRating4_5 == 0) {
-            expScore = 0.5;
+            expScore4_5 = 0.5;
         } else if (maxRating4_5 - minRating4_5 <= 21 && maxRating4_5 - minRating4_5 > 0) {
-            expScore = 0.53;
+            expScore4_5 = 0.53;
         } else if (maxRating4_5 - minRating4_5 <= 41 && maxRating4_5 - minRating4_5 > 20) {
-            expScore = 0.58;
+            expScore4_5 = 0.58;
         } else if (maxRating4_5 - minRating4_5 <= 61 && maxRating4_5 - minRating4_5 > 40) {
-            expScore = 0.62;
+            expScore4_5 = 0.62;
         } else if (maxRating4_5 - minRating4_5 <= 81 && maxRating4_5 - minRating4_5 > 60) {
-            expScore = 0.66;
+            expScore4_5 = 0.66;
         } else if (maxRating4_5 - minRating4_5 <= 101 && maxRating4_5 - minRating4_5 > 80) {
-            expScore = 0.69;
+            expScore4_5 = 0.69;
         } else if (maxRating4_5 - minRating4_5 <= 121 && maxRating4_5 - minRating4_5 > 100) {
-            expScore = 0.73;
+            expScore4_5 = 0.73;
         } else if (maxRating4_5 - minRating4_5 <= 141 && maxRating4_5 - minRating4_5 > 120) {
-            expScore = 0.76;
+            expScore4_5 = 0.76;
         } else if (maxRating4_5 - minRating4_5 <= 161 && maxRating4_5 - minRating4_5 > 140) {
-            expScore = 0.79;
+            expScore4_5 = 0.79;
         } else if (maxRating4_5 - minRating4_5 <= 181 && maxRating4_5 - minRating4_5 > 160) {
-            expScore = 0.82;
+            expScore4_5 = 0.82;
         } else if (maxRating4_5 - minRating4_5 <= 201 && maxRating4_5 - minRating4_5 > 180) {
-            expScore = 0.84;
+            expScore4_5 = 0.84;
         } else if (maxRating4_5 - minRating4_5 <= 301 && maxRating4_5 - minRating4_5 > 200) {
-            expScore = 0.93;
+            expScore4_5 = 0.93;
         } else if (maxRating4_5 - minRating4_5 <= 401 && maxRating4_5 - minRating4_5 > 300) {
-            expScore = 0.97;
+            expScore4_5 = 0.97;
         }
 
-        double opafRating = constant * (score - expScore);
+        opafRating1_8 = constant * (score - expScore1_8);
+        opafRating2_7 = constant * (score - expScore2_7);
+        opafRating3_6 = constant * (score - expScore3_6);
+        opafRating4_5 = constant * (score - expScore4_5);
 
 
 
-        nieuweRating1 = (int) (oudeRating + opafRating);
-        nieuweRating2 = (int) (oudeRating2 + opafRating);
-        nieuweRating3 = (int) (oudeRating3 + opafRating);
-        nieuweRating4 = (int) (oudeRating4 + opafRating);
-        nieuweRating5 = (int) (oudeRating5 - opafRating);
-        nieuweRating6 = (int) (oudeRating6 - opafRating);
-        nieuweRating7 = (int) (oudeRating7 - opafRating);
-        nieuweRating8 = (int) (oudeRating8 - opafRating);
+        nieuweRating1 = (int) (oudeRating + opafRating1_8);
+        nieuweRating2 = (int) (oudeRating2 + opafRating2_7);
+        nieuweRating3 = (int) (oudeRating3 + opafRating3_6);
+        nieuweRating4 = (int) (oudeRating4 + opafRating4_5);
+        nieuweRating5 = (int) (oudeRating5 - opafRating4_5);
+        nieuweRating6 = (int) (oudeRating6 - opafRating3_6);
+        nieuweRating7 = (int) (oudeRating7 - opafRating2_7);
+        nieuweRating8 = (int) (oudeRating8 - opafRating1_8);
         
         if (nieuweRating5 < 0){
             nieuweRating5 = 0;
@@ -304,10 +323,12 @@ public class RatingSystem extends javax.swing.JFrame {
     private void updateRating(){
 
             try {
-                String p_code = r_Speler1.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+                try {
+                    
+                    String p_code = r_Speler1.getText();
+                    int p_codeint = Integer.parseInt(p_code);
+                    String query = "UPDATE persoon "
+                                    + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -315,16 +336,22 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             try {
-            
-            String p_code = r_Speler2.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+                try {
+                    
+                    String p_code = r_Speler2.getText();
+                    int p_codeint = Integer.parseInt(p_code);
+                    String query = "UPDATE persoon "
+                                    + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -332,16 +359,22 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+            
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
             
             try {
-            
-            String p_code = r_Speler3.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+                try {
+                    
+                    String p_code = r_Speler3.getText();
+                    int p_codeint = Integer.parseInt(p_code);
+                    String query = "UPDATE persoon "
+                                    + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -349,16 +382,21 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+                
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
             
             try {
-            
-            String p_code = r_Speler4.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+                try {
+                    String p_code = r_Speler4.getText();
+                    int p_codeint = Integer.parseInt(p_code);
+                    String query = "UPDATE persoon "
+                                    + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -366,16 +404,22 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+            
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
             
             try {
-            
-            String p_code = r_Speler5.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+                try {
+                    
+                    String p_code = r_Speler5.getText();
+                    int p_codeint = Integer.parseInt(p_code);
+                    String query = "UPDATE persoon "
+                                    + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -383,16 +427,22 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+            
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
             
             try {
-            
-            String p_code = r_Speler6.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+                try {
+                    
+                     String p_code = r_Speler6.getText();
+                     int p_codeint = Integer.parseInt(p_code);
+                     String query = "UPDATE persoon "
+                                    + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -400,16 +450,22 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+           
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
             
             try {
-            
-            String p_code = r_Speler7.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+               try {
+                    
+                    String p_code = r_Speler7.getText();
+                    int p_codeint = Integer.parseInt(p_code);
+                    String query = "UPDATE persoon "
+                                    + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -417,16 +473,22 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+            
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
             
-            try {
-            
-            String p_code = r_Speler8.getText();
-                int p_codeint = Integer.parseInt(p_code);
-                String query = "UPDATE persoon "
-                            + "SET rating = ? WHERE p_code like ?;";
+            try { 
+                try {
+                    
+                    String p_code = r_Speler8.getText();
+                    int p_codeint = Integer.parseInt(p_code);
+                    String query = "UPDATE persoon "
+                                   + "SET rating = ? WHERE p_code like ?;";
                     
                     PreparedStatement persoonStatement = connection.prepareStatement(query);
 
@@ -434,10 +496,97 @@ public class RatingSystem extends javax.swing.JFrame {
                     persoonStatement.setInt(2, p_codeint);
 
                     persoonStatement.execute();
+                    
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+                }
+                
         } catch (SQLException ex) {
             Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+    }
+    
+    private void opafRating(){
+        try {
+            try {
+                
+                String p_code = r_Speler1.getText();
+                   int p_code_int = Integer.parseInt(p_code);
+                   
+                   String to_code = t_toernooicode.getText();
+                   int to_code_int = Integer.parseInt(to_code);
+                   
+                   String ta_code = t_tafelcode.getText();
+                   int ta_code_int = Integer.parseInt(ta_code);
+                   
+                   String rondenr = t_rondenr.getText();
+                   int ronde_nr_int = Integer.parseInt(rondenr);
+                   
+                   String query = "UPDATE tafel_deelnemers "
+                               + "SET rating_op_af = ? WHERE persoon_code like ? "
+                               + "and toernooi_code like ? and ronde_code like ? "
+                               + "and tafel_code like ?;";
+                       
+                       PreparedStatement persoonStatement = connection.prepareStatement(query);
+
+                       persoonStatement.setDouble(1, opafRating1_8);
+                       persoonStatement.setInt(2, p_code_int);
+                       persoonStatement.setInt(3, to_code_int);
+                       persoonStatement.setInt(4, ronde_nr_int);
+                       persoonStatement.setInt(5, ta_code_int);
+                       
+                   persoonStatement.execute();
+                
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+            }
+                   
+                   
+                   
+        } catch (SQLException ex) {
+            Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            try {
+                
+                   String p_code = r_Speler2.getText();
+                   int p_code_int = Integer.parseInt(p_code);
+                   
+                   String to_code = t_toernooicode.getText();
+                   int to_code_int = Integer.parseInt(to_code);
+                   
+                   String ta_code = t_tafelcode.getText();
+                   int ta_code_int = Integer.parseInt(ta_code);
+                   
+                   String rondenr = t_rondenr.getText();
+                   int ronde_nr_int = Integer.parseInt(rondenr);
+                   
+                   String query = "UPDATE tafel_deelnemers "
+                               + "SET rating_op_af = ? WHERE persoon_code like ? "
+                               + "and toernooi_code like ? and ronde_code like ? "
+                               + "and tafel_code like ?;";
+                       
+                       PreparedStatement persoonStatement = connection.prepareStatement(query);
+
+                       persoonStatement.setDouble(1, opafRating2_7);
+                       persoonStatement.setInt(2, p_code_int);
+                       persoonStatement.setInt(3, to_code_int);
+                       persoonStatement.setInt(4, ronde_nr_int);
+                       persoonStatement.setInt(5, ta_code_int);
+                       
+                   persoonStatement.execute();
+                
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+            }
+                   
+                   
+                   
+        } catch (SQLException ex) {
+            Logger.getLogger(RatingSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -449,6 +598,7 @@ public class RatingSystem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        op_error = new javax.swing.JOptionPane();
         b_ok = new javax.swing.JButton();
         l_1ste = new javax.swing.JLabel();
         t_spelerCode = new javax.swing.JTextField();
@@ -512,10 +662,20 @@ public class RatingSystem extends javax.swing.JFrame {
         l_achternaam = new javax.swing.JLabel();
         t_achternaam = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        t_rondenr = new javax.swing.JTextField();
+        t_toernooicode = new javax.swing.JTextField();
+        l_ronde = new javax.swing.JLabel();
+        l_toernooi = new javax.swing.JLabel();
+        t_tafelcode = new javax.swing.JTextField();
+        l_tafel = new javax.swing.JLabel();
+
+        op_error.setMessage("Vul alle velden in.");
+        op_error.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        op_error.getAccessibleContext().setAccessibleParent(jScrollPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        b_ok.setText("OK!");
+        b_ok.setText("bereken");
         b_ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_okActionPerformed(evt);
@@ -689,6 +849,12 @@ public class RatingSystem extends javax.swing.JFrame {
             }
         });
 
+        l_ronde.setText("Ronde:");
+
+        l_toernooi.setText("Toernooi:");
+
+        l_tafel.setText("Tafel:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -740,44 +906,41 @@ public class RatingSystem extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(j_nrating8, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(b_ok)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(l_2de)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(r_Speler2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(l_1ste)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(r_Speler1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(l_2de)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(r_Speler2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(l_1ste)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(r_Speler1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(l_3de)
-                                                            .addComponent(l_4de))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                            .addComponent(r_Speler4, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                                                            .addComponent(r_Speler3))))
+                                                    .addComponent(l_3de)
+                                                    .addComponent(l_4de))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(l_1pijltje8)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(l_8ste))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(l_2pijltje7)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(l_7de))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(l_3pijltje6)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(l_6de))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(l_4pijltje5)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(l_5de)))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(r_Speler4, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                                                    .addComponent(r_Speler3))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(l_1pijltje8)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(l_8ste))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(l_2pijltje7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(l_7de))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(l_3pijltje6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(l_6de))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(l_4pijltje5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(l_5de)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(r_Speler6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -789,8 +952,11 @@ public class RatingSystem extends javax.swing.JFrame {
                                     .addComponent(l_1oud, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(l_2oud, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(l_oud3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(l_oud4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                    .addComponent(l_oud4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(l_ronde, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(l_toernooi, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(l_tafel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(l_oudeRating)
                             .addGroup(layout.createSequentialGroup()
@@ -818,9 +984,14 @@ public class RatingSystem extends javax.swing.JFrame {
                                         .addGap(1, 1, 1)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(j_rating8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(j_rating7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                            .addComponent(j_rating7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(t_tafelcode, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                                .addComponent(t_rondenr, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(t_toernooicode, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addComponent(l_nieuweRating)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(b_ok))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -895,9 +1066,9 @@ public class RatingSystem extends javax.swing.JFrame {
                                             .addComponent(r_Speler5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(l_5de)
                                             .addComponent(l_4pijltje5))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(b_ok)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(b_ok)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(l_nieuweRating)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -910,19 +1081,25 @@ public class RatingSystem extends javax.swing.JFrame {
                                     .addComponent(l_nieuw2)
                                     .addComponent(j_nrating2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(j_nrating6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(l_nieuw6))
+                                    .addComponent(l_nieuw6)
+                                    .addComponent(t_rondenr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(l_ronde))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(j_nrating3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(j_nrating7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(l_nieuw3)
-                                    .addComponent(l_nieuw7))
+                                    .addComponent(l_nieuw7)
+                                    .addComponent(t_toernooicode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(l_toernooi))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(j_nrating4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(j_nrating8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(l_nieuw4)
-                                    .addComponent(l_nieuw8))
+                                    .addComponent(l_nieuw8)
+                                    .addComponent(t_tafelcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(l_tafel))
                                 .addGap(27, 27, 27)
                                 .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
@@ -965,6 +1142,8 @@ public class RatingSystem extends javax.swing.JFrame {
     }//GEN-LAST:event_r_Speler2ActionPerformed
 
     private void b_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_okActionPerformed
+            
+        try {
             String p_code = r_Speler1.getText();
             int p_codeint = Integer.parseInt(p_code);
             int rating = getRating(p_codeint);
@@ -1013,40 +1192,42 @@ public class RatingSystem extends javax.swing.JFrame {
             String ratingString8 = String .valueOf(rating8);
             j_rating8.setText(ratingString8);
             
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Vul alle velden in.");
+        }
             
             berekenRating();
             updateRating();
             vulSpelerTabel();
-
+            opafRating();
     }//GEN-LAST:event_b_okActionPerformed
 
     private void t_spelerCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t_spelerCodeActionPerformed
-        // TODO add your handling code here:
+        // does nothing.
     }//GEN-LAST:event_t_spelerCodeActionPerformed
 
     private void t_spelerCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_spelerCodeKeyReleased
-
         this.vulSpelerTabel();
-        // TODO add your handling code here:
     }//GEN-LAST:event_t_spelerCodeKeyReleased
 
     private void r_Speler2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_r_Speler2FocusGained
     }//GEN-LAST:event_r_Speler2FocusGained
 
     private void j_rating6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j_rating6ActionPerformed
-        // TODO add your handling code here:
+        // does nothing.
     }//GEN-LAST:event_j_rating6ActionPerformed
 
     private void j_rating4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j_rating4ActionPerformed
-        // TODO add your handling code here:
+        // does nothing
     }//GEN-LAST:event_j_rating4ActionPerformed
 
     private void j_rating8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_j_rating8ActionPerformed
-        // TODO add your handling code here:
+        // does nothing
     }//GEN-LAST:event_j_rating8ActionPerformed
 
     private void r_Speler1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_Speler1ActionPerformed
-        // TODO add your handling code here:
+        // does nothing
     }//GEN-LAST:event_r_Speler1ActionPerformed
 
     private void t_achternaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_t_achternaamKeyReleased
@@ -1152,6 +1333,10 @@ public class RatingSystem extends javax.swing.JFrame {
     private javax.swing.JLabel l_oudeRating;
     private javax.swing.JLabel l_pcode;
     private javax.swing.JLabel l_plaatsRonde;
+    private javax.swing.JLabel l_ronde;
+    private javax.swing.JLabel l_tafel;
+    private javax.swing.JLabel l_toernooi;
+    private javax.swing.JOptionPane op_error;
     private javax.swing.JTextField r_Speler1;
     private javax.swing.JTextField r_Speler2;
     private javax.swing.JTextField r_Speler3;
@@ -1161,6 +1346,9 @@ public class RatingSystem extends javax.swing.JFrame {
     private javax.swing.JTextField r_Speler7;
     private javax.swing.JTextField r_Speler8;
     private javax.swing.JTextField t_achternaam;
+    private javax.swing.JTextField t_rondenr;
     private javax.swing.JTextField t_spelerCode;
+    private javax.swing.JTextField t_tafelcode;
+    private javax.swing.JTextField t_toernooicode;
     // End of variables declaration//GEN-END:variables
 }
