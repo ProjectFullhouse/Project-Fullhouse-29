@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -48,13 +49,10 @@ public class Tafel extends javax.swing.JFrame {
             statement.setInt(1, rCode);
             ResultSet results = statement.executeQuery();
 
-
-
             while (results.next()) {
 
                 aantalDeelnemers = results.getInt("aantal");
             }
-
 
         } catch (SQLException ex) {
             Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,62 +60,53 @@ public class Tafel extends javax.swing.JFrame {
         return aantalDeelnemers;
     }
 
-    private void spelersIndelen(int[] array, int selectedRows, int toernooiCode, int rCode, int tafelSize) {
-        aantalDeelnemers = selectedRows + 2;
-
-
+    private void spelersIndelen() {
         try {
 
-            String[] spelerArray = new String[aantalDeelnemers];
-
-            for (int o = 0; o <= array.length ; o++) {
-                int spelercode = array[o];
-                String spelerCodeString = String.valueOf(spelercode);
-
-                spelerArray[o] = spelerCodeString;
-
-
+            int[] selectedRows = jt_speler.getSelectedRows();
+            for (int i = 0; i < selectedRows.length; i++) {
+                String pcodeString = (String) jt_speler.getValueAt(i, 0);
+                selectedRows[i] = Integer.parseInt(pcodeString);
             }
-            int lengte = spelerArray.length;
-
-
-            Collections.shuffle(Arrays.asList(spelerArray));
-            for (int j = 0; j < spelerArray.length; j++) {
-            }
-
-
-
+            String tafelSizeString = tf_tafelSize.getText();
+            int tafelSize = Integer.parseInt(tafelSizeString);
+            String tCode = (String) jt_speler.getValueAt(selectedRows[0], 3);
+            String rCode = (String) jt_speler.getValueAt(selectedRows[0], 4);
+            int tCodeInt = Integer.parseInt(tCode);
+            int rCodeInt = Integer.parseInt(rCode);
 
             int countTCode = 0;
-            for (int k = 0; k <= spelerArray.length; k++) {
+            int[] shuffledArray = shuffleArray(selectedRows);
+            int k = 1;
+            for (int j = 0; j < shuffledArray.length; j++) {
+                
+                System.out.println(shuffledArray[j]);
                 String query2 = "update tafel_deelnemers set tafel_code = ? where toernooi_code = ? and ronde_code = ? and persoon_code like ?";
                 PreparedStatement statement2 = connection.prepareStatement(query2);
-                String pcodeArrayResult = spelerArray[k];
+                System.out.println(shuffledArray[j]);
                 statement2.setInt(1, tafelcode);
-                statement2.setInt(2, toernooiCode);
-                statement2.setInt(3, rCode);
-                statement2.setString(4, pcodeArrayResult);
+                statement2.setInt(2, tCodeInt);
+                statement2.setInt(3, rCodeInt);
+                statement2.setInt(4, shuffledArray[j]);
                 statement2.execute();
-
-                //String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
-                //PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
-                //statementCountT.setInt(1, tafelcode);
-                //ResultSet resultCountT = statementCountT.executeQuery();
-
-                //while (resultCountT.next()) {
-                //countTCode = resultCountT.getInt("aantal_t");
-                System.out.println(spelerArray.length);
-                if (aantalDeelnemers % tafelSize == 0) {
-                    tafelcode++;
-                    System.out.println(tafelcode);
+                String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
+                PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
+                statementCountT.setInt(1, tafelcode);
+                ResultSet resultCountT = statementCountT.executeQuery();
+                while (resultCountT.next()) {
+                    countTCode = resultCountT.getInt("aantal_t");
+                    String test = "tafel " + tafelcode + " = " + shuffledArray[j];
+                    System.out.println(test);
+                    if (k % tafelSize == 0) {
+                        tafelcode++;
+                        
+                    }
                 }
-                //}
-
-
+            k++;
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Alleen getallen invoeren!");
         }
     }
 
@@ -125,23 +114,21 @@ public class Tafel extends javax.swing.JFrame {
         try {
             DefaultTableModel datamodel = createSpelerModel();
             this.jt_speler.setModel(datamodel);
-            String query;
-            PreparedStatement statement;
 
-            query = "SELECT ta.persoon_code, p.voornaam, p.achternaam, ta.toernooi_code, ta.ronde_code, ta.tafel_code "
+            String query = "SELECT ta.persoon_code, p.voornaam, p.achternaam, ta.toernooi_code, ta.ronde_code, ta.tafel_code "
                     + "FROM tafel_deelnemers ta "
                     + "JOIN Ronde_deelnemers r ON ta.persoon_code = r.speler_code "
                     + "JOIN persoon p ON r.speler_code = p.p_code "
                     + "WHERE p.achternaam LIKE ? AND ta.persoon_code LIKE ? "
-                    + "AND ta.toernooi_code LIKE ? AND ta.ronde_code LIKE ?"
-                    + "AND ta.tafel_code LIKE ? order by tafel_code; ";
-            statement = connection.prepareStatement(query);
+                    + "AND ta.toernooi_code LIKE ? AND ta.ronde_code LIKE ? "
+                    + "AND (ta.tafel_code LIKE ? OR ta.tafel_code IS NULL) order by ta.tafel_code; ";
+            PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, getZoekTermAchternaam());
             statement.setString(2, getZoekTermSpelerscode());
             statement.setString(3, getZoekTermToernooicode());
             statement.setString(4, getZoekTermRondecode());
             statement.setString(5, getZoekTermTafelcode());
-            
+
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
@@ -163,23 +150,37 @@ public class Tafel extends javax.swing.JFrame {
         }
 
     }
- private void voegWinnaarToe(String spelerCode, String tafelCode, String toernooiCode, String rondeCode) {
+
+    private void voegWinnaarToe(String spelerCode, String tafelCode, String toernooiCode, String rondeCode) {
         try {
 
             String query = "update tafel_deelnemers set tafel_winnaar = ? WHERE "
                     + " tafel_code like ? and toernooi_code like  ? and ronde_code like ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            
+
             statement.setString(1, spelerCode);
             statement.setString(2, tafelCode);
             statement.setString(3, toernooiCode);
             statement.setString(4, rondeCode);
-            
+
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private static int[] shuffleArray(int[] randomArray) {
+        Random rnd = new Random();
+        for (int i = randomArray.length - 1; i > 0; i--) {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            int randomInt = randomArray[index];
+            randomArray[index] = randomArray[i];
+            randomArray[i] = randomInt;
+        }
+        return randomArray;
+    }
+
     private DefaultTableModel createSpelerModel() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("speler code");
@@ -190,8 +191,8 @@ public class Tafel extends javax.swing.JFrame {
         model.addColumn("Tafel code");
         return model;
     }
- 
-        private String getZoekTermTafelcode() {
+
+    private String getZoekTermTafelcode() {
         String text2 = tf_tafelcode.getText();
         if (text2.length() == 0) {
             return "%";
@@ -199,8 +200,7 @@ public class Tafel extends javax.swing.JFrame {
             return "%" + text2 + "%";
         }
     }
-    
-    
+
     private String getZoekTermAchternaam() {
         String text2 = tf_achternaam.getText();
         if (text2.length() == 0) {
@@ -491,21 +491,7 @@ public class Tafel extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_spelerscodeKeyReleased
 
     private void deelInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deelInActionPerformed
-        try {
-            
-            int[] selectedRows = jt_speler.getSelectedRows();
-            int aantalRijen = jt_speler.getSelectedRowCount();
-            String tafelSizeString = tf_tafelSize.getText();
-            int tafelSize = Integer.parseInt(tafelSizeString);
-
-            String tCode = (String) jt_speler.getValueAt(selectedRows[0], 3);
-            String rCode = (String) jt_speler.getValueAt(selectedRows[0], 4);
-            int tCodeInt = Integer.parseInt(tCode);
-            int rCodeInt = Integer.parseInt(rCode);
-            spelersIndelen(selectedRows, aantalRijen, tCodeInt, rCodeInt, tafelSize);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Alleen getallen invoeren!");
-        }
+        spelersIndelen();
 
         vulSpelerTabel();
 
@@ -537,12 +523,12 @@ public class Tafel extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    int selectedRow = jt_speler.getSelectedRow();
+        int selectedRow = jt_speler.getSelectedRow();
         String spelerCode = (String) jt_speler.getValueAt(selectedRow, 0);
         String tafelCode = (String) jt_speler.getValueAt(selectedRow, 5);
         String toernooiCode = (String) jt_speler.getValueAt(selectedRow, 3);
         String rondeCode = (String) jt_speler.getValueAt(selectedRow, 4);
-        
+
         voegWinnaarToe(spelerCode, tafelCode, toernooiCode, rondeCode);
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -552,7 +538,7 @@ public class Tafel extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_tafelcodeActionPerformed
 
     private void tf_tafelcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_tafelcodeKeyReleased
-       vulSpelerTabel();
+        vulSpelerTabel();
     }//GEN-LAST:event_tf_tafelcodeKeyReleased
 
     /**
