@@ -26,6 +26,7 @@ public class Ronde extends javax.swing.JFrame {
     public Ronde() {
         initComponents();
         vulSpelerTabel();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

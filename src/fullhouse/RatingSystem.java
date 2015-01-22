@@ -256,6 +256,21 @@ public class RatingSystem extends javax.swing.JFrame {
         nieuweRating6 = (int) (oudeRating6 - opafRating);
         nieuweRating7 = (int) (oudeRating7 - opafRating);
         nieuweRating8 = (int) (oudeRating8 - opafRating);
+        
+        if (nieuweRating5 < 0){
+            nieuweRating5 = 0;
+        }
+        if (nieuweRating6 < 0){
+            nieuweRating6 = 0;
+        }
+        if (nieuweRating7 < 0){
+            nieuweRating7 = 0;
+        }
+        if (nieuweRating8 < 0){
+            nieuweRating8 = 0;
+        }
+        
+        
         j_nrating1.setText("" + nieuweRating1 + "");
         j_nrating2.setText("" + nieuweRating2 + "");
         j_nrating3.setText("" + nieuweRating3 + "");
@@ -496,6 +511,7 @@ public class RatingSystem extends javax.swing.JFrame {
         l_oud8 = new javax.swing.JLabel();
         l_achternaam = new javax.swing.JLabel();
         t_achternaam = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -666,6 +682,13 @@ public class RatingSystem extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Cancel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -763,15 +786,11 @@ public class RatingSystem extends javax.swing.JFrame {
                                             .addComponent(r_Speler5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(l_1oud, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(l_2oud, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(l_oud3, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(l_oud4)
-                                        .addGap(4, 4, 4)))))
+                                    .addComponent(l_1oud, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(l_2oud, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(l_oud3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(l_oud4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(l_oudeRating)
                             .addGroup(layout.createSequentialGroup()
@@ -800,7 +819,8 @@ public class RatingSystem extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(j_rating8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(j_rating7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addComponent(l_nieuweRating))
+                    .addComponent(l_nieuweRating)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -831,9 +851,9 @@ public class RatingSystem extends javax.swing.JFrame {
                             .addComponent(t_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(l_oudeRating)
-                            .addComponent(l_plaatsRonde))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(l_plaatsRonde, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(l_oudeRating))
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -903,7 +923,8 @@ public class RatingSystem extends javax.swing.JFrame {
                                     .addComponent(j_nrating8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(l_nieuw4)
                                     .addComponent(l_nieuw8))
-                                .addGap(61, 61, 61))
+                                .addGap(27, 27, 27)
+                                .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(j_rating1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -932,7 +953,8 @@ public class RatingSystem extends javax.swing.JFrame {
                                             .addComponent(j_rating4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(l_oud4)
                                             .addComponent(l_oud8))))
-                                .addContainerGap())))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
 
         pack();
@@ -1031,6 +1053,10 @@ public class RatingSystem extends javax.swing.JFrame {
         this.vulSpelerTabel();
     }//GEN-LAST:event_t_achternaamKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1074,6 +1100,7 @@ public class RatingSystem extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_ok;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField j_nrating1;
     private javax.swing.JTextField j_nrating2;

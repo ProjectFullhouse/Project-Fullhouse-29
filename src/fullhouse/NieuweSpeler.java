@@ -411,7 +411,7 @@ public class NieuweSpeler extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_toernooiZoekenActionPerformed
 
     private void jb_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelActionPerformed
-        
+        this.dispose();
     }//GEN-LAST:event_jb_cancelActionPerformed
 
     private void jb_masterclassZoekenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_masterclassZoekenActionPerformed
