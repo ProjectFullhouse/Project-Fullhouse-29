@@ -384,10 +384,10 @@ public class Masterclass extends javax.swing.JFrame {
             int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRows[i], 0);
             int selectedRating = (Integer) jt_persoon.getValueAt(selectedRows[i], 3);
             
-            if (jcb_betaald.isSelected() && selectedRating > neededRating && aantalPlaatsen > 0) {
+            if (jcb_betaald.isSelected() && selectedRating >= neededRating && aantalPlaatsen > 0) {
 
                 inschrijvenMasterclass(selectedPCode, "j", aantalPlaatsen);
-            } else if (!jcb_betaald.isSelected() && selectedRating > neededRating && aantalPlaatsen > 0) {
+            } else if (!jcb_betaald.isSelected() && selectedRating >= neededRating && aantalPlaatsen > 0) {
 
                 inschrijvenMasterclass(selectedPCode, "n", aantalPlaatsen);
             }
