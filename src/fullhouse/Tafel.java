@@ -133,13 +133,15 @@ public class Tafel extends javax.swing.JFrame {
                     + "JOIN Ronde_deelnemers r ON ta.persoon_code = r.speler_code "
                     + "JOIN persoon p ON r.speler_code = p.p_code "
                     + "WHERE p.achternaam LIKE ? AND ta.persoon_code LIKE ? "
-                    + "AND ta.toernooi_code LIKE ? AND ta.ronde_code LIKE ? order by tafel_code; ";
+                    + "AND ta.toernooi_code LIKE ? AND ta.ronde_code LIKE ?"
+                    + "AND ta.tafel_code LIKE ? order by tafel_code; ";
             statement = connection.prepareStatement(query);
             statement.setString(1, getZoekTermAchternaam());
             statement.setString(2, getZoekTermSpelerscode());
             statement.setString(3, getZoekTermToernooicode());
             statement.setString(4, getZoekTermRondecode());
-
+            statement.setString(5, getZoekTermTafelcode());
+            
             ResultSet results = statement.executeQuery();
 
             while (results.next()) {
@@ -161,7 +163,23 @@ public class Tafel extends javax.swing.JFrame {
         }
 
     }
+ private void voegWinnaarToe(String spelerCode, String tafelCode, String toernooiCode, String rondeCode) {
+        try {
 
+            String query = "update tafel_deelnemers set tafel_winnaar = ? WHERE "
+                    + " tafel_code like ? and toernooi_code like  ? and ronde_code like ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            statement.setString(1, spelerCode);
+            statement.setString(2, tafelCode);
+            statement.setString(3, toernooiCode);
+            statement.setString(4, rondeCode);
+            
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private DefaultTableModel createSpelerModel() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("speler code");
@@ -172,7 +190,17 @@ public class Tafel extends javax.swing.JFrame {
         model.addColumn("Tafel code");
         return model;
     }
-
+ 
+        private String getZoekTermTafelcode() {
+        String text2 = tf_tafelcode.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+    
+    
     private String getZoekTermAchternaam() {
         String text2 = tf_achternaam.getText();
         if (text2.length() == 0) {
@@ -235,6 +263,9 @@ public class Tafel extends javax.swing.JFrame {
         tf_ronde = new javax.swing.JTextField();
         tf_tafelSize = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        tf_tafelcode = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -271,7 +302,7 @@ public class Tafel extends javax.swing.JFrame {
 
         jt_achternaam.setText("achternaam: ");
 
-        jLabel2.setText("Spelercode:");
+        jLabel2.setText("Speler code:");
 
         tf_spelerscode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -293,7 +324,7 @@ public class Tafel extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Toernooicode:");
+        jLabel3.setText("Toernooi code:");
 
         tf_toernooicode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +351,7 @@ public class Tafel extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Rondecode:");
+        jLabel1.setText("Ronde code:");
 
         tf_ronde.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -329,6 +360,26 @@ public class Tafel extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Personen per tafel:");
+
+        jButton4.setText("Voeg Winnaar Toe");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        tf_tafelcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_tafelcodeActionPerformed(evt);
+            }
+        });
+        tf_tafelcode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tf_tafelcodeKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setText("Tafel code");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -341,26 +392,26 @@ public class Tafel extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
+                        .addGap(133, 133, 133)
+                        .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jb_test)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jt_achternaam)
-                                .addGap(18, 18, 18)
-                                .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1))
-                                .addGap(13, 13, 13)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tf_spelerscode)
-                                    .addComponent(tf_toernooicode)
-                                    .addComponent(tf_ronde, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5)
+                            .addComponent(jt_achternaam))
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tf_achternaam)
+                            .addComponent(tf_spelerscode, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                            .addComponent(tf_toernooicode)
+                            .addComponent(tf_ronde)
+                            .addComponent(tf_tafelcode))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -392,7 +443,11 @@ public class Tafel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tf_ronde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_tafelcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -405,7 +460,8 @@ public class Tafel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jb_test))
+                    .addComponent(jb_test)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
 
@@ -479,6 +535,25 @@ public class Tafel extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    int selectedRow = jt_speler.getSelectedRow();
+        String spelerCode = (String) jt_speler.getValueAt(selectedRow, 0);
+        String tafelCode = (String) jt_speler.getValueAt(selectedRow, 5);
+        String toernooiCode = (String) jt_speler.getValueAt(selectedRow, 3);
+        String rondeCode = (String) jt_speler.getValueAt(selectedRow, 4);
+        
+        voegWinnaarToe(spelerCode, tafelCode, toernooiCode, rondeCode);
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tf_tafelcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_tafelcodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_tafelcodeActionPerformed
+
+    private void tf_tafelcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tf_tafelcodeKeyReleased
+       vulSpelerTabel();
+    }//GEN-LAST:event_tf_tafelcodeKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -527,10 +602,12 @@ public class Tafel extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_test;
     private javax.swing.JLabel jt_achternaam;
@@ -539,6 +616,7 @@ public class Tafel extends javax.swing.JFrame {
     private javax.swing.JTextField tf_ronde;
     private javax.swing.JTextField tf_spelerscode;
     private javax.swing.JTextField tf_tafelSize;
+    private javax.swing.JTextField tf_tafelcode;
     private javax.swing.JTextField tf_toernooicode;
     // End of variables declaration//GEN-END:variables
 }
