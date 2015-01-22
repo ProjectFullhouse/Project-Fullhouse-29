@@ -77,7 +77,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
 
         jLabel2.setText(" plaats                        :");
 
-        jb_cancel.setText("Cancel");
+        jb_cancel.setText("Sluit");
         jb_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_cancelActionPerformed(evt);
