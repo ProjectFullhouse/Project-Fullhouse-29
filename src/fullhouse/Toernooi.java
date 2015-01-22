@@ -31,6 +31,7 @@ public class Toernooi extends javax.swing.JFrame {
         initComponents();
         vulToernooiTabel();
         this.setLocationRelativeTo(null);
+        jf_winnaarToernooi.setLocationRelativeTo(null);
         vulWinnaarTabel();
     }
 
@@ -230,6 +231,8 @@ public class Toernooi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jf_winnaarToernooi.setMinimumSize(new java.awt.Dimension(745, 392));
+
         jt_Winnaar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -314,14 +317,10 @@ public class Toernooi extends javax.swing.JFrame {
                         .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
                             .addComponent(jl_winSpeler)
                             .addGap(21, 21, 21))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_winnaarToernooiLayout.createSequentialGroup()
-                            .addComponent(jl_winAchternaam)
-                            .addGap(18, 18, 18)))
-                    .addGroup(jf_winnaarToernooiLayout.createSequentialGroup()
-                        .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_winToernooicode)
-                            .addComponent(jl_winPlaats))
-                        .addGap(18, 18, 18)))
+                        .addComponent(jl_winAchternaam, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jl_winToernooicode)
+                    .addComponent(jl_winPlaats))
+                .addGap(18, 18, 18)
                 .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jt_winSpelercode)
                     .addComponent(jt_winAchternaam)
@@ -338,7 +337,7 @@ public class Toernooi extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addComponent(jb_sluit))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jf_winnaarToernooiLayout.setVerticalGroup(
             jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -688,10 +687,13 @@ public class Toernooi extends javax.swing.JFrame {
 
     private void jb_eersteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_eersteActionPerformed
         int selectedRow = jt_Winnaar.getSelectedRow();
-        String spelerCode = (String) jt_Winnaar.getValueAt(selectedRow, 0);
-        String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
+        if (selectedRow > -1) {
+            int spelerCode = (Integer) jt_Winnaar.getValueAt(selectedRow, 0);
+            String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
+            voegToernooiwinnaarToe(spelerCode, toernooiCode);
+        }
 
-        voegToernooiwinnaarToe(spelerCode, toernooiCode);
+        
     }//GEN-LAST:event_jb_eersteActionPerformed
 
     private void jt_winSpelercodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_winSpelercodeKeyReleased
@@ -712,7 +714,7 @@ public class Toernooi extends javax.swing.JFrame {
 
     private void jb_tweedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_tweedeActionPerformed
         int selectedRow = jt_Winnaar.getSelectedRow();
-        
+
         String spelerCode = (String) jt_Winnaar.getValueAt(selectedRow, 0);
         String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
 
@@ -800,13 +802,13 @@ public class Toernooi extends javax.swing.JFrame {
         }
     }
 
-    private void voegToernooiwinnaarToe(String spelerCode, String toernooiCode) {
+    private void voegToernooiwinnaarToe(int spelerCode, String toernooiCode) {
         try {
 
             String query = "update toernooi set winnaar = ? WHERE t_code = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1, spelerCode);
+            statement.setInt(1, spelerCode);
 
             statement.setString(2, toernooiCode);
 

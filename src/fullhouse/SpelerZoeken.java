@@ -69,11 +69,12 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
     private void vulSpelerInfo(int pCode) {
         try {
-            String query = "SELECT voornaam, achternaam, adres, woonplaats, postcode, telefoon_nummer, email_adres, rating "
-                    + "FROM persoon WHERE p_code = ?;";
+            String query = "SELECT p.voornaam, p.achternaam, p.adres, p.woonplaats, p.postcode, p.telefoon_nummer, p.email_adres, p.rating, count(t.winnaar) as aantalGT "
+                         + "FROM persoon p left outer join toernooi t on p.p_code = t.winnaar WHERE p_code = ? and (t.winnaar = ? or t.winnaar is null) group by p.voornaam;";
 
             PreparedStatement statementSI = connection.prepareStatement(query);
             statementSI.setInt(1, pCode);
+            statementSI.setInt(2, pCode);
 
             ResultSet resultsSI = statementSI.executeQuery();
             String pcodeString = String.valueOf(pCode);
@@ -87,6 +88,8 @@ public class SpelerZoeken extends javax.swing.JFrame {
                 jl_telefoonnummerSI.setText(resultsSI.getString("telefoon_nummer"));
                 jl_emailSI.setText(resultsSI.getString("email_adres"));
                 jl_ratingSI.setText(resultsSI.getString("rating"));
+                jl_agt.setText(resultsSI.getString("aantalGT"));
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
@@ -308,8 +311,10 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jb_toernooi = new javax.swing.JButton();
         jb_tafel = new javax.swing.JButton();
         jb_masterclass = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
-        jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 460));
+        jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 470));
+        jf_spelerInfo.setPreferredSize(new java.awt.Dimension(697, 460));
 
         jl_achternaamSI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jl_achternaamSI.setText("Achternaam");
@@ -544,6 +549,8 @@ public class SpelerZoeken extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Dubbelklik een speler in de tabel voor extra informatie over de gekozen speler");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -555,25 +562,28 @@ public class SpelerZoeken extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jb_cancel))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jl_spelersCode)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_spelersCode, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jl_voornaam)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jl_achternaam)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jb_toernooi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jb_tafel, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(jb_masterclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jb_masterclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jl_spelersCode)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tf_spelersCode, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jl_voornaam)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jl_achternaam)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -583,7 +593,9 @@ public class SpelerZoeken extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jl_spelersCode)
                             .addComponent(tf_spelersCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -591,7 +603,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
                             .addComponent(tf_voornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jl_achternaam)
                             .addComponent(tf_achternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21))
+                        .addGap(1, 1, 1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jb_toernooi)
@@ -799,6 +811,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -204,6 +204,11 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JFrame" name="jf_winnaarToernooi">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[745, 392]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -216,19 +221,12 @@
                               <Component id="jl_winSpeler" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jl_winAchternaam" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jl_winAchternaam" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jl_winToernooicode" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jl_winPlaats" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jl_winToernooicode" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jl_winPlaats" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jt_winSpelercode" alignment="0" max="32767" attributes="0"/>
                       <Component id="jt_winAchternaam" alignment="0" max="32767" attributes="0"/>
@@ -248,7 +246,7 @@
                       </Group>
                       <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
