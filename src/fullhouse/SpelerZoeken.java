@@ -360,7 +360,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
         jl_pcodeSI2.setText("persoon code:");
 
-        jb_cancelSI.setText("Cancel");
+        jb_cancelSI.setText("Sluit");
         jb_cancelSI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_cancelSIActionPerformed(evt);

@@ -56,6 +56,7 @@ public class Toernooi extends javax.swing.JFrame {
         jb_inschrijven = new javax.swing.JButton();
         jb_update = new javax.swing.JButton();
         jcb_betaald = new javax.swing.JCheckBox();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_toernooi = new javax.swing.JTable();
         jt_toernooicode = new javax.swing.JTextField();
@@ -134,6 +135,13 @@ public class Toernooi extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Sluit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jf_inschrijvingLayout = new javax.swing.GroupLayout(jf_inschrijving.getContentPane());
         jf_inschrijving.getContentPane().setLayout(jf_inschrijvingLayout);
         jf_inschrijvingLayout.setHorizontalGroup(
@@ -158,17 +166,22 @@ public class Toernooi extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_inschrijvingLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jb_inschrijven, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                    .addComponent(jb_update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jf_inschrijvingLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jcb_betaald)))
-                .addGap(106, 106, 106)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jl_beschikbarePlaatsen)
-                .addGap(151, 151, 151))
+                .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_inschrijvingLayout.createSequentialGroup()
+                        .addGroup(jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jb_inschrijven, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(jb_update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jf_inschrijvingLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jcb_betaald)))
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jl_beschikbarePlaatsen)
+                        .addGap(151, 151, 151))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_inschrijvingLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
         jf_inschrijvingLayout.setVerticalGroup(
             jf_inschrijvingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +208,9 @@ public class Toernooi extends javax.swing.JFrame {
                         .addComponent(jb_update)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jcb_betaald)
-                .addGap(50, 50, 50))
+                .addGap(16, 16, 16)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -495,6 +510,10 @@ public class Toernooi extends javax.swing.JFrame {
 
         tellenIngelegdGeld(selectedTCode);
     }//GEN-LAST:event_jb_updateActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jf_inschrijving.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void vulToernooiTabel() {
         try {
@@ -842,6 +861,7 @@ public class Toernooi extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
