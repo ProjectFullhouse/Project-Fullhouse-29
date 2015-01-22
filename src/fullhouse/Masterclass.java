@@ -236,7 +236,7 @@ public class Masterclass extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jt_masterclass);
 
-        jb_cancelMasterclass.setText("Cancel");
+        jb_cancelMasterclass.setText("Sluit");
         jb_cancelMasterclass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_cancelMasterclassActionPerformed(evt);

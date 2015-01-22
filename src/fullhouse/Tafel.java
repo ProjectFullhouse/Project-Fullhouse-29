@@ -344,7 +344,7 @@ public class Tafel extends javax.swing.JFrame {
             }
         });
 
-        jb_test.setText("Cancel");
+        jb_test.setText("Sluit");
         jb_test.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_testActionPerformed(evt);
