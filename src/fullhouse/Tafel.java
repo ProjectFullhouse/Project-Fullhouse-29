@@ -63,14 +63,14 @@ public class Tafel extends javax.swing.JFrame {
     }
 
     private void spelersIndelen(int[] array, int selectedRows, int toernooiCode, int rCode, int tafelSize) {
-        aantalDeelnemers = selectedRows;
+        aantalDeelnemers = selectedRows + 2;
 
 
         try {
 
             String[] spelerArray = new String[aantalDeelnemers];
 
-            for (int o = 0; o < spelerArray.length - 1; o++) {
+            for (int o = 0; o <= array.length ; o++) {
                 int spelercode = array[o];
                 String spelerCodeString = String.valueOf(spelercode);
 
@@ -89,7 +89,7 @@ public class Tafel extends javax.swing.JFrame {
 
 
             int countTCode = 0;
-            for (int k = 0; k < spelerArray.length - 1; k++) {
+            for (int k = 0; k <= spelerArray.length; k++) {
                 String query2 = "update tafel_deelnemers set tafel_code = ? where toernooi_code = ? and ronde_code = ? and persoon_code like ?";
                 PreparedStatement statement2 = connection.prepareStatement(query2);
                 String pcodeArrayResult = spelerArray[k];
@@ -99,19 +99,19 @@ public class Tafel extends javax.swing.JFrame {
                 statement2.setString(4, pcodeArrayResult);
                 statement2.execute();
 
-                String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
-                PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
-                statementCountT.setInt(1, tafelcode);
-                ResultSet resultCountT = statementCountT.executeQuery();
+                //String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
+                //PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
+                //statementCountT.setInt(1, tafelcode);
+                //ResultSet resultCountT = statementCountT.executeQuery();
 
-                while (resultCountT.next()) {
-                    countTCode = resultCountT.getInt("aantal_t");
-                    System.out.println(countTCode);
-                    if (countTCode % tafelSize == 0) {
-                        tafelcode++;
-                        System.out.println(tafelcode);
-                    }
+                //while (resultCountT.next()) {
+                //countTCode = resultCountT.getInt("aantal_t");
+                System.out.println(spelerArray.length);
+                if (aantalDeelnemers % tafelSize == 0) {
+                    tafelcode++;
+                    System.out.println(tafelcode);
                 }
+                //}
 
 
             }
@@ -436,6 +436,7 @@ public class Tafel extends javax.swing.JFrame {
 
     private void deelInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deelInActionPerformed
         try {
+            
             int[] selectedRows = jt_speler.getSelectedRows();
             int aantalRijen = jt_speler.getSelectedRowCount();
             String tafelSizeString = tf_tafelSize.getText();
