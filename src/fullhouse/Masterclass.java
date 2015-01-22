@@ -27,6 +27,7 @@ public class Masterclass extends javax.swing.JFrame {
     private Connection connection = DatabaseConnectie.getConnection();
     private int selectedMCode = 0;
     private int neededRating = 0;
+    int aantalRijen = 0;
 
     public Masterclass() {
         initComponents();
@@ -377,6 +378,7 @@ public class Masterclass extends javax.swing.JFrame {
     private void jb_inschrijvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_inschrijvenActionPerformed
         int[] selectedRows = jt_persoon.getSelectedRows();
         int aantalPlaatsen = getAantalPlaatsen(selectedMCode);
+        aantalRijen = jt_persoon.getSelectedRowCount();
 
         for (int i = 0;  i < selectedRows.length; i++) {
             int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRows[i], 0);
@@ -667,7 +669,7 @@ public class Masterclass extends javax.swing.JFrame {
         try {
             String queryInsert2 = "update masterclass set beschikbare_plaatsen = ? where m_code = ? ";
             PreparedStatement statement3 = connection.prepareStatement(queryInsert2);
-            int nieuweBeschikbarePlaatsen = beschikbarePlaatsen - 1;
+            int nieuweBeschikbarePlaatsen = beschikbarePlaatsen - aantalRijen;
             statement3.setInt(1, nieuweBeschikbarePlaatsen);
             statement3.setInt(2, selectedMCode);
 

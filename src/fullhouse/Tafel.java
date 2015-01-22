@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,102 +30,94 @@ public class Tafel extends javax.swing.JFrame {
         vulSpelerTabel();
         this.setLocationRelativeTo(null);
     }
-
     private String[] Deelnemers;
     private int i = 0;
     private int aantalDeelnemers = 0;
     private int aantalTafels = 0;
     private final Connection connection = DatabaseConnectie.getConnection();
-    private int tcode = 1;
+    private int tafelcode = 1;
     private int pcode = 0;
-
-    
 
     private int telSpelers(int tCode, int rCode) {
         try {
-             String query = "select count(*) as aantal from persoon p left outer join toernooi_inschrijvingen ti on p.p_code = ti.persoon_code "
-                         + "left outer join Ronde_deelnemers r on ti.persoon_code = r.speler_code "
-                         + "where r.ronde_code like ? and ti.toernooi_code like ?;";
+            String query = "select count(*) as aantal from persoon p left outer join toernooi_inschrijvingen ti on p.p_code = ti.persoon_code "
+                    + "left outer join Ronde_deelnemers r on ti.persoon_code = r.speler_code "
+                    + "where r.ronde_code like ? and ti.toernooi_code like ?;";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(2, tCode);
             statement.setInt(1, rCode);
             ResultSet results = statement.executeQuery();
-            
-            
+
+
 
             while (results.next()) {
 
                 aantalDeelnemers = results.getInt("aantal");
             }
-            
+
 
         } catch (SQLException ex) {
-            Logger.getLogger(Tafel.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return aantalDeelnemers;
     }
-   
-    private void spelersIndelen(int tCode, int rCode) {
-         aantalDeelnemers = telSpelers(tCode, rCode);
-         
-         
+
+    private void spelersIndelen(int[] array, int selectedRows, int toernooiCode, int rCode, int tafelSize) {
+        aantalDeelnemers = selectedRows;
+
+
         try {
-            String query = "select p.p_code, ti.toernooi_code, r.ronde_code from persoon p left outer join toernooi_inschrijvingen ti on p.p_code = ti.persoon_code " +
-                           "left outer join Ronde_deelnemers r on ti.persoon_code = r.speler_code " +
-                           "where r.ronde_code like ? and ti.toernooi_code like ? group by p.p_code;";
-            
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(2, tCode);
-            statement.setInt(1, rCode);
-            ResultSet results = statement.executeQuery();
+
             String[] spelerArray = new String[aantalDeelnemers];
-            int i = 0;
-            while (results.next() && i < spelerArray.length - 1) {
-                int spelercode = results.getInt("p.p_code");
+
+            for (int o = 0; o < spelerArray.length - 1; o++) {
+                int spelercode = array[o];
                 String spelerCodeString = String.valueOf(spelercode);
-                System.out.println("string "+spelerCodeString);
-                i++;
-                spelerArray[i] = spelerCodeString;
-                System.out.println(spelerArray[i]);
-                System.out.println("i ="+i);
+
+                spelerArray[o] = spelerCodeString;
+
+
             }
-            
+            int lengte = spelerArray.length;
+
+
             Collections.shuffle(Arrays.asList(spelerArray));
             for (int j = 0; j < spelerArray.length; j++) {
-                System.out.println(spelerArray[j]);
             }
-            
 
-            String query2 = "update tafel_deelnemers set tafel_code = ? where toernooi_code = ? and ronde_code = ? and persoon_code like ?";
-          
-            PreparedStatement statement2 = connection.prepareStatement(query2);
+
+
+
             int countTCode = 0;
             for (int k = 0; k < spelerArray.length - 1; k++) {
-                
+                String query2 = "update tafel_deelnemers set tafel_code = ? where toernooi_code = ? and ronde_code = ? and persoon_code like ?";
+                PreparedStatement statement2 = connection.prepareStatement(query2);
                 String pcodeArrayResult = spelerArray[k];
-                statement2.setInt(1, tcode);
-                statement2.setInt(2, tCode);
+                statement2.setInt(1, tafelcode);
+                statement2.setInt(2, toernooiCode);
                 statement2.setInt(3, rCode);
                 statement2.setString(4, pcodeArrayResult);
                 statement2.execute();
+
                 String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
                 PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
-                statementCountT.setInt(1, tcode);
+                statementCountT.setInt(1, tafelcode);
                 ResultSet resultCountT = statementCountT.executeQuery();
-                
-                while(resultCountT.next()) {
+
+                while (resultCountT.next()) {
                     countTCode = resultCountT.getInt("aantal_t");
+                    System.out.println(countTCode);
+                    if (countTCode % tafelSize == 0) {
+                        tafelcode++;
+                        System.out.println(tafelcode);
+                    }
                 }
-                if (countTCode == 8) {
-                    tcode++;
-                }
+
 
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(Tafel.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -135,12 +128,12 @@ public class Tafel extends javax.swing.JFrame {
             String query;
             PreparedStatement statement;
 
-            query = "SELECT ta.persoon_code, p.voornaam, p.achternaam, ta.toernooi_code, ta.ronde_code, ta.tafel_code " +
-                    "FROM tafel_deelnemers ta " +
-                    "JOIN Ronde_deelnemers r ON ta.persoon_code = r.speler_code " +
-                    "JOIN persoon p ON r.speler_code = p.p_code " +
-                    "WHERE p.achternaam LIKE ? AND ta.persoon_code LIKE ? " +
-                    "AND ta.toernooi_code LIKE ? AND ta.ronde_code LIKE ? order by tafel_code; ";
+            query = "SELECT ta.persoon_code, p.voornaam, p.achternaam, ta.toernooi_code, ta.ronde_code, ta.tafel_code "
+                    + "FROM tafel_deelnemers ta "
+                    + "JOIN Ronde_deelnemers r ON ta.persoon_code = r.speler_code "
+                    + "JOIN persoon p ON r.speler_code = p.p_code "
+                    + "WHERE p.achternaam LIKE ? AND ta.persoon_code LIKE ? "
+                    + "AND ta.toernooi_code LIKE ? AND ta.ronde_code LIKE ? order by tafel_code; ";
             statement = connection.prepareStatement(query);
             statement.setString(1, getZoekTermAchternaam());
             statement.setString(2, getZoekTermSpelerscode());
@@ -164,8 +157,7 @@ public class Tafel extends javax.swing.JFrame {
             this.jt_speler.setModel(datamodel);
 
         } catch (SQLException ex) {
-            Logger.getLogger(SpelerZoeken.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -198,6 +190,7 @@ public class Tafel extends javax.swing.JFrame {
             return "%" + text3 + "%";
         }
     }
+
     private String getZoekTermToernooicode() {
         String text3 = tf_toernooicode.getText();
         if (text3.length() == 0) {
@@ -206,7 +199,7 @@ public class Tafel extends javax.swing.JFrame {
             return "%" + text3 + "%";
         }
     }
-    
+
     private String getZoekTermRondecode() {
         String text3 = tf_ronde.getText();
         if (text3.length() == 0) {
@@ -240,6 +233,8 @@ public class Tafel extends javax.swing.JFrame {
         jb_test = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         tf_ronde = new javax.swing.JTextField();
+        tf_tafelSize = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -333,6 +328,8 @@ public class Tafel extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Personen per tafel:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -360,13 +357,20 @@ public class Tafel extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addGap(13, 13, 13)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(deelIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tf_spelerscode)
                                     .addComponent(tf_toernooicode)
                                     .addComponent(tf_ronde, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40))))
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_tafelSize, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(deelIn, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(298, 298, 298))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,13 +392,16 @@ public class Tafel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tf_ronde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addComponent(deelIn))
+                            .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deelIn)
+                    .addComponent(tf_tafelSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
@@ -429,20 +436,26 @@ public class Tafel extends javax.swing.JFrame {
 
     private void deelInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deelInActionPerformed
         try {
-        String tCodeString = tf_toernooicode.getText();
-        String rCodeString = tf_ronde.getText();
-        int tCode = Integer.parseInt(tCodeString);
-        int rCode = Integer.parseInt(rCodeString);
-        spelersIndelen(tCode, rCode);
+            int[] selectedRows = jt_speler.getSelectedRows();
+            int aantalRijen = jt_speler.getSelectedRowCount();
+            String tafelSizeString = tf_tafelSize.getText();
+            int tafelSize = Integer.parseInt(tafelSizeString);
+
+            String tCode = (String) jt_speler.getValueAt(selectedRows[0], 3);
+            String rCode = (String) jt_speler.getValueAt(selectedRows[0], 4);
+            int tCodeInt = Integer.parseInt(tCode);
+            int rCodeInt = Integer.parseInt(rCode);
+            spelersIndelen(selectedRows, aantalRijen, tCodeInt, rCodeInt, tafelSize);
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Alleen getallen invoeren!");
         }
-        
+
         vulSpelerTabel();
 
     }//GEN-LAST:event_deelInActionPerformed
 
     private void jb_testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_testActionPerformed
-this.dispose();
+        this.dispose();
 
     }//GEN-LAST:event_jb_testActionPerformed
 
@@ -488,17 +501,13 @@ this.dispose();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tafel.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tafel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -521,6 +530,7 @@ this.dispose();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_test;
     private javax.swing.JLabel jt_achternaam;
@@ -528,6 +538,7 @@ this.dispose();
     private javax.swing.JTextField tf_achternaam;
     private javax.swing.JTextField tf_ronde;
     private javax.swing.JTextField tf_spelerscode;
+    private javax.swing.JTextField tf_tafelSize;
     private javax.swing.JTextField tf_toernooicode;
     // End of variables declaration//GEN-END:variables
 }

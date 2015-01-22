@@ -99,9 +99,10 @@ public class SpelerZoeken extends javax.swing.JFrame {
             MasterclassTableModel masterclassModel = createMasterclassModel();
             this.jt_ingeschrevenM.setModel(masterclassModel);
 
-            String query = "SELECT m.m_code, m.naam, m.datum, m.tijd, i.betaald FROM masterclass m JOIN masterclass_inschrijvingen i ON m.m_code = i.masterclass_code "
-                    + "WHERE m_code IN(SELECT masterclass_code FROM masterclass_inschrijvingen JOIN persoon ON masterclass_inschrijvingen.persoon_code = persoon.p_code WHERE persoon.p_code = ?) "
-                    + "GROUP BY m_code;";
+            String query = "SELECT i.masterclass_code, m.docent, m.naam, m.datum, m.tijd, i.betaald " +
+                    "FROM masterclass_inschrijvingen i JOIN masterclass m ON i.masterclass_code = m.m_code " +
+                    "WHERE i.persoon_code LIKE ? " +
+                    "ORDER BY i.masterclass_code;"; 
 
             PreparedStatement statementToernooi = connection.prepareStatement(query);
             statementToernooi.setInt(1, pCode);
@@ -109,7 +110,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
             ResultSet resultToernooi = statementToernooi.executeQuery();
 
             while (resultToernooi.next()) {
-                int m_code = resultToernooi.getInt("m.m_code");
+                int m_code = resultToernooi.getInt("i.masterclass_code");
                 String naam = resultToernooi.getString("m.naam");
                 String datum = resultToernooi.getString("m.datum");
                 String betaaldString = resultToernooi.getString("i.betaald");
@@ -137,9 +138,10 @@ public class SpelerZoeken extends javax.swing.JFrame {
             MasterclassTableModel toernooiModel = createToernooiModel();
             this.jt_ingeschrevenT.setModel(toernooiModel);
 
-            String query = "SELECT t.t_code, t.plaats, t.datum, t.tijd, i.betaald FROM toernooi t JOIN toernooi_inschrijvingen i ON t.t_code = i.toernooi_code "
-                    + "WHERE t_code IN(SELECT toernooi_code FROM toernooi_inschrijvingen JOIN persoon ON toernooi_inschrijvingen.persoon_code = persoon.p_code WHERE persoon.p_code = ?) "
-                    + "GROUP BY t_code;";
+            String query = "SELECT i.toernooi_code, m.datum, m.tijd, i.betaald " +
+                    "FROM toernooi_inschrijvingen i JOIN toernooi m ON i.toernooi_code = m.t_code " +
+                    "WHERE i.persoon_code LIKE ? " +
+                    "ORDER BY i.toernooi_code;";
 
             PreparedStatement statementToernooi = connection.prepareStatement(query);
             statementToernooi.setInt(1, pCode);
@@ -147,11 +149,11 @@ public class SpelerZoeken extends javax.swing.JFrame {
             ResultSet resultToernooi = statementToernooi.executeQuery();
 
             while (resultToernooi.next()) {
-                int t_code = resultToernooi.getInt("t.t_code");
-                String plaats = resultToernooi.getString("t.plaats");
-                String datum = resultToernooi.getString("t.datum");
+                int t_code = resultToernooi.getInt("i.toernooi_code");
+                String plaats = resultToernooi.getString("m.plaats");
+                String datum = resultToernooi.getString("m.datum");
                 String betaaldString = resultToernooi.getString("i.betaald");
-                String tijd = resultToernooi.getString("t.tijd");
+                String tijd = resultToernooi.getString("m.tijd");
 
                 if (betaaldString.equals("j")) {
                     betaald = true;

@@ -25,6 +25,7 @@ public class Toernooi extends javax.swing.JFrame {
     private Connection connection = DatabaseConnectie.getConnection();
     private int selectedTCode = 0;
     private int neededRating = 0;
+    private int aantalRijen = 0;
 
     public Toernooi() {
         initComponents();
@@ -70,7 +71,6 @@ public class Toernooi extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         jf_inschrijving.setMinimumSize(new java.awt.Dimension(850, 400));
-        jf_inschrijving.setPreferredSize(new java.awt.Dimension(850, 400));
         jf_inschrijving.setResizable(false);
 
         jt_persoon.setModel(new javax.swing.table.DefaultTableModel(
@@ -433,6 +433,7 @@ public class Toernooi extends javax.swing.JFrame {
     private void jb_inschrijvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_inschrijvenActionPerformed
         int[] selectedRows = jt_persoon.getSelectedRows();
         int aantalPlaatsen = getAantalPlaatsen(selectedTCode);
+        aantalRijen = jt_persoon.getSelectedRowCount();
 
         for (int i = 0; i < selectedRows.length; i++) {
             int selectedPCode = (Integer) jt_persoon.getValueAt(selectedRows[i], 0);
@@ -444,7 +445,10 @@ public class Toernooi extends javax.swing.JFrame {
             } else if (!jcb_betaald.isSelected() && aantalPlaatsen > 0) {
 
                 inschrijvenToernooi(selectedPCode, "n", aantalPlaatsen);
-            } else {
+            } else if (aantalPlaatsen == 0) {
+                JOptionPane.showMessageDialog(null, "Geen beschikbare plaatsen!");
+            }
+            else {
                 JOptionPane.showMessageDialog(null, "Toevoegen niet toegestaan!");
             }
 
@@ -632,7 +636,7 @@ public class Toernooi extends javax.swing.JFrame {
         try {
             String queryInsert2 = "update toernooi set deelnemerAantal = ? where t_code = ? ";
             PreparedStatement statement3 = connection.prepareStatement(queryInsert2);
-            int nieuweBeschikbarePlaatsen = beschikbarePlaatsen - 1;
+            int nieuweBeschikbarePlaatsen = beschikbarePlaatsen - aantalRijen;
             statement3.setInt(1, nieuweBeschikbarePlaatsen);
             statement3.setInt(2, selectedTCode);
 
@@ -660,12 +664,6 @@ public class Toernooi extends javax.swing.JFrame {
             statementRD.setInt(2, selectedTCode);
             statementRD.execute();
             
-            String queryTafels = "insert into tafel_deelnemers(persoon_code, toernooi_code)"
-                    + " values(?, ?);";
-            PreparedStatement statementTafels = connection.prepareStatement(queryTafels);
-            statementTafels.setInt(1, code);
-            statementTafels.setInt(2, selectedTCode);
-            statementTafels.execute();
 
             updateMasterclass(beschikbarePlaatsen);
 
