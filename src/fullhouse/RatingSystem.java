@@ -256,6 +256,21 @@ public class RatingSystem extends javax.swing.JFrame {
         nieuweRating6 = (int) (oudeRating6 - opafRating);
         nieuweRating7 = (int) (oudeRating7 - opafRating);
         nieuweRating8 = (int) (oudeRating8 - opafRating);
+        
+        if (nieuweRating5 < 0){
+            nieuweRating5 = 0;
+        }
+        if (nieuweRating6 < 0){
+            nieuweRating6 = 0;
+        }
+        if (nieuweRating7 < 0){
+            nieuweRating7 = 0;
+        }
+        if (nieuweRating8 < 0){
+            nieuweRating8 = 0;
+        }
+        
+        
         j_nrating1.setText("" + nieuweRating1 + "");
         j_nrating2.setText("" + nieuweRating2 + "");
         j_nrating3.setText("" + nieuweRating3 + "");
