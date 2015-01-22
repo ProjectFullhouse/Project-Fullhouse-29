@@ -786,6 +786,26 @@ public class Toernooi extends javax.swing.JFrame {
         }
     }
 
+    private int haalGeldOp(String t_code) {
+        int totaal_inlegGeld = 0;
+        try {
+            String query = "SELECT totaal_inleggeld FROM toernooi WHERE t_code = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, t_code);
+            totaal_inlegGeld = 0;
+            statement.execute();
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                totaal_inlegGeld = results.getInt("totaal_inlegGeld");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Toernooi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totaal_inlegGeld;
+    }
+
     private void voegTweedeplaatsToe(String spelerCode, String toernooiCode) {
         try {
 
@@ -813,6 +833,21 @@ public class Toernooi extends javax.swing.JFrame {
             statement.setString(2, toernooiCode);
 
             statement.execute();
+
+            int totaalPrijzenGeld = haalGeldOp(toernooiCode);
+            int eerstePrijs = (int)(totaalPrijzenGeld *0.40);
+
+            String query2 = " update persoon "
+                    + " set gewonnen_inleggeld = (gewonnen_inleggeld + ?)"
+                    + " where p_code = ?;";
+                    
+            PreparedStatement statement2 = connection.prepareStatement(query2);
+
+            statement2.setInt(1, eerstePrijs);
+
+            statement2.setString(2, spelerCode);
+
+            statement2.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
         }
