@@ -24,7 +24,9 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
     public SpelerZoeken() {
         initComponents();
+        vulAantalTabel();
         vulSpelerTabel();
+        jf_aantal.setLocationRelativeTo(null);
         this.setLocationRelativeTo(null);
         jf_spelerInfo.setLocationRelativeTo(null);
 
@@ -66,6 +68,37 @@ public class SpelerZoeken extends javax.swing.JFrame {
         }
 
     }
+    private void vulAantalTabel() {
+        try {
+              TableModel AantalModel = createAantalModel();
+              this.jt_aantal.setModel(AantalModel);
+            String query = "SELECT p_code ,voornaam,achternaam, count(winnaar) + count(tweede_plaats) + count(derde_plaats) AS aantal_gewonnen_toernooien "
+                    + "FROM persoon LEFT OUTER JOIN toernooi ON p_code = winnaar "
+                    + "WHERE p_code LIKE ? AND voornaam LIKE ? AND achternaam LIKE ?  "
+                    + "GROUP BY p_code;";
+                    
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, getZoekTermAantalSpelerscode());
+            statement.setString(2, getZoekTermAantalVoornaam());
+            statement.setString(3, getZoekTermAantalAchternaam());
+
+            ResultSet results = statement.executeQuery();
+
+            while (results.next()) {
+                String spelercode = results.getString("p_code");
+                String voornaam = results.getString("voornaam");
+                String achternaam = results.getString("achternaam");
+                String aantal_gewonnen_toernooien = results.getString("aantal_gewonnen_toernooien");
+                Object[] rij = {spelercode, voornaam, achternaam, aantal_gewonnen_toernooien};
+                AantalModel.addRow(rij);
+
+            }
+            this.jt_aantal.setModel(AantalModel);
+        } catch (SQLException ex) {
+            Logger.getLogger(SpelerZoeken.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 
     private void vulSpelerInfo(int pCode) {
         try {
@@ -200,7 +233,30 @@ public class SpelerZoeken extends javax.swing.JFrame {
             return "%" + text2 + "%";
         }
     }
-
+private String getZoekTermAantalSpelerscode() {
+        String text2 = jf_Aantalspelercode.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+    private String getZoekTermAantalVoornaam() {
+        String text2 = jf_Aantalvoornaam.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
+    private String getZoekTermAantalAchternaam() {
+        String text2 = jf_Aantalachternaam.getText();
+        if (text2.length() == 0) {
+            return "%";
+        } else {
+            return "%" + text2 + "%";
+        }
+    }
     private String getBetaaldMasterclass(int mCode, int pCode) {
         String betaaldState = "";
         try {
@@ -237,6 +293,14 @@ public class SpelerZoeken extends javax.swing.JFrame {
             Logger.getLogger(Masterclass.class.getName()).log(Level.SEVERE, null, ex);
         }
         return betaaldState;
+    }
+    private TableModel createAantalModel() {
+        TableModel model = new TableModel();
+        model.addColumn("speler code");
+        model.addColumn("voornaam");
+        model.addColumn("achternaam");
+        model.addColumn("aantal gewonnen toernooien");
+        return model;
     }
 
     private TableModel createSpelerModel() {
@@ -299,6 +363,16 @@ public class SpelerZoeken extends javax.swing.JFrame {
         rb_toernooi = new javax.swing.JRadioButton();
         rb_masterclass = new javax.swing.JRadioButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jf_aantal = new javax.swing.JFrame();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jt_aantal = new javax.swing.JTable();
+        jb_sluit = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jf_Aantalspelercode = new javax.swing.JTextField();
+        jf_Aantalvoornaam = new javax.swing.JTextField();
+        jf_Aantalachternaam = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jt_speler = new javax.swing.JTable();
         jl_achternaam = new javax.swing.JLabel();
@@ -312,6 +386,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jb_tafel = new javax.swing.JButton();
         jb_masterclass = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jb_speciaal = new javax.swing.JButton();
 
         jf_spelerInfo.setMinimumSize(new java.awt.Dimension(650, 470));
         jf_spelerInfo.setPreferredSize(new java.awt.Dimension(697, 460));
@@ -473,6 +548,99 @@ public class SpelerZoeken extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jf_aantal.setMinimumSize(new java.awt.Dimension(617, 332));
+
+        jt_aantal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jt_aantal.setMinimumSize(new java.awt.Dimension(0, 0));
+        jScrollPane4.setViewportView(jt_aantal);
+
+        jb_sluit.setText("Sluit");
+
+        jLabel2.setText("Spelers code");
+
+        jLabel3.setText("Voornaam");
+
+        jLabel4.setText("Achternaam");
+
+        jf_Aantalspelercode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jf_AantalspelercodeKeyReleased(evt);
+            }
+        });
+
+        jf_Aantalvoornaam.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jf_AantalvoornaamKeyReleased(evt);
+            }
+        });
+
+        jf_Aantalachternaam.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jf_AantalachternaamKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jf_aantalLayout = new javax.swing.GroupLayout(jf_aantal.getContentPane());
+        jf_aantal.getContentPane().setLayout(jf_aantalLayout);
+        jf_aantalLayout.setHorizontalGroup(
+            jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_aantalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_aantalLayout.createSequentialGroup()
+                        .addGroup(jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jf_aantalLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                                .addComponent(jf_Aantalspelercode, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jf_aantalLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jf_Aantalvoornaam, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_aantalLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jf_Aantalachternaam, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jf_aantalLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jb_sluit)))
+                .addContainerGap())
+        );
+        jf_aantalLayout.setVerticalGroup(
+            jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jf_aantalLayout.createSequentialGroup()
+                .addGroup(jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jf_aantalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jf_Aantalspelercode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jf_Aantalvoornaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jf_aantalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jf_Aantalachternaam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(jb_sluit)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(650, 350));
         setResizable(false);
@@ -551,6 +719,13 @@ public class SpelerZoeken extends javax.swing.JFrame {
 
         jLabel1.setText("Dubbelklik een speler in de tabel voor extra informatie over de gekozen speler");
 
+        jb_speciaal.setText("Speciale speler informatie");
+        jb_speciaal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_speciaalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -567,7 +742,8 @@ public class SpelerZoeken extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jb_toernooi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jb_tafel, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(jb_masterclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jb_masterclass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jb_speciaal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -611,6 +787,8 @@ public class SpelerZoeken extends javax.swing.JFrame {
                         .addComponent(jb_tafel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_masterclass)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jb_speciaal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jb_cancel)
                 .addContainerGap())
@@ -747,6 +925,22 @@ public class SpelerZoeken extends javax.swing.JFrame {
         jf_spelerInfo.dispose();
     }//GEN-LAST:event_jb_cancelSIActionPerformed
 
+    private void jf_AantalspelercodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jf_AantalspelercodeKeyReleased
+       vulAantalTabel();
+    }//GEN-LAST:event_jf_AantalspelercodeKeyReleased
+
+    private void jf_AantalvoornaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jf_AantalvoornaamKeyReleased
+        vulAantalTabel();
+    }//GEN-LAST:event_jf_AantalvoornaamKeyReleased
+
+    private void jf_AantalachternaamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jf_AantalachternaamKeyReleased
+        vulAantalTabel();
+    }//GEN-LAST:event_jf_AantalachternaamKeyReleased
+
+    private void jb_speciaalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_speciaalActionPerformed
+        jf_aantal.setVisible(true);
+    }//GEN-LAST:event_jb_speciaalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -812,15 +1006,25 @@ public class SpelerZoeken extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JButton jb_cancel;
     private javax.swing.JButton jb_cancelSI;
     private javax.swing.JButton jb_masterclass;
+    private javax.swing.JButton jb_sluit;
+    private javax.swing.JButton jb_speciaal;
     private javax.swing.JButton jb_tafel;
     private javax.swing.JButton jb_toernooi;
     private javax.swing.JButton jb_update;
+    private javax.swing.JTextField jf_Aantalachternaam;
+    private javax.swing.JTextField jf_Aantalspelercode;
+    private javax.swing.JTextField jf_Aantalvoornaam;
+    private javax.swing.JFrame jf_aantal;
     private javax.swing.JFrame jf_spelerInfo;
     private javax.swing.JLabel jl_achternaam;
     private javax.swing.JLabel jl_achternaamSI;
@@ -836,6 +1040,7 @@ public class SpelerZoeken extends javax.swing.JFrame {
     private javax.swing.JLabel jl_voornaam;
     private javax.swing.JLabel jl_voornaamSI;
     private javax.swing.JLabel jl_woonplaatsSI;
+    private javax.swing.JTable jt_aantal;
     private javax.swing.JTable jt_ingeschrevenM;
     private javax.swing.JTable jt_ingeschrevenT;
     private javax.swing.JTable jt_speler;
