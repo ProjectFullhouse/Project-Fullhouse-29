@@ -627,6 +627,7 @@ public class RatingSystem extends javax.swing.JFrame {
         l_toernooi = new javax.swing.JLabel();
         t_tafelcode = new javax.swing.JTextField();
         l_tafel = new javax.swing.JLabel();
+        b_openQuerry = new javax.swing.JButton();
 
         op_error.setMessage("Vul alle velden in.");
         op_error.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -814,6 +815,13 @@ public class RatingSystem extends javax.swing.JFrame {
 
         l_tafel.setText("Tafel:");
 
+        b_openQuerry.setText("Extra gegevens");
+        b_openQuerry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_openQuerryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -949,8 +957,11 @@ public class RatingSystem extends javax.swing.JFrame {
                                 .addComponent(t_rondenr, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(t_toernooicode, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addComponent(l_nieuweRating)
-                    .addComponent(jButton1)
-                    .addComponent(b_ok))
+                    .addComponent(b_ok)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(84, 84, 84)
+                        .addComponent(b_openQuerry)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -1060,7 +1071,9 @@ public class RatingSystem extends javax.swing.JFrame {
                                     .addComponent(t_tafelcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(l_tafel))
                                 .addGap(27, 27, 27)
-                                .addComponent(jButton1))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton1)
+                                    .addComponent(b_openQuerry)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(j_rating1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1197,6 +1210,11 @@ public class RatingSystem extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void b_openQuerryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_openQuerryActionPerformed
+        rating_op_af_overzicht rpf = new rating_op_af_overzicht();
+        rpf.setVisible(true);
+    }//GEN-LAST:event_b_openQuerryActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1240,6 +1258,7 @@ public class RatingSystem extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_ok;
+    private javax.swing.JButton b_openQuerry;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField j_nrating1;
