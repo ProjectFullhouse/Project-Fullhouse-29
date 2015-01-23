@@ -487,7 +487,7 @@ public class Masterclass extends javax.swing.JFrame {
             TableModel datamodelMasterclass = createMasterclassTable();
             this.jt_masterclass.setModel(datamodelMasterclass);
 
-            String query = "SELECT m.m_code, m.naam, p.achternaam, m.beschikbare_plaatsen, m.datum, minimumRating "
+            String query = "SELECT m.m_code, m.naam, p.achternaam, m.beschikbarePlaatsen, m.datum, minimumRating "
                     + "FROM persoon p JOIN docent d ON p.p_code = d.persoon "
                     + "LEFT OUTER JOIN masterclass m ON d.d_code = m.docent "
                     + "WHERE m.naam like ? and p.achternaam like ? and m.datum like ?;";
@@ -502,7 +502,7 @@ public class Masterclass extends javax.swing.JFrame {
                 int mCode = results.getInt("m.m_code");
                 String naamToernooi = results.getString("naam");
                 String naamDocent = results.getString("p.achternaam");
-                int plaatsen = results.getInt("m.beschikbare_plaatsen");
+                int plaatsen = results.getInt("m.beschikbarePlaatsen");
                 String datum = results.getString("datum");
                 int minimumRating = results.getInt("minimumRating");
                 Object[] rij = {mCode, naamToernooi, naamDocent, plaatsen, datum, minimumRating};
@@ -630,14 +630,14 @@ public class Masterclass extends javax.swing.JFrame {
         int aantalPlaatsen = 0;
         try {
 
-            String query = "select beschikbare_plaatsen from masterclass where m_code = ?;";
+            String query = "select beschikbarePlaatsen from masterclass where m_code = ?;";
             PreparedStatement statementAP = connection.prepareStatement(query);
             statementAP.setInt(1, mCode);
 
             ResultSet resultAP = statementAP.executeQuery();
 
             while (resultAP.next()) {
-                aantalPlaatsen = resultAP.getInt("beschikbare_plaatsen");
+                aantalPlaatsen = resultAP.getInt("beschikbarePlaatsen");
             }
 
         } catch (SQLException ex) {
@@ -667,7 +667,7 @@ public class Masterclass extends javax.swing.JFrame {
 
     private void updateMasterclass(int beschikbarePlaatsen) {
         try {
-            String queryInsert2 = "update masterclass set beschikbare_plaatsen = ? where m_code = ? ";
+            String queryInsert2 = "update masterclass set beschikbarePlaatsen = ? where m_code = ? ";
             PreparedStatement statement3 = connection.prepareStatement(queryInsert2);
             int nieuweBeschikbarePlaatsen = beschikbarePlaatsen - aantalRijen;
             statement3.setInt(1, nieuweBeschikbarePlaatsen);

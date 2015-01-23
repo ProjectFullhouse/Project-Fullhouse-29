@@ -367,7 +367,7 @@ public class Toernooi extends javax.swing.JFrame {
                 .addGroup(jf_winnaarToernooiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jt_winPlaats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jl_winPlaats))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -512,7 +512,7 @@ public class Toernooi extends javax.swing.JFrame {
                         .addComponent(jb_tafel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_masterclass)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jb_Winnaartoernooi))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -715,7 +715,7 @@ public class Toernooi extends javax.swing.JFrame {
     private void jb_tweedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_tweedeActionPerformed
         int selectedRow = jt_Winnaar.getSelectedRow();
 
-        String spelerCode = (String) jt_Winnaar.getValueAt(selectedRow, 0);
+        int spelerCode = (Integer) jt_Winnaar.getValueAt(selectedRow, 0);
         String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
 
         voegTweedeplaatsToe(spelerCode, toernooiCode);
@@ -723,7 +723,7 @@ public class Toernooi extends javax.swing.JFrame {
 
     private void jb_derdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_derdeActionPerformed
         int selectedRow = jt_Winnaar.getSelectedRow();
-        String spelerCode = (String) jt_Winnaar.getValueAt(selectedRow, 0);
+        int spelerCode = (Integer) jt_Winnaar.getValueAt(selectedRow, 0);
         String toernooiCode = (String) jt_Winnaar.getValueAt(selectedRow, 3);
 
         voegDerdeplaatsToe(spelerCode, toernooiCode);
@@ -770,13 +770,13 @@ public class Toernooi extends javax.swing.JFrame {
         }
     }
 
-    private void voegDerdeplaatsToe(String spelerCode, String toernooiCode) {
+    private void voegDerdeplaatsToe(int spelerCode, String toernooiCode) {
         try {
 
             String query = "update toernooi set derde_plaats = ? WHERE t_code = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1, spelerCode);
+            statement.setInt(1, spelerCode);
 
             statement.setString(2, toernooiCode);
 
@@ -806,13 +806,13 @@ public class Toernooi extends javax.swing.JFrame {
         return totaal_inlegGeld;
     }
 
-    private void voegTweedeplaatsToe(String spelerCode, String toernooiCode) {
+    private void voegTweedeplaatsToe(int spelerCode, String toernooiCode) {
         try {
 
             String query = "update toernooi set tweede_plaats = ? WHERE t_code = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setString(1, spelerCode);
+            statement.setInt(1, spelerCode);
 
             statement.setString(2, toernooiCode);
 
@@ -857,7 +857,8 @@ public class Toernooi extends javax.swing.JFrame {
         try {
             TableModel toernooiModel = createToernooiModel();
 
-            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld, totaal_inlegGeld FROM toernooi where t_code like ? and datum like ? and plaats like ?;";
+            String query = "SELECT t_code, plaats, datum, tijd, deelnemerAantal, inlegGeld, totaal_inlegGeld FROM toernooi "
+                         + "where t_code like ? and datum like ? and plaats like ? and winnaar is null;";
 
             PreparedStatement statement = connection.prepareStatement(query);
 

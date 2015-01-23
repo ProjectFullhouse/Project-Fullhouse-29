@@ -30,6 +30,7 @@ public class Tafel extends javax.swing.JFrame {
         initComponents();
         vulSpelerTabel();
         this.setLocationRelativeTo(null);
+        jt_speler.setRowSorter(null);
     }
     private String[] Deelnemers;
     private int i = 0;
@@ -67,46 +68,53 @@ public class Tafel extends javax.swing.JFrame {
             for (int i = 0; i < selectedRows.length; i++) {
                 String pcodeString = (String) jt_speler.getValueAt(i, 0);
                 selectedRows[i] = Integer.parseInt(pcodeString);
+                System.out.println(selectedRows[i]);
             }
             String tafelSizeString = tf_tafelSize.getText();
             int tafelSize = Integer.parseInt(tafelSizeString);
-            String tCode = (String) jt_speler.getValueAt(selectedRows[0], 3);
-            String rCode = (String) jt_speler.getValueAt(selectedRows[0], 4);
+            String tCode = (String) jt_speler.getValueAt(selectedRows[1], 3);
+            String rCode = (String) jt_speler.getValueAt(selectedRows[1], 4);
             int tCodeInt = Integer.parseInt(tCode);
             int rCodeInt = Integer.parseInt(rCode);
 
             int countTCode = 0;
             int[] shuffledArray = shuffleArray(selectedRows);
             int k = 1;
-            for (int j = 0; j < shuffledArray.length; j++) {
-                
-                System.out.println(shuffledArray[j]);
-                String query2 = "update tafel_deelnemers set tafel_code = ? where toernooi_code = ? and ronde_code = ? and persoon_code like ?";
-                PreparedStatement statement2 = connection.prepareStatement(query2);
-                System.out.println(shuffledArray[j]);
-                statement2.setInt(1, tafelcode);
-                statement2.setInt(2, tCodeInt);
-                statement2.setInt(3, rCodeInt);
-                statement2.setInt(4, shuffledArray[j]);
-                statement2.execute();
-                String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
-                PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
-                statementCountT.setInt(1, tafelcode);
-                ResultSet resultCountT = statementCountT.executeQuery();
-                while (resultCountT.next()) {
-                    countTCode = resultCountT.getInt("aantal_t");
-                    String test = "tafel " + tafelcode + " = " + shuffledArray[j];
-                    System.out.println(test);
-                    if (k % tafelSize == 0) {
-                        tafelcode++;
-                        
-                    }
-                }
-            k++;
-            }
 
-        } catch (Exception e) {
+            for (int j = 0; j < shuffledArray.length; j++) {
+                try {
+                    System.out.println(shuffledArray[j]);
+                    String query2 = "update tafel_deelnemers set tafel_code = ? where toernooi_code = ? and ronde_code = ? and persoon_code like ?";
+                    PreparedStatement statement2 = connection.prepareStatement(query2);
+                    System.out.println(shuffledArray[j]);
+                    statement2.setInt(1, tafelcode);
+                    statement2.setInt(2, tCodeInt);
+                    statement2.setInt(3, rCodeInt);
+                    statement2.setInt(4, shuffledArray[j]);
+                    statement2.execute();
+                    String queryCountT = "select count(tafel_code) as aantal_t from tafel_deelnemers where tafel_code = ?";
+                    PreparedStatement statementCountT = connection.prepareStatement(queryCountT);
+                    statementCountT.setInt(1, tafelcode);
+                    ResultSet resultCountT = statementCountT.executeQuery();
+                    while (resultCountT.next()) {
+                        countTCode = resultCountT.getInt("aantal_t");
+                        String test = "tafel " + tafelcode + " = " + shuffledArray[j];
+                        System.out.println(test);
+                        if (k % tafelSize == 0) {
+                            tafelcode++;
+
+                        }
+                    }
+                    k++;
+                } catch (SQLException ex) {
+                    Logger.getLogger(Tafel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+
+            }
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Alleen getallen invoeren!");
+
         }
     }
 
@@ -527,8 +535,8 @@ public class Tafel extends javax.swing.JFrame {
         String spelerCode = (String) jt_speler.getValueAt(selectedRow, 0);
         String tafelCode = (String) jt_speler.getValueAt(selectedRow, 5);
         String toernooiCode = (String) jt_speler.getValueAt(selectedRow, 3);
-        
-        
+
+
         String rondeCode = (String) jt_speler.getValueAt(selectedRow, 4);
 
         voegWinnaarToe(spelerCode, tafelCode, toernooiCode, rondeCode);

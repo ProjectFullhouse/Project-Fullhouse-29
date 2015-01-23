@@ -22,7 +22,7 @@ public class ToernooiMaken extends javax.swing.JFrame {
     private String datumRegex = "[0-9]{2}[-]{1}[0-9]{2}[-]{1}[0-9]{4}";
     private String tijdRegex = "[0-9]{2}[:]{1}[0-9]{2}";
     private String inlegGeldRegex = "[0-9]{1,6}";
-    private String plaatsRegex = "[a-zA-Z]{0,45}";
+    private String plaatsRegex = "[^0-9]{0,45}";
     String tafels = "";
     String datum = "";
     String tijd = "";
@@ -347,47 +347,25 @@ public class ToernooiMaken extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public void tCode() {
-        try {
-            Connection connectie = DatabaseConnectie.getConnection();
-            Statement statement = connectie.createStatement();
-
-            String query = "select max(t_code) as maxtcode from toernooi";
-
-            ResultSet result = statement.executeQuery(query);
-
-            if (result.next()) {
-                tcode = result.getInt("maxtcode");
-
-            }
-            System.out.println(tcode);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Persoon.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("tCode Statement error!");
-        }
-    }
+    
 
     private void toernooiMaken(int aantalTafels, String datum, String tijd, int inlegGeld, String plaats) {
         try {
-            String query = "insert into toernooi(inlegGeld, deelnemerAantal, plaats, datum, tijd, t_code) "
-                    + "values(?, ?, ?, ?, ?, ?);";
+            String query = "insert into toernooi(inlegGeld, deelnemerAantal, plaats, datum, tijd) "
+                    + "values(?, ?, ?, ?, ?);";
 
             int aantalDeelnemers = aantalTafels * 8;
 
             Connection connection = DatabaseConnectie.getConnection();
             PreparedStatement toernooiStatement = connection.prepareStatement(query);
 
-            tCode();
 
-            int nieuweTcode = tcode + 1;
 
             toernooiStatement.setInt(1, inlegGeld);
             toernooiStatement.setInt(2, aantalDeelnemers);
             toernooiStatement.setString(3, plaats);
             toernooiStatement.setString(4, datum);
             toernooiStatement.setString(5, tijd);
-            toernooiStatement.setInt(6, nieuweTcode);
 
             toernooiStatement.execute();
             JOptionPane.showMessageDialog(rootPane, "Toevoegen voltooid!");
